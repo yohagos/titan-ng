@@ -8,6 +8,7 @@ import { ApiInterceptor } from './core/interceptors/api.interceptor';
 import { TokenInterceptor } from './core/interceptors/token.interceptor';
 import { ErrorInterceptor } from './core/interceptors/error.interceptor';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { MaterialsModule } from './materials.module';
 
 
 
@@ -18,7 +19,8 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MaterialsModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: ApiInterceptor, multi: true},
