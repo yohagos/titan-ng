@@ -6,5 +6,14 @@ import { Component } from '@angular/core';
   styleUrl: './navigation.component.scss'
 })
 export class NavigationComponent {
+  navigationOpen = true
+
+  navigationList = [
+    { name: 'Home', path: '/home' },
+  ]
+
+  constructor(
+    
+  ) {}
 
 }

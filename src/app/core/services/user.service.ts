@@ -35,7 +35,6 @@ export class UserService {
 
   purgeAuth() {
     this.jwtService.destroyToken()
-
     this.currentUserSubject.next(null)
   }
 
