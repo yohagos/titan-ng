@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { ProductFull } from 'src/app/core/models/product.model';
+import { ProductService } from 'src/app/core/services/product.service';
 
 @Component({
   selector: 'app-navigation',
@@ -8,12 +10,17 @@ import { Component } from '@angular/core';
 export class NavigationComponent {
   navigationOpen = true
 
-  navigationList = [
-    { name: 'Home', path: '/home' },
-  ]
+  navigationList: ProductFull[] = []
 
   constructor(
-    
-  ) {}
+    private readonly productService: ProductService
+  ) {
+    this.productService.loadProducts().subscribe(
+      data => {
+        this.navigationList = data as ProductFull[]
+        console.log(this.navigationList)
+      }
+    )
+  }
 
 }
