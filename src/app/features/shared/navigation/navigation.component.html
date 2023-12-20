@@ -1,5 +1,5 @@
 <div class="navList" *ngFor="let item of navigationList">
-  <button class="items" mat-stroked-button>
+  <button class="items" mat-raised-button (click)="add(item)">
     {{item.name}}
     <span class="spanSubTitle"> {{item.price | number: '1.2-2'}} €</span>
   </button>
