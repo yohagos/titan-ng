@@ -6,10 +6,33 @@ body {
   width: 10em;
   height: 8em;
 
-  display: flex;
-  margin: 5px;
+  flex-direction: row;
+  justify-content: space-between;
+
+}
+
+.navList {
+  width: 30%;
+  height: 85.6%;
+  margin: 2px;
 }
 
 .spanSubTitle {
   font-size: smaller;
+}
+
+@media(max-width: 900px) {
+  .items {
+    width: 9em;
+    height: 7em;
+    flex-direction: row;
+    justify-content: space-between;
+    font-size: smaller;
+  }
+
+  .navList {
+    width: 40%;
+    height: 60.5%;
+    margin: 2px;
+  }
 }

@@ -20,13 +20,12 @@ export class NavigationComponent {
     this.productService.loadProducts().subscribe(
       data => {
         this.navigationList = data as ProductFull[]
-        console.log(this.navigationList)
       }
     )
   }
 
   add(item: ProductFull) {
-    this.transferService.addToCart(item)
+    this.transferService.addProduct(item)
   }
 
 }

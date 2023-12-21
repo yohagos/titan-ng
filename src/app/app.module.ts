@@ -9,6 +9,7 @@ import { LoginComponent } from './core/auth/login/login.component';
 import { RegisterComponent } from './core/auth/register/register.component';
 import { HeaderComponent } from "./features/shared/header/header.component";
 import { NavigationComponent } from "./features/shared/navigation/navigation.component";
+import { CashierComponent } from "./features/shared/cashier/cashier.component";
 
 import { AppRoutingModule } from './app-routing.module';
 import { MaterialsModule } from './materials.module';
@@ -24,7 +25,8 @@ import { ErrorInterceptor } from './core/interceptors/error.interceptor';
     LoginComponent,
     RegisterComponent,
     HeaderComponent,
-    NavigationComponent
+    NavigationComponent,
+    CashierComponent
   ],
   imports: [
     BrowserModule,

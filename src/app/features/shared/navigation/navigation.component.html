@@ -1,6 +1,6 @@
-<div class="navList" *ngFor="let item of navigationList">
-  <button class="items" mat-raised-button (click)="add(item)">
-    {{item.name}}
+<div class="navList" >
+  <button class="items" mat-raised-button *ngFor="let item of navigationList" (click)="add(item)">
+    {{item.name}} <br>
     <span class="spanSubTitle"> {{item.price | number: '1.2-2'}} €</span>
   </button>
 </div>
