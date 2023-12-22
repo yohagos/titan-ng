@@ -18,6 +18,8 @@ import { ApiInterceptor } from './core/interceptors/api.interceptor';
 import { TokenInterceptor } from './core/interceptors/token.interceptor';
 import { ErrorInterceptor } from './core/interceptors/error.interceptor';
 
+import { TextFilterPipe } from './core/pipe/textfilter.pipe';
+
 
 @NgModule({
   declarations: [
@@ -26,7 +28,9 @@ import { ErrorInterceptor } from './core/interceptors/error.interceptor';
     RegisterComponent,
     HeaderComponent,
     NavigationComponent,
-    CashierComponent
+    CashierComponent,
+
+    TextFilterPipe
   ],
   imports: [
     BrowserModule,
