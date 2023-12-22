@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable, map, ObservedValueOf} from 'rxjs';
+import { Observable, map, ObservedValueOf, Subscription} from 'rxjs';
 import { ProductFull } from 'src/app/core/models/product.model';
 import { TransferService } from 'src/app/core/services/transfer.service';
 
@@ -10,23 +10,23 @@ import { TransferService } from 'src/app/core/services/transfer.service';
 })
 export class CashierComponent {
   total$!: Observable<number>
-  products$!: Observable<ProductFull[]>
+  products!: ProductFull[]
   price!: number
+
+  private productSubscription: Subscription
 
 
   constructor(
     private transferService: TransferService
   ) {
-    this.products$ = this.transferService.products$
+    this.productSubscription = this.transferService.products$.subscribe(products => {
+      this.products = products
+      this.calculateTotalPrice()
+    })
   }
 
-  getTotalPrice() {
-
-    /* this.total$ = this.products$.pipe(
-      map(
-        products => products.reduce((sum, product) => sum + product.price, 0)
-      )
-    ) */
+  private calculateTotalPrice() {
+    this.price = this.products.reduce((sum, product) => sum + product.price, 0)
   }
 
 }

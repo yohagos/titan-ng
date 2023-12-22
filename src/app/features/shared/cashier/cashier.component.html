@@ -1,5 +1,8 @@
 <mat-toolbar class="cashierBar" color="primary">
-    {{products$}}
+  <div *ngIf="price >= 1">
+    {{ price  | number: '1.2-2'}}
+  </div>
+
     <button mat-icon-button>
       <mat-icon>euro_symbol</mat-icon>
     </button>
