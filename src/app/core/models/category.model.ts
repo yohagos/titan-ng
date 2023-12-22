@@ -3,4 +3,5 @@ export interface CategoryFull {
   categoryName: string
   measurement: number
   unit: string
+  color: string
 }

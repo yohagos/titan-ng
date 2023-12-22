@@ -1,6 +1,4 @@
-body {
-  height: 100%;
-}
+
 
 .items {
   width: 10em;
@@ -9,10 +7,11 @@ body {
   flex-direction: row;
   justify-content: space-between;
 
+  margin: 3px;
 }
 
 .navList {
-  width: 31.5%;
+  width: 32.8%;
   height: 85.6%;
   margin: 2px;
   overflow-y: auto;
@@ -22,7 +21,14 @@ body {
   font-size: smaller;
 }
 
-@media(max-width: 900px) {
+.searchInput {
+  width: 100%;
+  padding-bottom: 0;
+  margin-bottom: -1.3em !important;
+}
+
+
+@media(min-width: 900px) {
   .items {
     width: 9em;
     height: 7em;
@@ -32,8 +38,8 @@ body {
   }
 
   .navList {
-    width: 40%;
-    height: 60.5%;
+    width: 38%;
+    height: 84.3%;
     margin: 2px;
     overflow-y: auto;
   }

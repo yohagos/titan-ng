@@ -18,4 +18,8 @@ export class TransferService {
     this.productsSubject.next(currentProducts)
   }
 
+  clear() {
+    this.productsSubject.next([])
+  }
+
 }

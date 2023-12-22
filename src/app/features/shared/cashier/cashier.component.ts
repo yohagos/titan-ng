@@ -29,4 +29,14 @@ export class CashierComponent {
     this.price = this.products.reduce((sum, product) => sum + product.price, 0)
   }
 
+  cashButton() {
+    console.log('paid by cash')
+    this.transferService.clear()
+  }
+
+  cardButton() {
+    console.log('paid by card')
+    this.transferService.clear()
+  }
+
 }
