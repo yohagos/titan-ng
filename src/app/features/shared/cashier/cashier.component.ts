@@ -38,5 +38,4 @@ export class CashierComponent {
     console.log('paid by card')
     this.transferService.clear()
   }
-
 }

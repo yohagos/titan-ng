@@ -21,5 +21,4 @@ export class TransferService {
   clear() {
     this.productsSubject.next([])
   }
-
 }

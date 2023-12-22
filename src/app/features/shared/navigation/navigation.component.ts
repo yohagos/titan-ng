@@ -23,6 +23,7 @@ export class NavigationComponent {
     this.productService.loadProducts().subscribe(
       data => {
         this.navigationList = data as ProductFull[]
+
         this.sortProducts()
       }
     )
@@ -40,5 +41,4 @@ export class NavigationComponent {
   clearSearchText() {
     this.searchText = ''
   }
-
 }
