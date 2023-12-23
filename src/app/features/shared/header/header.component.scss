@@ -2,6 +2,8 @@ mat-toolbar {
   height: 7%;
 }
 
-.logoutButton {
+.menu {
+  display: flex;
+  align-items: center;
   float: right;
 }

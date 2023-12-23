@@ -20,6 +20,7 @@ import { ErrorInterceptor } from './core/interceptors/error.interceptor';
 
 import { TextFilterPipe } from './core/pipe/textfilter.pipe';
 import { CategoryComponent } from './features/category/category.component';
+import { AddDialogComponent } from './features/category/add-dialog/add-dialog.component';
 
 
 @NgModule({
@@ -29,6 +30,7 @@ import { CategoryComponent } from './features/category/category.component';
     RegisterComponent,
 
     CategoryComponent,
+    AddDialogComponent,
 
     HeaderComponent,
     NavigationComponent,
