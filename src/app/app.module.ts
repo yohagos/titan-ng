@@ -19,6 +19,7 @@ import { TokenInterceptor } from './core/interceptors/token.interceptor';
 import { ErrorInterceptor } from './core/interceptors/error.interceptor';
 
 import { TextFilterPipe } from './core/pipe/textfilter.pipe';
+import { CategoryComponent } from './features/category/category.component';
 
 
 @NgModule({
@@ -26,6 +27,9 @@ import { TextFilterPipe } from './core/pipe/textfilter.pipe';
     AppComponent,
     LoginComponent,
     RegisterComponent,
+
+    CategoryComponent,
+
     HeaderComponent,
     NavigationComponent,
     CashierComponent,

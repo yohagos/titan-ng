@@ -5,6 +5,7 @@ import { HeaderComponent } from './features/shared/header/header.component';
 import { AuthGuardService } from './core/services/auth-guard.service';
 import { NavigationComponent } from './features/shared/navigation/navigation.component';
 import { RegisterComponent } from './core/auth/register/register.component';
+import { CategoryComponent } from './features/category/category.component';
 
 const routes: Routes = [
   {
@@ -23,6 +24,11 @@ const routes: Routes = [
       {
         path: '',
         component: NavigationComponent,
+        //canActivate: [AuthGuardService]
+      },
+      {
+        path: 'category',
+        component: CategoryComponent,
         //canActivate: [AuthGuardService]
       },
     ]
