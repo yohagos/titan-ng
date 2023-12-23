@@ -5,6 +5,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from "@angular/material/button-toggle";
 import { MatCardModule } from '@angular/material/card';
 import { MatChipsModule } from '@angular/material/chips';
+import {  } from "@angular/material/";
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatFormFieldModule } from "@angular/material/form-field";
@@ -28,6 +29,7 @@ const materialModule = [
     MatButtonToggleModule,
     MatCardModule,
     MatChipsModule,
+
     MatDialogModule,
     MatExpansionModule,
     MatFormFieldModule,

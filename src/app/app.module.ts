@@ -4,12 +4,16 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
+import { ColorPickerModule } from "ngx-color-picker";
+
 import { AppComponent } from './app.component';
 import { LoginComponent } from './core/auth/login/login.component';
 import { RegisterComponent } from './core/auth/register/register.component';
 import { HeaderComponent } from "./features/shared/header/header.component";
 import { NavigationComponent } from "./features/shared/navigation/navigation.component";
 import { CashierComponent } from "./features/shared/cashier/cashier.component";
+import { CategoryComponent } from './features/category/category.component';
+import { AddDialogComponent } from './features/category/add-dialog/add-dialog.component';
 
 import { AppRoutingModule } from './app-routing.module';
 import { MaterialsModule } from './materials.module';
@@ -19,8 +23,7 @@ import { TokenInterceptor } from './core/interceptors/token.interceptor';
 import { ErrorInterceptor } from './core/interceptors/error.interceptor';
 
 import { TextFilterPipe } from './core/pipe/textfilter.pipe';
-import { CategoryComponent } from './features/category/category.component';
-import { AddDialogComponent } from './features/category/add-dialog/add-dialog.component';
+import { EnumToArrayPipe } from "./core/pipe/enumToArray.pipe";
 
 
 @NgModule({
@@ -36,7 +39,8 @@ import { AddDialogComponent } from './features/category/add-dialog/add-dialog.co
     NavigationComponent,
     CashierComponent,
 
-    TextFilterPipe
+    TextFilterPipe,
+    EnumToArrayPipe
   ],
   imports: [
     BrowserModule,
@@ -45,7 +49,8 @@ import { AddDialogComponent } from './features/category/add-dialog/add-dialog.co
     MaterialsModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ColorPickerModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: ApiInterceptor, multi: true},
