@@ -9,7 +9,20 @@
     <mat-icon>color_lens</mat-icon>
   </button>
 
-  <button mat-raised-button class="logoutButton" (click)="logout()">Logout</button>
+  <div>
+    <button mat-icon-button [matMenuTriggerFor]="menu">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item>
+        <mat-icon>category</mat-icon>
+        <span>Categories</span>
+      </button>
+    </mat-menu>
+    <button mat-raised-button class="logoutButton" (click)="logout()">Logout</button>
+  </div>
+
+
 </mat-toolbar>
 <router-outlet></router-outlet>
 <app-cashier></app-cashier>
