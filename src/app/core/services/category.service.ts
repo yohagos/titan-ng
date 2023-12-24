@@ -19,4 +19,12 @@ export class CategoryService {
     return this.http.post('category/add', body, {withCredentials: true})
   }
 
+  editCategory(id: number, body: Category) {
+    return this.http.put(`category/${id}`, body)
+  }
+
+  deleteCategory(id: number) {
+    return this.http.delete(`category/${id}`)
+  }
+
 }

@@ -13,7 +13,10 @@ import { HeaderComponent } from "./features/shared/header/header.component";
 import { NavigationComponent } from "./features/shared/navigation/navigation.component";
 import { CashierComponent } from "./features/shared/cashier/cashier.component";
 import { CategoryComponent } from './features/category/category.component';
+
 import { AddDialogComponent } from './features/category/add-dialog/add-dialog.component';
+import { ConfirmDialogComponent } from "./features/shared/confirm-dialog/confirm-dialog.component";
+import { EditDialogComponent } from './features/category/edit-dialog/edit-dialog.component';
 
 import { AppRoutingModule } from './app-routing.module';
 import { MaterialsModule } from './materials.module';
@@ -34,6 +37,8 @@ import { EnumToArrayPipe } from "./core/pipe/enumToArray.pipe";
 
     CategoryComponent,
     AddDialogComponent,
+    ConfirmDialogComponent,
+    EditDialogComponent,
 
     HeaderComponent,
     NavigationComponent,

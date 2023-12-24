@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatDialogRef } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { CategoryUnit } from 'src/app/core/models/category.enum';
 import { Category } from 'src/app/core/models/category.model';
 import { CategoryService } from 'src/app/core/services/category.service';
@@ -19,6 +21,8 @@ export class AddDialogComponent {
   constructor(
     private fb: FormBuilder,
     private categoryService: CategoryService,
+    public dialofRef: MatDialogRef<AddDialogComponent>,
+    public _snackbar: MatSnackBar
   ) {
     this.addCategoryForm = this.fb.group({
       categoryName: new FormControl('', Validators.required),
@@ -28,7 +32,6 @@ export class AddDialogComponent {
   }
 
   add() {
-    console.log(this.addCategoryForm.value)
     if (this.addCategoryForm.valid && this.selectedColor.length > 1) {
       const category: Category = {
         categoryName: this.addCategoryForm.get('categoryName')?.value,
@@ -36,9 +39,14 @@ export class AddDialogComponent {
         unit: this.addCategoryForm.get('unit')?.value,
         color: this.selectedColor
       }
-      this.categoryService.addCategory(category).subscribe(
-        data => { console.log(data)}
-      )
+      this.categoryService.addCategory(category).subscribe({
+        next: () => {
+          this.dialofRef.close()
+        },
+        error: (err) => {
+          this._snackbar.open(err, "Try again")
+        }
+      })
     }
   }
 }
