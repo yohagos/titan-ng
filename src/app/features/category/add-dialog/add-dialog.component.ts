@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { CategoryMeasurement } from 'src/app/core/models/category.enum';
+import { CategoryUnit } from 'src/app/core/models/category.enum';
 import { Category } from 'src/app/core/models/category.model';
 import { CategoryService } from 'src/app/core/services/category.service';
 
@@ -14,7 +14,7 @@ export class AddDialogComponent {
   hide = false
   selectedColor = ''
 
-  measurementEnum = CategoryMeasurement
+  unitEnum = CategoryUnit
 
   constructor(
     private fb: FormBuilder,
@@ -32,7 +32,7 @@ export class AddDialogComponent {
     if (this.addCategoryForm.valid && this.selectedColor.length > 1) {
       const category: Category = {
         categoryName: this.addCategoryForm.get('categoryName')?.value,
-        measurement: + this.addCategoryForm.get('measurement')?.value,
+        measurement: this.addCategoryForm.get('measurement')?.value,
         unit: this.addCategoryForm.get('unit')?.value,
         color: this.selectedColor
       }

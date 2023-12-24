@@ -1,4 +1,4 @@
-export enum CategoryMeasurement {
+export enum CategoryUnit {
   ML,
   L,
   MG,

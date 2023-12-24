@@ -8,13 +8,13 @@
       </mat-form-field>
       <mat-form-field appearance="fill">
         <mat-label>Meaasurement</mat-label>
-        <mat-select formControlName="measurement">
-          <mat-option *ngFor="let enum of measurementEnum | enumToArray" value="{{enum}}">{{enum}}</mat-option>
-        </mat-select>
+        <input matInput type="number" placeholder="Unit" formControlName="measurement">
       </mat-form-field>
       <mat-form-field appearance="fill">
         <mat-label>Unit</mat-label>
-        <input matInput placeholder="Unit" formControlName="unit">
+        <mat-select formControlName="unit">
+          <mat-option *ngFor="let enum of unitEnum | enumToArray" value="{{enum}}">{{enum}}</mat-option>
+        </mat-select>
       </mat-form-field>
       <input class="colorInput" [(colorPicker)]="selectedColor" [style.background]="selectedColor" placeholder="Color">
     </form>
