@@ -53,7 +53,12 @@ export class EditDialogComponent {
         this.dialogRef.close();
       },
       error: (err) => {
-        this._snackbar.open("Try again")
+        this._snackbar.open(err, 'Close', {
+          duration: 4000,
+          panelClass: ['snackbarError'],
+          horizontalPosition: 'center',
+          verticalPosition: 'bottom'
+        })
       }
     })
   }

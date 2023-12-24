@@ -74,7 +74,6 @@ export class CategoryComponent {
           unit: item.unit,
           color: item.color
         }
-        console.log(body)
         this.categoryService.deleteCategory(item.id).subscribe(
           () => {
             this.loadingData()

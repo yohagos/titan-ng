@@ -44,7 +44,12 @@ export class AddDialogComponent {
           this.dialofRef.close()
         },
         error: (err) => {
-          this._snackbar.open(err, "Try again")
+          this._snackbar.open(err, 'Close', {
+            duration: 4000,
+            panelClass: ['snackbarError'],
+            horizontalPosition: 'center',
+            verticalPosition: 'bottom'
+          })
         }
       })
     }
