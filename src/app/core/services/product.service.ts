@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { JwtService } from './jwt.service';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-import { ProductAddRequest, ProductEditRequest } from '../models/product.model';
+import { ProductAddRequest, ProductEditRequest, ProductFull } from '../models/product.model';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +16,7 @@ export class ProductService {
   ) { }
 
   loadProducts() {
-    return this.http.get('product');
+    return this.http.get<ProductFull[]>('product');
   }
 
   addProduct(product: ProductAddRequest) {

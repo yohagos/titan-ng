@@ -21,7 +21,7 @@ export class AddDialogComponent {
   constructor(
     private fb: FormBuilder,
     private categoryService: CategoryService,
-    public dialofRef: MatDialogRef<AddDialogComponent>,
+    public dialogRef: MatDialogRef<AddDialogComponent>,
     public _snackbar: MatSnackBar
   ) {
     this.addCategoryForm = this.fb.group({
@@ -41,7 +41,7 @@ export class AddDialogComponent {
       }
       this.categoryService.addCategory(category).subscribe({
         next: () => {
-          this.dialofRef.close()
+          this.dialogRef.close()
         },
         error: (err) => {
           this._snackbar.open(err, 'Close', {

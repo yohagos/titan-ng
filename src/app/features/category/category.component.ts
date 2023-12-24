@@ -68,12 +68,6 @@ export class CategoryComponent {
   deleteCategory(item: CategoryFull) {
     this.confirmService.confirm().subscribe((result) => {
       if (result) {
-        const body: Category = {
-          categoryName: item.categoryName,
-          measurement: item.measurement,
-          unit: item.unit,
-          color: item.color
-        }
         this.categoryService.deleteCategory(item.id).subscribe(
           () => {
             this.loadingData()

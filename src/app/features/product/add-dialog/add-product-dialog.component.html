@@ -1,0 +1,25 @@
+<h2 mat-dialog-title>Add Product</h2>
+<mat-dialog-content>
+  <form [formGroup]="addProductForm" class="productForm">
+    <mat-form-field appearance="fill">
+      <mat-label>Name</mat-label>
+      <input matInput placeholder="Product Name" formControlName="name">
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Price</mat-label>
+      <input type="number" matInput placeholder="0.00" formControlName="price">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Category</mat-label>
+      <mat-select formControlName="category">
+        <mat-option *ngFor="let cat of categories" value="{{cat.id}}">{{cat.categoryName}} <span>{{cat.measurement}} {{cat.unit}}</span> </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button mat-raised-button color="primary" *ngIf="addProductForm.valid && (addProductForm.get('category')?.value != '' || addProductForm.get('category')?.value != undefined)" (click)="addProduct()">Add</button>
+  <button mat-button  mat-dialog-close >Cancel</button>
+</mat-dialog-actions>
+

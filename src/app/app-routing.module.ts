@@ -6,6 +6,7 @@ import { AuthGuardService } from './core/services/auth-guard.service';
 import { NavigationComponent } from './features/shared/navigation/navigation.component';
 import { RegisterComponent } from './core/auth/register/register.component';
 import { CategoryComponent } from './features/category/category.component';
+import { ProductComponent } from './features/product/product.component';
 
 const routes: Routes = [
   {
@@ -29,6 +30,11 @@ const routes: Routes = [
       {
         path: 'category',
         component: CategoryComponent,
+        //canActivate: [AuthGuardService]
+      },
+      {
+        path: 'product',
+        component: ProductComponent
         //canActivate: [AuthGuardService]
       },
     ]
