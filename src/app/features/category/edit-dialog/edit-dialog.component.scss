@@ -1,0 +1,25 @@
+.categoryForm {
+  display: flex;
+  flex-direction: column;
+}
+
+.colorInput {
+  width: 100%;
+  height: auto;
+  flex: auto;
+  display: inline-flex;
+  align-items: baseline;
+  padding: 0 16px;
+  position: relative;
+  box-sizing: border-box;
+  overflow: hidden;
+  will-change: opacity,transform,color;
+  min-height: 56px;
+  overflow: visible;
+}
+
+.snackbarError {
+  background-color: rgb(228, 100, 69);
+  color: #fff;
+}
+

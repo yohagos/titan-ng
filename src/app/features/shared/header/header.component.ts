@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { UserService } from 'src/app/core/services/user.service';
 
 @Component({
@@ -9,9 +10,14 @@ import { UserService } from 'src/app/core/services/user.service';
 export class HeaderComponent {
 
   constructor(
-    private userService: UserService
+    private userService: UserService,
+    private router: Router
   ) {
 
+  }
+
+  openCategory() {
+    this.router.navigate(['app/category'])
   }
 
   logout() {

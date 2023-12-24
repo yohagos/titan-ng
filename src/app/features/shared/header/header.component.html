@@ -1,15 +1,22 @@
-<mat-toolbar color="primary" class="theme">
+<mat-toolbar color="primary">
   <button mat-icon-button>
     <mat-icon>menu</mat-icon>
   </button>
 
+  <div class="menu">
+    <button mat-icon-button [matMenuTriggerFor]="menu">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item (click)="openCategory()">
+        <mat-icon>category</mat-icon>
+        <span>Categories</span>
+      </button>
+    </mat-menu>
+    <button mat-raised-button (click)="logout()">Logout</button>
+  </div>
 
 
-  <button mat-icon-button>
-    <mat-icon>color_lens</mat-icon>
-  </button>
-
-  <button mat-raised-button class="logoutButton" (click)="logout()">Logout</button>
 </mat-toolbar>
 <router-outlet></router-outlet>
 <app-cashier></app-cashier>

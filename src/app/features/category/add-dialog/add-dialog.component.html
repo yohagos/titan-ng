@@ -1,0 +1,26 @@
+<div>
+  <h2 mat-dialog-title>Add Category</h2>
+  <mat-dialog-content>
+    <form [formGroup]="addCategoryForm" class="categoryForm">
+      <mat-form-field appearance="fill">
+        <mat-label>Name</mat-label>
+        <input matInput placeholder="Category Name" formControlName="categoryName">
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Meaasurement</mat-label>
+        <input matInput type="number" placeholder="Unit" formControlName="measurement">
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Unit</mat-label>
+        <mat-select formControlName="unit">
+          <mat-option *ngFor="let enum of unitEnum | enumToArray" value="{{enum}}">{{enum}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <input class="colorInput" [(colorPicker)]="selectedColor" [style.background]="selectedColor" placeholder="Color">
+    </form>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button mat-raised-button color="primary" *ngIf="addCategoryForm.valid && selectedColor.length > 3" (click)="add()">Add</button>
+    <button mat-button  mat-dialog-close >Cancel</button>
+  </mat-dialog-actions>
+</div>

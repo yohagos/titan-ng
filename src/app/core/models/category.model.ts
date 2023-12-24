@@ -5,3 +5,10 @@ export interface CategoryFull {
   unit: string
   color: string
 }
+
+export interface Category {
+  categoryName: string
+  measurement: number
+  unit: string
+  color: string
+}
