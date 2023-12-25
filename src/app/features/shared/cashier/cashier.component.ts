@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NavigationEnd, Router } from '@angular/router';
 import { Observable, map, ObservedValueOf, Subscription} from 'rxjs';
 import { ProductFull } from 'src/app/core/models/product.model';
 import { TransferService } from 'src/app/core/services/transfer.service';
@@ -14,7 +15,6 @@ export class CashierComponent {
   price!: number
 
   private productSubscription: Subscription
-
 
   constructor(
     private transferService: TransferService

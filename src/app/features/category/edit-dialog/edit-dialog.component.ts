@@ -49,7 +49,7 @@ export class EditDialogComponent {
 
     this.categoryService.editCategory(this.data.category.id, body).subscribe({
       next: () => {
-        this._snackbar.open("Category edited successfully")
+        this._snackbar.open("Category edited successfully", "close")
         this.dialogRef.close();
       },
       error: (err) => {

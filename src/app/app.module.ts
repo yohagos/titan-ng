@@ -27,6 +27,9 @@ import { ErrorInterceptor } from './core/interceptors/error.interceptor';
 
 import { TextFilterPipe } from './core/pipe/textfilter.pipe';
 import { EnumToArrayPipe } from "./core/pipe/enumToArray.pipe";
+import { ProductComponent } from './features/product/product.component';
+import { AddProductDialogComponent } from './features/product/add-dialog/add-product-dialog.component';
+import { EditProductDialogComponent } from './features/product/edit-dialog/edit-product-dialog.component';
 
 
 @NgModule({
@@ -39,6 +42,10 @@ import { EnumToArrayPipe } from "./core/pipe/enumToArray.pipe";
     AddDialogComponent,
     ConfirmDialogComponent,
     EditDialogComponent,
+
+    ProductComponent,
+    AddProductDialogComponent,
+    EditProductDialogComponent,
 
     HeaderComponent,
     NavigationComponent,
