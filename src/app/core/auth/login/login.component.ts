@@ -38,7 +38,7 @@ export class LoginComponent {
 
     this.userService.login(credentials).subscribe({
       next: () => {
-        void this.router.navigate(['/app'])
+        void this.router.navigate(['/nav/table'])
       },
       error: (err) => {
         console.error(err)

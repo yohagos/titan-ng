@@ -1,0 +1,68 @@
+.tableSection {
+  margin: 1em;
+}
+
+.btnContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+button.mat-raised-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+/* Create a new line for the <span> content */
+button.mat-raised-button span {
+  margin-top: 8px; /* Adjust as needed for spacing between lines */
+  display: block;
+}
+
+.tableBtn {
+  width: 7em;
+  height: 5em;
+  flex: 1 3 calc(70% - 10px);
+  margin: 5px;
+}
+
+.tableBtnSpan {
+  font-size: smaller;
+}
+
+@media only screen {
+  .mainContainer {
+    display: flex;
+    height: 100%;
+    overflow-y: scroll;
+  }
+
+  button.mat-raised-button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  /* Create a new line for the <span> content */
+  button.mat-raised-button span {
+    margin-top: 8px; /* Adjust as needed for spacing between lines */
+    _display: block;
+  }
+
+  .btnContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+
+  .tableBtn {
+    width: 7em;
+    height: 5em;
+    flex: 1 0 calc(50% - 5px);
+    margin: 5px;
+  }
+}
+

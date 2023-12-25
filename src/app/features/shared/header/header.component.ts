@@ -19,7 +19,7 @@ export class HeaderComponent {
       (val) => {
         if (val instanceof NavigationEnd) {
           let url = val.url
-          if (url !== '/app') {
+          if (!url.includes('/nav')) {
             this.showCashier = false
             this.showBackToNavigation = true
           } else {
@@ -32,15 +32,15 @@ export class HeaderComponent {
   }
 
   openCategory() {
-    this.router.navigate(['app/category'])
+    this.router.navigate(['/category'])
   }
 
   openProduct() {
-    this.router.navigate(['app/product'])
+    this.router.navigate(['/product'])
   }
 
   backToNavigation() {
-    this.router.navigate(['app'])
+    this.router.navigate(['nav/table'])
   }
 
   logout() {

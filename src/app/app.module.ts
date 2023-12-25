@@ -30,6 +30,7 @@ import { EnumToArrayPipe } from "./core/pipe/enumToArray.pipe";
 import { ProductComponent } from './features/product/product.component';
 import { AddProductDialogComponent } from './features/product/add-dialog/add-product-dialog.component';
 import { EditProductDialogComponent } from './features/product/edit-dialog/edit-product-dialog.component';
+import { TableComponent } from './features/table/table.component';
 
 
 @NgModule({
@@ -46,6 +47,8 @@ import { EditProductDialogComponent } from './features/product/edit-dialog/edit-
     ProductComponent,
     AddProductDialogComponent,
     EditProductDialogComponent,
+
+    TableComponent,
 
     HeaderComponent,
     NavigationComponent,

@@ -1,0 +1,17 @@
+<mat-spinner *ngIf="loading"></mat-spinner>
+
+<div class="mainContainer">
+  <section>
+    <h2>Tables</h2>
+  </section>
+
+  <section *ngIf="!loading" class="tableSection">
+    <div *ngFor="let table of tables" class="btnContainer">
+      <button mat-raised-button class="tableBtn" [ngStyle]="changeColorDependingOnOccupied(table)" (click)="occupy(table.id)">
+        {{table?.tableNumber}} <br>
+        <span class="tableBtnSpan">Seats: {{table.numberOfPeople}} </span>
+      </button>
+    </div>
+  </section>
+</div>
+
