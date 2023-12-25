@@ -1,1 +1,29 @@
-<p>edit-dialog works!</p>
+<h2 mat-dialog-title>Edit Product</h2>
+
+<mat-dialog-content>
+  <form [formGroup]="editProductForm" class="productForm">
+    <mat-form-field>
+      <mat-label>Product Name</mat-label>
+      <input matInput placeholder="Enter Product Name" formControlName="name">
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Price</mat-label>
+      <input matInput type="number" placeholder="Enter Price" formControlName="price">
+    </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Categorie</mat-label>
+        <mat-select formControlName="category">
+          <mat-option *ngFor="let cat of categories" [value]="cat.id">
+            {{cat.categoryName}} <span class="category"> {{cat.measurement}} {{cat.unit}} </span>
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button mat-raised-button color="primary" *ngIf="editProductForm.dirty" (click)="editProduct()">Edit</button>
+  <button mat-flat-button matDialogClose>Cancel</button>
+</mat-dialog-actions>

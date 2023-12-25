@@ -23,5 +23,5 @@ export interface ProductEditRequest {
   id?: number
   name?: string
   price: number
-  category: CategoryFull
+  categoryId: number
 }

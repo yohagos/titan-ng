@@ -82,6 +82,7 @@ export class ProductComponent implements OnInit {
   }
 
   clearFilter() {
+    this.dataSource.filter = ''
     this.filterText = ''
   }
 
