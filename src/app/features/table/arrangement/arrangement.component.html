@@ -1,0 +1,23 @@
+<!-- <div class="table-container" cdkDropList (cdkDropListDropped)="drop($event)">
+  <div *ngFor="let table of tables" cdkDrag class="table-item">
+    {{ table }}
+  </div>
+</div> -->
+
+<!-- <div class="grid-container" cdkDropList (cdkDropListDropped)="drop($event)">
+  <mat-grid-list cols="{{ gridCols }}" rowHeight="{{ tileSize }}px">
+    <mat-grid-tile *ngFor="let table of tables" cdkDrag [colspan]="table.colspan" [rowspan]="table.rowspan" [style.background-color]="'#2196F3'">
+      {{ table.name }}
+    </mat-grid-tile>
+  </mat-grid-list>
+</div> -->
+
+<div class="example-boundary">
+  <div class="example-box" *ngFor="let item of tables"
+    cdkDragBoundary=".example-boundary" (cdkDragEnded)="dragStarted(item, $event)"
+    [ngStyle]="position(item)" cdkDrag>
+    {{item.tableNumber}}
+  </div>
+</div>
+
+

@@ -39,6 +39,10 @@ export class HeaderComponent {
     this.router.navigate(['/product'])
   }
 
+  openTableArrangement() {
+    this.router.navigate(['/arrangement'])
+  }
+
   backToNavigation() {
     this.router.navigate(['nav/table'])
   }

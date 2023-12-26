@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 import { ColorPickerModule } from "ngx-color-picker";
 
@@ -14,23 +15,29 @@ import { NavigationComponent } from "./features/shared/navigation/navigation.com
 import { CashierComponent } from "./features/shared/cashier/cashier.component";
 import { CategoryComponent } from './features/category/category.component';
 
+import { ProductComponent } from './features/product/product.component';
+import { AddProductDialogComponent } from './features/product/add-dialog/add-product-dialog.component';
+import { EditProductDialogComponent } from './features/product/edit-dialog/edit-product-dialog.component';
+
+import { TableComponent } from './features/table/table.component';
+import { ArrangementComponent } from './features/table/arrangement/arrangement.component';
+
 import { AddDialogComponent } from './features/category/add-dialog/add-dialog.component';
 import { ConfirmDialogComponent } from "./features/shared/confirm-dialog/confirm-dialog.component";
 import { EditDialogComponent } from './features/category/edit-dialog/edit-dialog.component';
 
+// App Modules
 import { AppRoutingModule } from './app-routing.module';
 import { MaterialsModule } from './materials.module';
 
+// Interceptor
 import { ApiInterceptor } from './core/interceptors/api.interceptor';
 import { TokenInterceptor } from './core/interceptors/token.interceptor';
 import { ErrorInterceptor } from './core/interceptors/error.interceptor';
 
+// Pipes
 import { TextFilterPipe } from './core/pipe/textfilter.pipe';
 import { EnumToArrayPipe } from "./core/pipe/enumToArray.pipe";
-import { ProductComponent } from './features/product/product.component';
-import { AddProductDialogComponent } from './features/product/add-dialog/add-product-dialog.component';
-import { EditProductDialogComponent } from './features/product/edit-dialog/edit-product-dialog.component';
-import { TableComponent } from './features/table/table.component';
 
 
 @NgModule({
@@ -49,6 +56,7 @@ import { TableComponent } from './features/table/table.component';
     EditProductDialogComponent,
 
     TableComponent,
+    ArrangementComponent,
 
     HeaderComponent,
     NavigationComponent,
@@ -65,7 +73,8 @@ import { TableComponent } from './features/table/table.component';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    ColorPickerModule
+    ColorPickerModule,
+    DragDropModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: ApiInterceptor, multi: true},

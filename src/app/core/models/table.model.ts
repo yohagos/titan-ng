@@ -6,6 +6,8 @@ export interface TableFull {
   occupied: boolean
   occupiedFrom: any
   occupiedTill: any
+  positionX: number
+  positionY: number
 }
 
 export interface Table {
@@ -15,9 +17,13 @@ export interface Table {
   occupied: boolean
   occupiedFrom: any
   occupiedTill: any
+  positionX: number
+  positionY: number
 }
 
 export interface TableAddRequest {
   tableNummer: number
   numberOfPeople: number
+  positionX: number
+  positionY: number
 }

@@ -8,6 +8,7 @@ import { RegisterComponent } from './core/auth/register/register.component';
 import { CategoryComponent } from './features/category/category.component';
 import { ProductComponent } from './features/product/product.component';
 import { TableComponent } from './features/table/table.component';
+import { ArrangementComponent } from './features/table/arrangement/arrangement.component';
 
 const routes: Routes = [
   {
@@ -44,6 +45,11 @@ const routes: Routes = [
         component: ProductComponent
         //canActivate: [AuthGuardService]
       },
+      {
+        path: 'arrangement',
+        component: ArrangementComponent
+        //canActivate: [AuthGuardService]
+      }
     ]
   },
   {
