@@ -1,23 +1,25 @@
-<!-- <div class="table-container" cdkDropList (cdkDropListDropped)="drop($event)">
-  <div *ngFor="let table of tables" cdkDrag class="table-item">
-    {{ table }}
-  </div>
-</div> -->
+<!-- <button mat-raised-button (cdkDragMoved)="moved($event)" cdkDrag>
+  test
+</button>
 
-<!-- <div class="grid-container" cdkDropList (cdkDropListDropped)="drop($event)">
-  <mat-grid-list cols="{{ gridCols }}" rowHeight="{{ tileSize }}px">
-    <mat-grid-tile *ngFor="let table of tables" cdkDrag [colspan]="table.colspan" [rowspan]="table.rowspan" [style.background-color]="'#2196F3'">
-      {{ table.name }}
-    </mat-grid-tile>
-  </mat-grid-list>
-</div> -->
+<button mat-raised-button (cdkDragEnded)="dropped($event)" cdkDrag>
+  test
+</button> -->
 
-<div class="example-boundary">
-  <div class="example-box" *ngFor="let item of tables"
-    cdkDragBoundary=".example-boundary" (cdkDragEnded)="dragStarted(item, $event)"
-    [ngStyle]="position(item)" cdkDrag>
-    {{item.tableNumber}}
-  </div>
+<div #konvaContainer>
+
 </div>
+<!-- <button mat-raised-button *ngFor="let table of tables; let index" (cdkDragEnded)="dropped($event, table)" [ngStyle]="position(table)" cdkDrag #tableIndex>
+    {{table.tableNumber}}
+  </button> -->
+<!-- <div class="example-boundary" cdkDropList (cdkDropListDropped)="drop($event)" #boundary>
 
+ </div> -->
+
+
+<!--  <div class="container" cdkDropList (cdkDropListDropped)="drop($event)">
+  <div class="item" *ngFor="let item of items" cdkDrag [cdkDragData]="item" [style.transform]="'translate3d(' + item.position.x + 'px, ' + item.position.y + 'px, 0)'">
+    {{ item.name }}
+  </div>
+</div> -->
 
