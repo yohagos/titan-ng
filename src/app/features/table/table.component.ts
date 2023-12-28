@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { TableFull } from 'src/app/core/models/table.model';
 import { TableService } from 'src/app/core/services/table.service';
 
@@ -12,7 +13,8 @@ export class TableComponent {
   tables: TableFull[] = []
 
   constructor(
-    private readonly tableService: TableService
+    private readonly tableService: TableService,
+    private router: Router
   ) {
     tableService.loadTables().subscribe(
       data => {
@@ -25,7 +27,7 @@ export class TableComponent {
   changeColorDependingOnOccupied(table: TableFull) {
     let color = {}
     if (table.occupied) {
-      color = {'background-color': '#ff003a'}
+      color = {'background-color': '#f57b5d'}
     }
     return color
   }
@@ -35,6 +37,10 @@ export class TableComponent {
     if (table) {
       table.occupied = !table.occupied
     }
-    console.log(this.tables)
+  }
+
+  openTable(table: TableFull) {
+    console.log(table)
+    this.router.navigate(['/nav/table', table.id], {queryParams: {...table}, skipLocationChange: true})
   }
 }

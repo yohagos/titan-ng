@@ -35,7 +35,6 @@ button.mat-raised-button span {
 @media only screen {
   .mainContainer {
     display: flex;
-    height: 100%;
     overflow-y: scroll;
   }
 
@@ -49,7 +48,6 @@ button.mat-raised-button span {
   /* Create a new line for the <span> content */
   button.mat-raised-button span {
     margin-top: 8px; /* Adjust as needed for spacing between lines */
-    _display: block;
   }
 
   .btnContainer {

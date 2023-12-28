@@ -9,6 +9,7 @@ import { CategoryComponent } from './features/category/category.component';
 import { ProductComponent } from './features/product/product.component';
 import { TableComponent } from './features/table/table.component';
 import { ArrangementComponent } from './features/table/arrangement/arrangement.component';
+import { BookingComponent } from './features/table/booking/booking.component';
 
 const routes: Routes = [
   {
@@ -32,6 +33,10 @@ const routes: Routes = [
           {
             path: 'table',
             component: TableComponent
+          },
+          {
+            path: 'table/:id',
+            component: BookingComponent
           }
         ]
       },
