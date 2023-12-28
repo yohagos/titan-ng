@@ -4,9 +4,9 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { DragDropModule } from '@angular/cdk/drag-drop';
-
 import { ColorPickerModule } from "ngx-color-picker";
 
+// Components
 import { AppComponent } from './app.component';
 import { LoginComponent } from './core/auth/login/login.component';
 import { RegisterComponent } from './core/auth/register/register.component';
@@ -74,7 +74,8 @@ import { EnumToArrayPipe } from "./core/pipe/enumToArray.pipe";
     FormsModule,
     ReactiveFormsModule,
     ColorPickerModule,
-    DragDropModule
+    DragDropModule,
+    
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: ApiInterceptor, multi: true},
