@@ -17,7 +17,8 @@ export class CashierComponent {
   private productSubscription: Subscription
 
   constructor(
-    private transferService: TransferService
+    private transferService: TransferService,
+    private router: Router
   ) {
     this.productSubscription = this.transferService.products$.subscribe(products => {
       this.products = products
@@ -30,12 +31,12 @@ export class CashierComponent {
   }
 
   cashButton() {
-    console.log('paid by cash')
     this.transferService.clear()
+    this.router.navigate(['/nav/table'])
   }
 
   cardButton() {
-    console.log('paid by card')
     this.transferService.clear()
+    this.router.navigate(['/nav/table'])
   }
 }

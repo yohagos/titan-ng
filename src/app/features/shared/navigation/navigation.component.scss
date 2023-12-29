@@ -2,6 +2,21 @@ body {
   height: 100%;
 }
 
+.mainContainer {
+  display: flex;
+  height: 80%;
+}
+
+.leftSection{
+  flex: 2.5;
+  overflow: auto;
+}
+
+.rightSection {
+  flex: 10;
+  overflow: auto;
+}
+
 .items {
   width: 10em;
   height: 8em;
@@ -10,13 +25,6 @@ body {
   justify-content: space-between;
 
   margin: 3px;
-}
-
-.navList {
-  width: 32.8%;
-  height: 85.6%;
-  margin: 2px;
-  overflow-y: auto;
 }
 
 .spanSubTitle {
@@ -29,20 +37,58 @@ body {
   margin-bottom: -1.3em !important;
 }
 
+button.mat-raised-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
 
-@media(min-width: 900px) {
+/* Create a new line for the <span> content */
+button.mat-raised-button span {
+  margin-top: 8px; /* Adjust as needed for spacing between lines */
+  _display: block;
+}
+
+
+@media only screen {
   .items {
-    width: 9em;
-    height: 7em;
+    width: 8.5em;
+    height: 6.7em;
     flex-direction: row;
     justify-content: space-between;
     font-size: smaller;
   }
 
-  .navList {
-    width: 35%;
-    height: 85.5%;
-    margin: 2px;
-    overflow-y: auto;
+  button.mat-stroked-button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  /* Create a new line for the <span> content */
+  button.mat-stroked-button span {
+    margin-top: 8px; /* Adjust as needed for spacing between lines */
+    display: block;
+  }
+
+  .searchInput {
+    width: 89%;
+  }
+
+  .mainContainer {
+    display: flex;
+    height: 86%;
+  }
+
+  .leftSection{
+    flex: 6;
+    overflow: auto;
+  }
+
+  .rightSection {
+    flex: 10;
+    overflow: auto;
   }
 }

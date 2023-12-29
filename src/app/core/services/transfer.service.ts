@@ -18,6 +18,21 @@ export class TransferService {
     this.productsSubject.next(currentProducts)
   }
 
+  removeProduct(name: string) {
+    const currentProducts = this.productsSubject.value
+    const prodIndex = currentProducts.findIndex((product) => product.name === name)
+    if (prodIndex != -1) {
+      currentProducts.splice(prodIndex, 1);
+    }
+    this.productsSubject.next(currentProducts)
+  }
+
+  getAllProducts() {
+    const currentProducts = this.productsSubject.value
+    //this.clear()
+    return currentProducts
+  }
+
   clear() {
     this.productsSubject.next([])
   }

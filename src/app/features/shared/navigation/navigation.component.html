@@ -1,14 +1,21 @@
-<div class="navList">
-  <mat-form-field class="searchInput" appearance="outline">
-    <input matInput [(ngModel)]="searchText" placeholder="Search for Item">
-    <button mat-icon-button matIconSuffix (click)="clearSearchText()" *ngIf="searchText">
-      <mat-icon>cancel</mat-icon>
-    </button>
-  </mat-form-field>
-  <div >
-    <button class="items" [ngStyle]="{'background-color': item.category.color}" mat-raised-button *ngFor="let item of navigationList | filter: searchText" (click)="add(item)">
-      {{item.name}} <br>
-      <span class="spanSubTitle"> {{item.price | number: '1.2-2'}} €</span>
-    </button>
-  </div>
+<div class="mainContainer">
+  <section class="leftSection">
+    <div class="navList">
+      <mat-form-field class="searchInput" appearance="outline">
+        <input matInput [(ngModel)]="searchText" placeholder="Search for Item">
+        <button mat-icon-button matIconSuffix (click)="clearSearchText()" *ngIf="searchText">
+          <mat-icon>cancel</mat-icon>
+        </button>
+      </mat-form-field>
+      <div >
+        <button mat-stroked-button class="items" [ngStyle]="{'background-color': item.category.color}" *ngFor="let item of navigationList | filter: searchText" (click)="add(item)">
+          {{item.name}} <br>
+          <span class="spanSubTitle"> {{item.price | number: '1.2-2'}} €</span>
+        </button>
+      </div>
+    </div>
+  </section>
+  <section class="rightSection">
+    <router-outlet></router-outlet>
+  </section>
 </div>

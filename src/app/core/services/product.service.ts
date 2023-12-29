@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { JwtService } from './jwt.service';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-import { ProductAddRequest, ProductEditRequest, ProductFull } from '../models/product.model';
+import { ProductAddRequest, ProductEditRequest, ProductFull, StoreProductsToTable } from '../models/product.model';
 
 @Injectable({
   providedIn: 'root'

@@ -7,6 +7,9 @@ import { NavigationComponent } from './features/shared/navigation/navigation.com
 import { RegisterComponent } from './core/auth/register/register.component';
 import { CategoryComponent } from './features/category/category.component';
 import { ProductComponent } from './features/product/product.component';
+import { TableComponent } from './features/table/table.component';
+import { ArrangementComponent } from './features/table/arrangement/arrangement.component';
+import { BookingComponent } from './features/table/booking/booking.component';
 
 const routes: Routes = [
   {
@@ -18,14 +21,24 @@ const routes: Routes = [
     component: LoginComponent
   },
   {
-    path: 'app',
+    path: '',
     component: HeaderComponent,
     //canActivate: [AuthGuardService],
     children: [
       {
-        path: '',
+        path: 'nav',
         component: NavigationComponent,
         //canActivate: [AuthGuardService]
+        children: [
+          {
+            path: 'table',
+            component: TableComponent
+          },
+          {
+            path: 'table/:id',
+            component: BookingComponent
+          }
+        ]
       },
       {
         path: 'category',
@@ -37,10 +50,15 @@ const routes: Routes = [
         component: ProductComponent
         //canActivate: [AuthGuardService]
       },
+      {
+        path: 'arrangement',
+        component: ArrangementComponent
+        //canActivate: [AuthGuardService]
+      }
     ]
   },
   {
-    path: '',
+    path: '**',
     redirectTo: '/register',
     pathMatch: 'full'
   }
