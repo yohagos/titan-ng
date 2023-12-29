@@ -19,7 +19,8 @@ export class ApiInterceptor implements HttpInterceptor {
     }
 
     const headers = new HttpHeaders({
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
     });
     const apiReq = req.clone({
       url: `http://localhost:9000/api/v1/${req.url}`,

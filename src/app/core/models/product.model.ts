@@ -25,3 +25,8 @@ export interface ProductEditRequest {
   price: number
   categoryId: number
 }
+
+export interface StoreProductsToTable {
+  id: number
+  products: number[]
+}

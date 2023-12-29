@@ -40,7 +40,6 @@ export class TableComponent {
   }
 
   openTable(table: TableFull) {
-    console.log(table)
     this.router.navigate(['/nav/table', table.id], {queryParams: {...table}, skipLocationChange: true})
   }
 }
