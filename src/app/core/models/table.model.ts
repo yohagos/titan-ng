@@ -1,3 +1,5 @@
+import { ProductFull } from "./product.model"
+
 export interface TableFull {
   id: number
   tableNumber: number
@@ -8,6 +10,7 @@ export interface TableFull {
   occupiedTill: any
   positionX: number
   positionY: number
+  products: ProductFull[]
 }
 
 export interface Table {

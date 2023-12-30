@@ -78,7 +78,6 @@ import { EnumToArrayPipe } from "./core/pipe/enumToArray.pipe";
     ReactiveFormsModule,
     ColorPickerModule,
     DragDropModule,
-
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: ApiInterceptor, multi: true},
