@@ -1,4 +1,4 @@
-import { Component, AfterViewChecked, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import { Component, AfterViewChecked, ViewChild, ElementRef, AfterViewInit, OnInit } from '@angular/core';
 import { CdkDragDrop, moveItemInArray, CdkDragEnd, CdkDropListGroup, CdkDropList, CdkDragMove, CdkDrag } from "@angular/cdk/drag-drop";
 import { TableService } from 'src/app/core/services/table.service';
 import { TableFull } from 'src/app/core/models/table.model';
@@ -10,10 +10,9 @@ import { TableFull } from 'src/app/core/models/table.model';
   templateUrl: './arrangement.component.html',
   styleUrl: './arrangement.component.scss'
 })
-export class ArrangementComponent implements AfterViewInit {
-  @ViewChild('tableContainer', {static: false}) tableContainer!: ElementRef
-  @ViewChild('myCanvas', {static: false}) canvas!: ElementRef
-  @ViewChild('svgContainer') svgContainer!: ElementRef
+export class ArrangementComponent {
+  private imageSize = 13.5
+
   tables = [
     {
         id: 4,
@@ -27,6 +26,18 @@ export class ArrangementComponent implements AfterViewInit {
         positionY: 110,
         products: []
     },
+    {
+      id: 5,
+      tableNumber: 210,
+      openCosts: 0,
+      numberOfPeople: 2,
+      occupied: true,
+      occupiedFrom: null,
+      occupiedTill: null,
+      positionX: 200,
+      positionY: 110,
+      products: []
+  },
     {
         id: 6,
         tableNumber: 300,
@@ -64,64 +75,47 @@ export class ArrangementComponent implements AfterViewInit {
             }
         ]
     }
-      ]
+  ]
 
+  listOfTables: TableFull[] = []
 
   constructor(
     private tableService: TableService
   ) {
-    tableService.loadTables().subscribe(
-      data => { }
+    this.tableService.loadTables().subscribe(
+      data => {
+        this.listOfTables = data
+       }
     )
   }
 
-  ngAfterViewInit(): void {
-    this.configureTableContainer()
+  getImageUrl(numberOfPeople: number) {
+    return `/assets/images/${this.checkTableSize(numberOfPeople)}`
   }
 
-  configureTableContainer() {
-    this.tableContainer.nativeElement.style.width = '900px'
-    this.tableContainer.nativeElement.style.height = '500px'
-    this.tableContainer.nativeElement.style.border = '2px solid #ccc'
-    //this.createTables()
-    //this.createRectangles()
+  checkTableSize(size: number) {
+    switch(size) {
+      case 2: return 'two-pair-table.jpg'
+      case 4: return 'four-pair-table.jpg'
+      case 6: return 'six-pair-table.jpg'
+      default: return 'two-pair-table.jpg'
+    }
   }
 
-  createTables() {
-    this.svgContainer.nativeElement.style.width = '850px'
-    this.svgContainer.nativeElement.style.height = '470px'
-    this.svgContainer.nativeElement.style.border = '3px solid #ccc'
-    this.svgContainer.nativeElement.setAttribute('viewBox', '0 0 700 400');
-
-    this.tables.forEach((table) => {
-      const svgNS = 'http://www.w3.org/2000/svg'
-      const svgTable = document.createElementNS(svgNS, 'svg-rect')
-      svgTable.setAttribute('id', `table-${table.tableNumber}`)
-      svgTable.setAttribute('x', `${table.positionX}`)
-      svgTable.setAttribute('y', `${table.positionY}`)
-      svgTable.setAttribute('width', '30')
-      svgTable.setAttribute('height', '20')
-      svgTable.setAttribute('fill', 'blue')
-      svgTable.setAttribute('stroke', 'black')
-      svgTable.setAttribute('stroke-width', '2')
-      console.log(svgTable)
-      this.svgContainer.nativeElement.appendChild(svgTable)
-      console.log(this.tableContainer)
-    })
+  tableConfiguration(table: TableFull) {
+    console.log('table : ', table.id)
   }
 
-  createRectangles() {
-    this.tables.forEach(table => {
-      const rect = document.createElement('canvas')
-      rect.setAttribute('width', '100')
-      rect.setAttribute('height', '50')
-      rect.setAttribute('x', `${table.positionX}`)
-      rect.setAttribute('y', `${table.positionY}`)
-      rect.setAttribute('border', '2px solid #f32177')
-      rect.setAttribute('background-color', '#f7f7f7')
-      rect.setAttribute('border-radius', '20%')
-      this.tableContainer.nativeElement.appendChild(rect)
-    })
+  dragEnded(event: CdkDragEnd, table: TableFull) {
+    console.log(table)
+    console.log(event.distance)
+    let tab = this.listOfTables.find(t => t.id === table.id)
+    if (tab != undefined) {
+      tab.positionX += event.distance.x / 2
+      tab.positionY += event.distance.y / 2
+    }
+
+    console.log(table)
   }
 
 }

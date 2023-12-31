@@ -1,10 +1,10 @@
-<div #tableContainer>
-  <!-- <svg #svgContainer>
-
-  </svg> -->
-  <canvas #myCanvas style="width: 100%; height: 100%;">
-
-  </canvas>
-</div>
-
+<ng-container cdkDropListGroup>
+  <div class="table" *ngFor="let table of listOfTables"  [style.left.px]="table.positionX" [style.top.px]="table.positionY" >
+    <img [src]="getImageUrl(table.numberOfPeople)"
+          style="width: 1.5em;" alt="Table"
+          cdkDropListSortingDisabled="true"
+          (cdkDragEnded)="dragEnded($event, table)"
+          cdkDrag>
+  </div>
+</ng-container>
 
