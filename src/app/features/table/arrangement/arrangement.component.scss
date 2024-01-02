@@ -1,6 +1,73 @@
-.table {
-  position: absolute;
-  cursor: pointer;
+.grid-container {
+  display: grid;
+  width: 92%;
+  height: 80%;
+}
+
+.grid-row {
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+.grid-cell {
+  flex: 1;
+  border: 1px dotted black;
+  _box-sizing: border-box;
+  _height: 100%;
 }
 
 
+/*.grid-container {
+  display: grid;
+  grid-template-columns: repeat(30, 1fr);
+  grid-template-rows: repeat(30, 1fr);
+  grid-gap: 10px;
+}
+
+.grid-item {
+  border: 1px solid black;
+  text-align: center;
+  cursor: move;
+}
+
+.selected-row {
+  background-color: lightgray;
+}
+
+.selected-col {
+  background-color: lightgray;
+}
+
+.grid-item-header {
+  background-color: lightgray;
+  color: black;
+  font-weight: bold;
+  text-align: center;
+  padding: 5px;
+}
+
+.grid-item-body {
+  padding: 5px;
+}
+
+.grid-item-body-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid black;
+  margin-bottom: -1px;
+  margin-right: -1px;
+}
+
+.grid-item-body-item-inner {
+  border: 1px solid black;
+  padding: 5px;
+  min-width: 50px;
+  min-height: 50px;
+  text-align: center;
+}
+
+.grid-item-body-item-inner-text {
+  font-size: 20px;
+}
+ */

@@ -1,10 +1,27 @@
-<ng-container cdkDropListGroup>
-  <div class="table" *ngFor="let table of listOfTables"  [style.left.px]="table.positionX" [style.top.px]="table.positionY" >
-    <img [src]="getImageUrl(table.numberOfPeople)"
-          style="width: 1.5em;" alt="Table"
-          cdkDropListSortingDisabled="true"
-          (cdkDragEnded)="dragEnded($event, table)"
-          cdkDrag>
+<!-- <div class="grid-container" #grid>
+  <div *ngFor="let row of rows; index as r" class="grid-row">
+    <div *ngFor="let col of cols" class="grid-cell">
+      <div cdkDrag (cdkDragEnded)="dragEnded($event, row, col)">
+        <button mat-raised-button *ngIf="getTableByPosition(row, col)">{{ getTableByPosition(row, col)?.tableNumber }}</button>
+      </div>
+    </div>
   </div>
-</ng-container>
+</div> -->
 
+<!-- (cdkDragMoved)="handleDragMoved($event, row, col)" -->
+
+<div style="text-align:center">
+  <h1>
+    Drag and Drop
+  </h1>
+  <ng-container *ngFor="let dropZone of dropableObjects; let i = index;">
+    <div [appDropable]="dropZone"
+         (onDroppableComplete)="onZoneDrop($event)">
+       <ng-container *ngFor="let dragableElement of dragableObjects[i]; let j = index;">
+         <div [appDragable]="dragableElement">
+            {{dragableElement.data.name}}
+         </div>
+       </ng-container>
+    </div>
+  </ng-container>
+</div>
