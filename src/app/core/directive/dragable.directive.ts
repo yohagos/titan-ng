@@ -36,6 +36,7 @@ export class DragableDirective {
   }
 
   private addDragEvents() {
+    console.log('start drag - dragableDirective')
     this.onDragStart = this.renderer.listen(
       this.elementRef.nativeElement,
       'dragstart',

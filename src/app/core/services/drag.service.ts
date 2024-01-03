@@ -13,13 +13,17 @@ export class DragService {
   }
 
   public accepts(zoneId: string) {
-    return (this.zoneIds.indexOf(zoneId) > -1)
+    return this.zoneIds.indexOf(zoneId) > -1
   }
 
   public removeHighLightedAvailableZones() {
-    this.zoneIds.forEach((zone: string) => {
-      this.availableZones[zone].end()
-    })
+    console.log(this.zoneIds)
+    if (this.zoneIds !== undefined) {
+      this.zoneIds.forEach((zone: string) => {
+        this.availableZones[zone].end()
+      })
+    }
+
   }
 
   public addAvailableZone(zoneId: string, obj: {begin: Function, end: Function}) {
@@ -30,9 +34,8 @@ export class DragService {
     delete this.availableZones[zoneId]
   }
 
-
   private highLightAvailableZones() {
-    this.zoneIds.forEach((zone: string) => {
+    this.zoneIds?.forEach((zone: string) => {
       this.availableZones[zone].begin()
     })
   }

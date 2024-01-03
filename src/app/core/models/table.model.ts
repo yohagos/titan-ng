@@ -24,6 +24,11 @@ export interface Table {
   positionY: number
 }
 
+export interface TableAdd {
+  tableNumber: number
+  numberOfPeople: number
+}
+
 export interface TableAddRequest {
   tableNummer: number
   numberOfPeople: number

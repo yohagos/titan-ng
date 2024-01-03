@@ -22,6 +22,7 @@ import { EditProductDialogComponent } from './features/product/edit-dialog/edit-
 import { TableComponent } from './features/table/table.component';
 import { BookingComponent } from './features/table/booking/booking.component';
 import { ArrangementComponent } from './features/table/arrangement/arrangement.component';
+import { AddTableDialogComponent } from "./features/table/arrangement/add-table-dialog/add-table-dialog.component";
 
 import { AddDialogComponent } from './features/category/add-dialog/add-dialog.component';
 import { ConfirmDialogComponent } from "./features/shared/confirm-dialog/confirm-dialog.component";
@@ -63,6 +64,7 @@ import { DragService } from './core/services/drag.service';
     TableComponent,
     BookingComponent,
     ArrangementComponent,
+    AddTableDialogComponent,
 
     HeaderComponent,
     NavigationComponent,
