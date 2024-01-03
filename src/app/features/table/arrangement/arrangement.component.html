@@ -1,16 +1,16 @@
-<!-- <div class="grid-container" #grid>
+<div class="grid-container" #grid>
   <div *ngFor="let row of rows; index as r" class="grid-row">
     <div *ngFor="let col of cols" class="grid-cell">
       <div cdkDrag (cdkDragEnded)="dragEnded($event, row, col)">
-        <button mat-raised-button *ngIf="getTableByPosition(row, col)">{{ getTableByPosition(row, col)?.tableNumber }}</button>
+        <button mat-raised-button *ngIf="getTableByPosition(row, col)">{{ getTableByPosition(row, col)?.num }}</button>
       </div>
     </div>
   </div>
-</div> -->
+</div>
 
 <!-- (cdkDragMoved)="handleDragMoved($event, row, col)" -->
 
-<div style="text-align:center">
+<!-- <div style="text-align:center">
   <h1>
     Drag and Drop
   </h1>
@@ -24,4 +24,8 @@
        </ng-container>
     </div>
   </ng-container>
-</div>
+</div> -->
+
+<section>
+  <button mat-raised-button (click)="addNewTable()">Add Dining Table</button>
+</section>

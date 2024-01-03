@@ -3,10 +3,14 @@ import { CdkDragDrop, moveItemInArray, CdkDragEnd, CdkDropListGroup, CdkDropList
 import {  } from "@angular/cdk";
 import { TableService } from 'src/app/core/services/table.service';
 import { TableFull } from 'src/app/core/models/table.model';
+import { MatDialog } from '@angular/material/dialog';
+import { AddTableDialogComponent } from './add-table-dialog/add-table-dialog.component';
 
 interface TEST {
-  x: number;
-  y: number;
+  position: {
+    x: number;
+    y: number;
+  }
   icon?: string;
   num?: number;
   seats?: number
@@ -18,114 +22,42 @@ interface TEST {
   styleUrl: './arrangement.component.scss'
 })
 export class ArrangementComponent {
-  /* rows = Array.from({ length: 10 }, (_, index) => index + 1);
+  rows = Array.from({ length: 10 }, (_, index) => index + 1);
   cols = Array.from({ length: 10 }, (_, index) => index + 1);
 
   @ViewChild("grid", { static: true }) grid!: ElementRef;
   gridWidth = 0
-  gridHeight = 0 */
+  gridHeight = 0
 
-/*   tables = [
+  list: TEST[] = [
     {
-        id: 4,
-        tableNumber: 210,
-        openCosts: 0,
-        numberOfPeople: 6,
-        occupied: true,
-        occupiedFrom: null,
-        occupiedTill: null,
-        positionX: 5,
-        positionY: 11,
-        products: []
-    },
-    {
-      id: 5,
-      tableNumber: 210,
-      openCosts: 0,
-      numberOfPeople: 2,
-      occupied: true,
-      occupiedFrom: null,
-      occupiedTill: null,
-      positionX: 20,
-      positionY: 5,
-      products: []
-    },
-    {
-      id: 6,
-      tableNumber: 300,
-      openCosts: 0,
-      numberOfPeople: 4,
-      occupied: true,
-      occupiedFrom: null,
-      occupiedTill: null,
-      positionX: 10,
-      positionY: 25,
-      products: [
-          {
-              id: 14,
-              name: "Martini",
-              price: 13,
-              category: {
-                  id: 2,
-                  categoryName: "Cocktail",
-                  measurement: 0.3,
-                  unit: "ML",
-                  color: "#a2a2d0"
-              }
-          },
-          {
-              id: 15,
-              name: "Negroni",
-              price: 11,
-              category: {
-                  id: 2,
-                  categoryName: "Cocktail",
-                  measurement: 0.3,
-                  unit: "ML",
-                  color: "#a2a2d0"
-              }
-          }
-      ]
-    }
-  ] */
-
-/*   list: TEST[] = [
-    {
-      x: 7,
-      y: 5,
+      position: {
+        x: 7,
+        y: 5,
+      },
       icon: "check_circle_outline",
       num: 1,
       seats: 2
     },
     {
-      x: 10,
-      y: 8,
+      position: {
+        x: 6,
+        y: 8,
+      },
       icon: "check_circle_outline",
       num: 15,
       seats: 4
     },
     {
-      x: 3,
-      y: 15,
+      position: {
+        x: 10,
+        y: 3,
+      },
       icon: "check_circle_outline",
       num: 16,
       seats: 6
-    },
-    {
-      x: 17,
-      y: 15,
-      icon: "check_circle_outline",
-      num: 21,
-      seats: 2
-    },
-    {
-      x: 27,
-      y: 25,
-      icon: "check_circle_outline",
-      num: 11,
-      seats: 2
-    },
-  ] */
+    }
+  ]
 
   private dragableElements = 3
   private zonePrefix = 'zone-'
@@ -136,7 +68,8 @@ export class ArrangementComponent {
   listOfTables: TableFull[] = []
 
   constructor(
-    private tableService: TableService
+    private tableService: TableService,
+    public matDialog: MatDialog
   ) {
     /*
       this.tableService.loadTables().subscribe(
@@ -146,7 +79,7 @@ export class ArrangementComponent {
       )
     */
 
-    for (let i = 0; i < this.dragableElements; i++) {
+    /* for (let i = 0; i < this.dragableElements; i++) {
       this.dropableObjects.push({
         data: {
           column: i
@@ -162,10 +95,21 @@ export class ArrangementComponent {
         },
         zones: this.generateZones(i)
       })
-    }
+    } */
   }
 
-  private generateZones(zone: number): Array<string> {
+  addNewTable() {
+    const dialogRef = this.matDialog.open(AddTableDialogComponent, {
+      width: '300px'
+    })
+    dialogRef.afterClosed().subscribe(
+      (data) => {
+        console.log(data)
+      }
+    )
+  }
+
+  /* private generateZones(zone: number): Array<string> {
     const zones: Array<string> = []
     for (let i = 0; i < this.dragableElements; i++) {
       zones.push(this.zonePrefix + i)
@@ -195,19 +139,27 @@ export class ArrangementComponent {
           this.dragableObjects[event.data.currentColumn].splice(i, 1);
         }
     }
-  }
+  } */
 
-/*   ngAfterViewChecked(): void {
+  ngAfterViewChecked(): void {
       this.gridWidth = this.grid.nativeElement.clientWidth
       this.gridHeight = this.grid.nativeElement.clientHeight
   }
 
   getTableByPosition(row: number, col: number) {
-    const t = this.listOfTables.find(item => item.positionY === col && item.positionX === row)
+    const t = this.list.find(item => item.position.y === col && item.position.x === row)
     if (t !== undefined) {
       return t
     }
     return
+  }
+
+  updateTable(table: TEST) {
+    let x = this.list.find(tab => tab.num === table.num)
+    if (x) {
+      x.position = table.position
+    }
+    console.log(this.list)
   }
 
   getImageUrl(numberOfPeople: number) {
@@ -229,18 +181,28 @@ export class ArrangementComponent {
   }
 
   dragEnded(event: CdkDragEnd, row: number, col: number) {
-    /* console.log(table)
-    console.log(event)
-    console.log(row)
-    console.log(col)
+    let table = this.getTableByPosition(row, col)
+    console.log(table)
+    if (table) {
+      let x = event.distance.x % 10
+      let y = event.distance.y % 10
+      x = (x / 3) % 2
+      y = (y / 3) % 2
+      table.position.x = table.position.x + Math.round(x)
+      table.position.y = table.position.y + Math.round(y)
+      this.updateTable(table)
+    }
+    console.log(table?.position)
+    /* console.log(row)
+    console.log(col) */
     /* let tab = this.listOfTables.find(t => t.id === table.id)
     if (tab != undefined) {
       tab.positionX += event.distance.x / 2
       tab.positionY += event.distance.y / 2
     }
 
-    console.log(table)
-  } */
+    console.log(table) */
+  }
 
 /*   selectedRowIndex = 0;
   selectedColIndex = 0;
