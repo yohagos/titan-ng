@@ -40,10 +40,6 @@ import { ErrorInterceptor } from './core/interceptors/error.interceptor';
 // Pipes
 import { TextFilterPipe } from './core/pipe/textfilter.pipe';
 import { EnumToArrayPipe } from "./core/pipe/enumToArray.pipe";
-import { DropableDirective } from './core/directive/dropable.directive';
-import { DragableDirective } from './core/directive/dragable.directive';
-import { DragService } from './core/services/drag.service';
-
 
 
 @NgModule({
@@ -71,10 +67,7 @@ import { DragService } from './core/services/drag.service';
     CashierComponent,
 
     TextFilterPipe,
-    EnumToArrayPipe,
-
-    DragableDirective,
-    DropableDirective
+    EnumToArrayPipe
   ],
   imports: [
     BrowserModule,
@@ -88,7 +81,6 @@ import { DragService } from './core/services/drag.service';
     DragDropModule,
   ],
   providers: [
-    DragService,
     { provide: HTTP_INTERCEPTORS, useClass: ApiInterceptor, multi: true},
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true},
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},

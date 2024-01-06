@@ -3,14 +3,14 @@ import { ProductFull } from "./product.model"
 export interface TableFull {
   id: number
   tableNumber: number
-  openCosts: number
+  openCosts?: number
   numberOfPeople: number
-  occupied: boolean
-  occupiedFrom: any
-  occupiedTill: any
+  occupied?: boolean
+  occupiedFrom?: any
+  occupiedTill?: any
   positionX: number
   positionY: number
-  products: ProductFull[]
+  products?: ProductFull[]
 }
 
 export interface Table {

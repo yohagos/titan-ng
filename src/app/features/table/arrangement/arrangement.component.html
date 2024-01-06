@@ -1,31 +1,13 @@
-<div class="grid-container" #grid>
-  <div *ngFor="let row of rows; index as r" class="grid-row">
-    <div *ngFor="let col of cols" class="grid-cell">
-      <div cdkDrag (cdkDragEnded)="dragEnded($event, row, col)">
-        <button mat-raised-button *ngIf="getTableByPosition(row, col)">{{ getTableByPosition(row, col)?.num }}</button>
-      </div>
-    </div>
+<div class="example-boundary">
+  <div class="example-box" *ngFor="let item of tables$ | async" cdkDragBoundary=".example-boundary" [cdkDragFreeDragPosition]="tablePosition(item)" (cdkDragEnded)="dragEnded($event, item)" cdkDrag>
+      <button mat-stroked-button>
+        {{item.tableNumber}}
+      </button>
   </div>
 </div>
 
-<!-- (cdkDragMoved)="handleDragMoved($event, row, col)" -->
-
-<!-- <div style="text-align:center">
-  <h1>
-    Drag and Drop
-  </h1>
-  <ng-container *ngFor="let dropZone of dropableObjects; let i = index;">
-    <div [appDropable]="dropZone"
-         (onDroppableComplete)="onZoneDrop($event)">
-       <ng-container *ngFor="let dragableElement of dragableObjects[i]; let j = index;">
-         <div [appDragable]="dragableElement">
-            {{dragableElement.data.name}}
-         </div>
-       </ng-container>
-    </div>
-  </ng-container>
-</div> -->
 
 <section>
+  <button *ngIf="changesDetected" mat-raised-button color="primary" (click)="updateAllPositions()"> Save arrangement </button>
   <button mat-raised-button (click)="addNewTable()">Add Dining Table</button>
 </section>
