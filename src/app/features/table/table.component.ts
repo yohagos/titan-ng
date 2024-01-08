@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { CdkDrag } from "@angular/cdk/drag-drop";
 import { Router } from '@angular/router';
 import { TableFull } from 'src/app/core/models/table.model';
 import { TableService } from 'src/app/core/services/table.service';
@@ -11,6 +12,7 @@ import { TableService } from 'src/app/core/services/table.service';
 export class TableComponent {
   loading = true
   tables: TableFull[] = []
+  tables$ = this.tableService.tables
 
   constructor(
     private readonly tableService: TableService,
@@ -41,5 +43,9 @@ export class TableComponent {
 
   openTable(table: TableFull) {
     this.router.navigate(['/nav/table', table.id], {queryParams: {...table}, skipLocationChange: true})
+  }
+
+  tablePositon(table: TableFull) {
+    return {x: table.positionX, y: table.positionY}
   }
 }
