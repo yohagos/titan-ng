@@ -1,0 +1,19 @@
+<div>
+  <h2 matDialogTitle>Add Table</h2>
+  <mat-dialog-content>
+    <form [formGroup]="addTableForm">
+      <mat-form-field appearance="outline">
+        <mat-label>Table Number</mat-label>
+        <input matInput placeholder="100" formControlName="tableNumber">
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Seats</mat-label>
+        <input matInput type="number" placeholder="2 or 4 or 6" min="2" max="6" formControlName="seats">
+      </mat-form-field>
+    </form>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button mat-raised-button color="primary" (click)="submit()">Add</button>
+    <button mat-raised-button color="grey" mat-dialog-close>Cancel</button>
+  </mat-dialog-actions>
+</div>

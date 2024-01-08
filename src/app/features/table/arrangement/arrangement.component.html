@@ -1,2 +1,13 @@
+<div class="example-boundary">
+  <div class="example-box" *ngFor="let item of tables$ | async"
+    cdkDragBoundary=".example-boundary" [cdkDragFreeDragPosition]="tablePosition(item)"
+    (cdkDragEnded)="dragEnded($event, item)" cdkDrag>
+    {{item.tableNumber}}
+  </div>
+</div>
 
 
+<section>
+  <button *ngIf="changesDetected" mat-raised-button color="primary" (click)="updateAllPositions()"> Save arrangement </button>
+  <button mat-raised-button (click)="addNewTable()">Add Dining Table</button>
+</section>

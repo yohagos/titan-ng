@@ -22,6 +22,7 @@ import { EditProductDialogComponent } from './features/product/edit-dialog/edit-
 import { TableComponent } from './features/table/table.component';
 import { BookingComponent } from './features/table/booking/booking.component';
 import { ArrangementComponent } from './features/table/arrangement/arrangement.component';
+import { AddTableDialogComponent } from "./features/table/arrangement/add-table-dialog/add-table-dialog.component";
 
 import { AddDialogComponent } from './features/category/add-dialog/add-dialog.component';
 import { ConfirmDialogComponent } from "./features/shared/confirm-dialog/confirm-dialog.component";
@@ -39,7 +40,6 @@ import { ErrorInterceptor } from './core/interceptors/error.interceptor';
 // Pipes
 import { TextFilterPipe } from './core/pipe/textfilter.pipe';
 import { EnumToArrayPipe } from "./core/pipe/enumToArray.pipe";
-
 
 
 @NgModule({
@@ -60,6 +60,7 @@ import { EnumToArrayPipe } from "./core/pipe/enumToArray.pipe";
     TableComponent,
     BookingComponent,
     ArrangementComponent,
+    AddTableDialogComponent,
 
     HeaderComponent,
     NavigationComponent,
@@ -78,7 +79,6 @@ import { EnumToArrayPipe } from "./core/pipe/enumToArray.pipe";
     ReactiveFormsModule,
     ColorPickerModule,
     DragDropModule,
-
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: ApiInterceptor, multi: true},
