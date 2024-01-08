@@ -69,12 +69,15 @@ export class ArrangementComponent implements AfterContentChecked {
   }
 
   dragEnded(event: CdkDragEnd, item: TableFull) {
+    console.log({item})
     let tabs = this.tableService.getAllTables()
-    let table = tabs.find(tab => tab.tableNumber == item.tableNumber)
+    console.table(tabs)
+    let table = tabs.find(tab => tab.id == item.id)
     if (table != null) {
       table.positionX = event.source.getFreeDragPosition().x
       table.positionY = event.source.getFreeDragPosition().y
     }
+    console.table(tabs)
     this.tableService.updateTableObservable(tabs)
   }
 

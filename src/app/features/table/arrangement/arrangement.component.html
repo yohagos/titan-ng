@@ -1,8 +1,8 @@
 <div class="example-boundary">
-  <div class="example-box" *ngFor="let item of tables$ | async" cdkDragBoundary=".example-boundary" [cdkDragFreeDragPosition]="tablePosition(item)" (cdkDragEnded)="dragEnded($event, item)" cdkDrag>
-      <button mat-stroked-button>
-        {{item.tableNumber}}
-      </button>
+  <div class="example-box" *ngFor="let item of tables$ | async"
+    cdkDragBoundary=".example-boundary" [cdkDragFreeDragPosition]="tablePosition(item)"
+    (cdkDragEnded)="dragEnded($event, item)" cdkDrag>
+    {{item.tableNumber}}
   </div>
 </div>
 
