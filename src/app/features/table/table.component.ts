@@ -17,6 +17,8 @@ export class TableComponent {
   tables: TableFull[] = []
   tables$ = this.tableService.tables
 
+  timestamp = new Date().getTime()
+
   constructor(
     private readonly tableService: TableService,
     private router: Router,
