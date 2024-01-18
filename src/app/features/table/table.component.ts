@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { CdkDrag } from "@angular/cdk/drag-drop";
-import { Router } from '@angular/router';
+import { NavigationEnd, Router, Scroll } from '@angular/router';
 import { TableFull } from 'src/app/core/models/table.model';
 import { TableService } from 'src/app/core/services/table.service';
+import { filter, map } from 'rxjs';
 
 @Component({
   selector: 'app-table',
@@ -18,7 +19,17 @@ export class TableComponent {
     private readonly tableService: TableService,
     private router: Router
   ) {
-    tableService.loadTables().subscribe(
+    router.events.subscribe((event) => {
+      if (event instanceof Scroll) {
+        if (event?.routerEvent.url === '/nav/table') {
+          this.loadTables()
+        }
+      }
+    })
+  }
+
+  loadTables() {
+    this.tableService.loadTables().subscribe(
       data => {
         this.tables = data
         this.loading = false
