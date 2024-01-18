@@ -55,6 +55,12 @@ button.mat-raised-button span {
   font-size: smaller;
 }
 
+.spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 @media only screen {
   .mainContainer {
     display: flex;
