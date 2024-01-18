@@ -4,6 +4,8 @@ import { NavigationEnd, Router, Scroll } from '@angular/router';
 import { TableFull } from 'src/app/core/models/table.model';
 import { TableService } from 'src/app/core/services/table.service';
 import { filter, map } from 'rxjs';
+import { MatDialog } from '@angular/material/dialog';
+import { PinDialogComponent } from '../authentication/pin-dialog/pin-dialog.component';
 
 @Component({
   selector: 'app-table',
@@ -17,7 +19,8 @@ export class TableComponent {
 
   constructor(
     private readonly tableService: TableService,
-    private router: Router
+    private router: Router,
+    private matDialog: MatDialog
   ) {
     router.events.subscribe((event) => {
       if (event instanceof Scroll) {
@@ -58,5 +61,12 @@ export class TableComponent {
 
   tablePositon(table: TableFull) {
     return {x: table.positionX, y: table.positionY}
+  }
+
+  dialog() {
+    const dialogRef = this.matDialog.open(PinDialogComponent, {
+      width: '650px',
+      height: '550px'
+    })
   }
 }
