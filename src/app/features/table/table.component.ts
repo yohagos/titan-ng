@@ -4,7 +4,7 @@ import { NavigationEnd, Router, Scroll } from '@angular/router';
 import { TableFull } from 'src/app/core/models/table.model';
 import { TableService } from 'src/app/core/services/table.service';
 import { filter, map } from 'rxjs';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { PinDialogComponent } from '../authentication/pin-dialog/pin-dialog.component';
 
 @Component({
@@ -29,6 +29,7 @@ export class TableComponent {
         }
       }
     })
+    this.dialog()
   }
 
   loadTables() {
@@ -65,8 +66,9 @@ export class TableComponent {
 
   dialog() {
     const dialogRef = this.matDialog.open(PinDialogComponent, {
-      width: '650px',
-      height: '550px'
+      width: '600px',
+      height: '500px',
+      disableClose: true
     })
   }
 }

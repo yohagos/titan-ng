@@ -13,6 +13,9 @@
   width: 98%;
   height: 30px;
   margin-left: 10px;
+  text-align: center;
+  letter-spacing: 20px;
+  font-size: 30px;
 }
 
 table {
@@ -25,4 +28,8 @@ button {
   font-size: 24px;
   margin: 10px;
   border: none;
+}
+
+.snackbarError {
+  background-color: '#23e13f';
 }
