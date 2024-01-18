@@ -1,19 +1,22 @@
+.title {
+  display: block;
+  text-align: center;
+  margin-top: 30px;
+}
+
 .pin {
   display: block;
-  _justify-self: center;
-  _align-self: center;
-  _align-items: center;
   margin: auto;
 }
 
 .inputField {
   width: 98%;
   height: 30px;
+  margin-left: 10px;
 }
 
 table {
   margin: auto;
-  _border: 3px solid black;
 }
 
 button {
