@@ -20,10 +20,10 @@ export class RegisterComponent {
     private readonly router: Router
   ) {
     this.registerForm = this.formBuilder.group({
-      firstname: new FormControl('Yosef'),
-      lastname: new FormControl('Hagos'),
-      email: new FormControl('yosef@hagos.com'),
-      password: new FormControl('hagos'),
+      firstname: new FormControl('David'),
+      lastname: new FormControl('David'),
+      email: new FormControl('david@david.com'),
+      password: new FormControl('david'),
     })
   }
 
