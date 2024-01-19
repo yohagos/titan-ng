@@ -25,12 +25,28 @@ export class UserService {
     private readonly jwtService: JwtService
   ) { }
 
+  // Storage
+
+  savePin(pin: number) {
+    window.localStorage['pin'] = pin
+  }
+
+  removePin() {
+    window.localStorage.removeItem('pin')
+  }
+
+  // Backend Calls
+
   register(credentials: RegisterCredentials) {
     return this.http.post('auth/register', credentials)
   }
 
   login(credentials: LoginCredentials) {
     return this.http.post("auth/authenticate", credentials, {withCredentials: true})
+  }
+
+  pinAuthentication(pin: string) {
+    return this.http.get(`user/${pin}`)
   }
 
   purgeAuth() {

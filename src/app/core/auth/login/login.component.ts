@@ -19,8 +19,8 @@ export class LoginComponent {
     private readonly userService: UserService
   ) {
     this.loginForm = formBuilder.group({
-      email: new FormControl('yosef@hagos.com', [Validators.required, Validators.email]),
-      password: new FormControl('hagos', Validators.required)
+      email: new FormControl('david@david.com', [Validators.required, Validators.email]),
+      password: new FormControl('david', Validators.required)
     })
   }
 

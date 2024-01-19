@@ -1,9 +1,12 @@
 import { Component } from '@angular/core';
-import { CdkDrag } from "@angular/cdk/drag-drop";
-import { NavigationEnd, Router, Scroll } from '@angular/router';
+
+import { Router, Scroll } from '@angular/router';
 import { TableFull } from 'src/app/core/models/table.model';
 import { TableService } from 'src/app/core/services/table.service';
-import { filter, map } from 'rxjs';
+
+import { MatDialog } from '@angular/material/dialog';
+import { PinDialogComponent } from '../authentication/pin-dialog/pin-dialog.component';
+import { TimerService } from 'src/app/core/services/timer.service';
 
 @Component({
   selector: 'app-table',
@@ -17,7 +20,9 @@ export class TableComponent {
 
   constructor(
     private readonly tableService: TableService,
-    private router: Router
+    private router: Router,
+    private matDialog: MatDialog,
+    private timerService: TimerService,
   ) {
     router.events.subscribe((event) => {
       if (event instanceof Scroll) {
@@ -26,6 +31,10 @@ export class TableComponent {
         }
       }
     })
+    this.timerService.userInteraction$.subscribe(() => {
+      this.dialog()
+    })
+    this.dialog()
   }
 
   loadTables() {
@@ -58,5 +67,13 @@ export class TableComponent {
 
   tablePositon(table: TableFull) {
     return {x: table.positionX, y: table.positionY}
+  }
+
+  dialog() {
+    const dialogRef = this.matDialog.open(PinDialogComponent, {
+      width: '600px',
+      height: '500px',
+      disableClose: true
+    })
   }
 }
