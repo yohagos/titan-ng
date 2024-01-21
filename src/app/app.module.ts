@@ -9,7 +9,6 @@ import { ColorPickerModule } from "ngx-color-picker";
 // Components
 import { AppComponent } from './app.component';
 import { PinDialogComponent } from "./features/authentication/pin-dialog/pin-dialog.component";
-import { UserInteractionDirective } from "./core/directive/user-interaction.directive";
 import { LoginComponent } from './core/auth/login/login.component';
 import { RegisterComponent } from './core/auth/register/register.component';
 import { HeaderComponent } from "./features/shared/header/header.component";
@@ -48,7 +47,6 @@ import { EnumToArrayPipe } from "./core/pipe/enumToArray.pipe";
   declarations: [
     AppComponent,
     PinDialogComponent,
-    UserInteractionDirective,
     LoginComponent,
     RegisterComponent,
 
