@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { UserService } from 'src/app/core/services/user.service';
+import { TableComponent } from '../../table/table.component';
 
 @Component({
   selector: 'app-header',
@@ -29,6 +30,10 @@ export class HeaderComponent {
         }
       }
     )
+  }
+
+  openUserProfile() {
+    this.router.navigate(['/profile'])
   }
 
   openCategory() {
