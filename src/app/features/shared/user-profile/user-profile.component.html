@@ -1,1 +1,32 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>
+      Profile: {{currentUser?.firstname}} {{currentUser?.lastname}}
+    </mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <div class="formFields" [formGroup]="profileForm">
+      <mat-form-field appearance="outline">
+        <mat-label>Firstname</mat-label>
+        <input matInput formControlName="firstname">
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Lastname</mat-label>
+        <input matInput formControlName="lastname">
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email">
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Role</mat-label>
+        <input matInput formControlName="role">
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Pin</mat-label>
+        <input matInput type="password" formControlName="pin">
+      </mat-form-field>
+    </div>
+  </mat-card-content>
+</mat-card>
 
