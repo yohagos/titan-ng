@@ -38,7 +38,8 @@ export class UserProfileComponent {
 
   changePinDialog() {
     const dialogRef = this.matDialog.open(ChangePinDialogComponent, {
-      data: {user: this.currentUser}
+      data: {user: this.currentUser},
+      width: '500px',
     })
   }
 
