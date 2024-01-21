@@ -15,6 +15,7 @@ import { HeaderComponent } from "./features/shared/header/header.component";
 import { NavigationComponent } from "./features/shared/navigation/navigation.component";
 import { CashierComponent } from "./features/shared/cashier/cashier.component";
 import { UserProfileComponent } from "./features/shared/user-profile/user-profile.component";
+import { ChangePinDialogComponent } from './features/shared/user-profile/change-pin-dialog/change-pin-dialog.component';
 import { CategoryComponent } from './features/category/category.component';
 
 import { ProductComponent } from './features/product/product.component';
@@ -44,6 +45,7 @@ import { TextFilterPipe } from './core/pipe/textfilter.pipe';
 import { EnumToArrayPipe } from "./core/pipe/enumToArray.pipe";
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -51,6 +53,7 @@ import { EnumToArrayPipe } from "./core/pipe/enumToArray.pipe";
     LoginComponent,
     RegisterComponent,
     UserProfileComponent,
+    ChangePinDialogComponent,
 
     CategoryComponent,
     AddDialogComponent,
