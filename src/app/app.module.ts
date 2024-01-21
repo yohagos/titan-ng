@@ -14,6 +14,7 @@ import { RegisterComponent } from './core/auth/register/register.component';
 import { HeaderComponent } from "./features/shared/header/header.component";
 import { NavigationComponent } from "./features/shared/navigation/navigation.component";
 import { CashierComponent } from "./features/shared/cashier/cashier.component";
+import { UserProfileComponent } from "./features/shared/user-profile/user-profile.component";
 import { CategoryComponent } from './features/category/category.component';
 
 import { ProductComponent } from './features/product/product.component';
@@ -49,6 +50,7 @@ import { EnumToArrayPipe } from "./core/pipe/enumToArray.pipe";
     PinDialogComponent,
     LoginComponent,
     RegisterComponent,
+    UserProfileComponent,
 
     CategoryComponent,
     AddDialogComponent,

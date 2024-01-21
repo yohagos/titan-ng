@@ -10,6 +10,7 @@ import { ProductComponent } from './features/product/product.component';
 import { TableComponent } from './features/table/table.component';
 import { ArrangementComponent } from './features/table/arrangement/arrangement.component';
 import { BookingComponent } from './features/table/booking/booking.component';
+import { UserProfileComponent } from './features/shared/user-profile/user-profile.component';
 
 const routes: Routes = [
   {
@@ -48,6 +49,11 @@ const routes: Routes = [
       {
         path: 'product',
         component: ProductComponent
+        //canActivate: [AuthGuardService]
+      },
+      {
+        path: 'profile',
+        component: UserProfileComponent,
         //canActivate: [AuthGuardService]
       },
       {
