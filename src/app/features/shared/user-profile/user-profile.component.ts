@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { User, UserBasic } from 'src/app/core/models/user.model';
 import { UserService } from 'src/app/core/services/user.service';
+import { ChangePinDialogComponent } from './change-pin-dialog/change-pin-dialog.component';
 
 @Component({
   selector: 'app-user-profile',
@@ -16,6 +18,7 @@ export class UserProfileComponent {
   constructor(
     private userService: UserService,
     private formBuilder: FormBuilder,
+    private matDialog: MatDialog
   ) {
     this.currentUser = this.userService.getCurrentUser()
 
@@ -31,6 +34,12 @@ export class UserProfileComponent {
   capitalizeFirstLetter(value: string | undefined) {
     if (!value) return value
     return value.charAt(0).toUpperCase() + value.slice(1).toLowerCase()
+  }
+
+  changePinDialog() {
+    const dialogRef = this.matDialog.open(ChangePinDialogComponent, {
+      data: {user: this.currentUser}
+    })
   }
 
 }

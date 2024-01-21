@@ -33,3 +33,8 @@ export interface LoginCredentials {
   password: string
 }
 
+export interface UserUpdatePin {
+  userId: number
+  pin: number
+}
+

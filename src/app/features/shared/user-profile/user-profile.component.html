@@ -28,5 +28,10 @@
       </mat-form-field>
     </div>
   </mat-card-content>
+  <mat-card-actions *ngIf="currentUser">
+    <button mat-raised-button color="primary" (click)="changePinDialog()">
+      Change Pin
+    </button>
+  </mat-card-actions>
 </mat-card>
 
