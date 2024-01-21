@@ -64,9 +64,9 @@ export class PinDialogComponent {
     this.userService.pinAuthentication(pin).subscribe({
       next: (data) => {
         this.pinForm.get('pin')?.setValue('')
-        let user = data as UserBasic
-        this.userService.savePin(user.pin)
-        this.dialogRef.close()
+        this.user = data as UserBasic
+        this.userService.savePin(this.user.pin)
+        this.dialogRef.close(this.user)
       },
       error: (err) => {
         this.state = 'end'

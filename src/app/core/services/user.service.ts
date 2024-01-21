@@ -4,7 +4,7 @@ import {
   Observable, BehaviorSubject,
   distinctUntilChanged, map
 } from "rxjs";
-import { LoginCredentials, RegisterCredentials, User } from '../models/user.model';
+import { LoginCredentials, RegisterCredentials, User, UserBasic } from '../models/user.model';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { JwtService } from './jwt.service';
@@ -33,6 +33,16 @@ export class UserService {
 
   removePin() {
     window.localStorage.removeItem('pin')
+  }
+
+  saveCurrentUser(user: User) {
+    let users = this.currentUserSubject.getValue()
+    users = user
+    this.currentUserSubject.next(users)
+  }
+
+  getCurrentUser() {
+    return this.currentUserSubject.getValue()
   }
 
   // Backend Calls
