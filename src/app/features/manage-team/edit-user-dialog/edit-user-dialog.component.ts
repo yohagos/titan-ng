@@ -1,10 +1,55 @@
-import { Component } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { UserBasic, UserRolesEnum } from 'src/app/core/models/user.model';
+import { UserService } from 'src/app/core/services/user.service';
+import { UtilService } from '../../shared/services/util.service';
+import { SnackbarService } from '../../shared/services/snackbar.service';
 
 @Component({
   selector: 'app-edit-user-dialog',
   templateUrl: './edit-user-dialog.component.html',
   styleUrl: './edit-user-dialog.component.scss'
 })
-export class EditUserDialogComponent {
+export class EditUserDialogComponent implements OnInit {
+  editForm: FormGroup
+  currentUser: UserBasic
+  roles: string[] = []
+
+  constructor(
+    private userService: UserService,
+    private dialogRef: MatDialogRef<EditUserDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) data: {user: UserBasic},
+    private formBuilder: FormBuilder,
+    private utilService: UtilService,
+    private snackbarService: SnackbarService
+  ) {
+    this.currentUser = data.user
+    this.editForm = this.formBuilder.group({
+      firstname: new FormControl(data.user.firstname, Validators.required),
+      lastname: new FormControl(data.user.lastname, Validators.required),
+      email: new FormControl(data.user.email, [Validators.required, Validators.email]),
+      pin: new FormControl(data.user.pin, Validators.required),
+      role: new FormControl(utilService.capitalizeFirstLetter(data.user.role), Validators.required),
+    })
+  }
+
+  ngOnInit() {
+    this.roles = Object.keys(UserRolesEnum).filter((item) => {
+      return isNaN(Number(item))
+    })
+  }
+
+  editUser() {
+    let user = this.editForm.value
+    this.userService.editUser(user).subscribe({
+      next: (data) => {
+        console.log(data)
+      },
+      error: (err) => {
+        console.log(err)
+      }
+    })
+  }
 
 }

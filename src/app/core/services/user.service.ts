@@ -71,6 +71,10 @@ export class UserService {
     return this.http.post<User>("user/add", user, {withCredentials: true})
   }
 
+  editUser(user: UserBasic) {
+    return this.http.put<UserBasic>(`user/${user.id}`, user, {withCredentials: true})
+  }
+
   deleteUser(id: number) {
     return this.http.delete<UserBasic>(`user/${id}`)
   }
