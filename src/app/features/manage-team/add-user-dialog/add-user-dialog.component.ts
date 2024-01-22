@@ -4,6 +4,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { User, UserAddRequest, UserRolesEnum } from 'src/app/core/models/user.model';
 import { UserService } from 'src/app/core/services/user.service';
+import { SnackbarService } from '../../shared/services/snackbar.service';
 
 @Component({
   selector: 'app-add-user-dialog',
@@ -18,12 +19,12 @@ export class AddUserDialogComponent implements OnInit {
     private userService: UserService,
     private formBuilder: FormBuilder,
     private dialogRef: MatDialogRef<AddUserDialogComponent>,
-    private snackbar: MatSnackBar
+    private snackbarService: SnackbarService
   ) {
     this.addUserForm = this.formBuilder.group({
       firstname: new FormControl('', Validators.required),
       lastname: new FormControl('', Validators.required),
-      email: new FormControl('', Validators.required),
+      email: new FormControl('', [Validators.required, Validators.email]),
       pin: new FormControl('', Validators.required),
       role: new FormControl('', Validators.required),
     })
@@ -39,19 +40,11 @@ export class AddUserDialogComponent implements OnInit {
     let request: UserAddRequest = this.addUserForm.value
     this.userService.addNewUser(request).subscribe({
       next: (data: User) => {
-        this.snackbar.open(`User "${data.firstname} ${data.lastname}" added`, 'Done', {
-          duration: 3000,
-          horizontalPosition: 'center',
-          verticalPosition: 'bottom'
-        })
+        this.snackbarService.snackbarSuccess(`User "${data.firstname} ${data.lastname}" added`, 'Done')
         this.dialogRef.close()
       },
       error: (err) => {
-        this.snackbar.open(`Error occred: ${err}`, 'Try Again!', {
-          duration: 4000,
-          horizontalPosition: 'center',
-          verticalPosition: 'bottom'
-        })
+        this.snackbarService.snackbarError(`Error occred: ${err}`, 'Try Again!')
       }
     })
   }

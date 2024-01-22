@@ -7,6 +7,9 @@ import { MatTableDataSource } from '@angular/material/table';
 import { UserBasic } from 'src/app/core/models/user.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AddUserDialogComponent } from './add-user-dialog/add-user-dialog.component';
+import { UtilService } from '../shared/services/util.service';
+import { EditDialogComponent } from '../category/edit-dialog/edit-dialog.component';
+import { EditUserDialogComponent } from './edit-user-dialog/edit-user-dialog.component';
 
 @Component({
   selector: 'app-manage-team',
@@ -25,7 +28,8 @@ export class ManageTeamComponent implements OnInit {
     private userService: UserService,
     private confirmService: ConfirmDialogService,
     private matDialog: MatDialog,
-    private snackbar: MatSnackBar
+    private snackbar: MatSnackBar,
+    public utilService: UtilService
   ) {}
 
   ngOnInit() {
@@ -44,11 +48,6 @@ export class ManageTeamComponent implements OnInit {
     )
   }
 
-  capitalizeFirstLetter(value: string | undefined) {
-    if (!value) return value
-    return value.charAt(0).toUpperCase() + value.slice(1).toLowerCase()
-  }
-
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value
     this.dataSource.filter = filterValue.trim().toLowerCase()
@@ -59,11 +58,18 @@ export class ManageTeamComponent implements OnInit {
     this.filterText = ''
   }
 
-  // Add Users
+  // Add or Modify Users
 
   addUser() {
     this.matDialog.open(AddUserDialogComponent, {
       width: '600px'
+    })
+  }
+
+  editUser(user: UserBasic) {
+    this.matDialog.open(EditUserDialogComponent, {
+      width: '600px',
+      data: { user: user }
     })
   }
 
