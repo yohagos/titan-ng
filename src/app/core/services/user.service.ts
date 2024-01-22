@@ -67,6 +67,10 @@ export class UserService {
     return this.http.put('user/pin', request)
   }
 
+  deleteUser(id: number) {
+    return this.http.delete<UserBasic>(`user/${id}`)
+  }
+
   purgeAuth() {
     this.jwtService.destroyToken()
     this.currentUserSubject.next(null)
