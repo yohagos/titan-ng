@@ -16,6 +16,7 @@ import { NavigationComponent } from "./features/shared/navigation/navigation.com
 import { CashierComponent } from "./features/shared/cashier/cashier.component";
 import { UserProfileComponent } from "./features/shared/user-profile/user-profile.component";
 import { ChangePinDialogComponent } from './features/shared/user-profile/change-pin-dialog/change-pin-dialog.component';
+import { ManageTeamComponent } from "./features/manage-team/manage-team.component";
 import { CategoryComponent } from './features/category/category.component';
 
 import { ProductComponent } from './features/product/product.component';
@@ -57,6 +58,7 @@ import { InputRecognitionDirective } from "./core/directive/input-recognition.di
     RegisterComponent,
     UserProfileComponent,
     ChangePinDialogComponent,
+    ManageTeamComponent,
 
     CategoryComponent,
     AddDialogComponent,

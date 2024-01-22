@@ -11,6 +11,7 @@ import { TableComponent } from './features/table/table.component';
 import { ArrangementComponent } from './features/table/arrangement/arrangement.component';
 import { BookingComponent } from './features/table/booking/booking.component';
 import { UserProfileComponent } from './features/shared/user-profile/user-profile.component';
+import { ManageTeamComponent } from './features/manage-team/manage-team.component';
 
 const routes: Routes = [
   {
@@ -54,6 +55,11 @@ const routes: Routes = [
       {
         path: 'profile',
         component: UserProfileComponent,
+        //canActivate: [AuthGuardService]
+      },
+      {
+        path: 'manage',
+        component: ManageTeamComponent,
         //canActivate: [AuthGuardService]
       },
       {
