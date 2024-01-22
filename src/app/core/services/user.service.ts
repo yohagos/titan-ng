@@ -55,6 +55,10 @@ export class UserService {
     return this.http.post("auth/authenticate", credentials, {withCredentials: true})
   }
 
+  loadUsers() {
+    return this.http.get<UserBasic[]>('user')
+  }
+
   pinAuthentication(pin: string) {
     return this.http.get(`user/${pin}`)
   }
