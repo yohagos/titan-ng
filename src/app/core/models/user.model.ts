@@ -38,3 +38,16 @@ export interface UserUpdatePin {
   pin: number
 }
 
+export interface UserAddRequest {
+  firstname: string
+  lastname: string
+  email: string
+  pin: number
+  role?: string
+}
+
+export enum UserRoles {
+  User,
+  Manager,
+  Admin
+}

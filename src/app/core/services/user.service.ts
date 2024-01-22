@@ -4,7 +4,7 @@ import {
   Observable, BehaviorSubject,
   distinctUntilChanged, map
 } from "rxjs";
-import { LoginCredentials, RegisterCredentials, User, UserBasic, UserUpdatePin } from '../models/user.model';
+import { LoginCredentials, RegisterCredentials, User, UserAddRequest, UserBasic, UserUpdatePin } from '../models/user.model';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { JwtService } from './jwt.service';
@@ -65,6 +65,10 @@ export class UserService {
 
   pinUpdate(request: UserUpdatePin) {
     return this.http.put('user/pin', request)
+  }
+
+  addNewUser(user: UserAddRequest) {
+    return this.http.post<User>("user/add", user, {withCredentials: true})
   }
 
   deleteUser(id: number) {
