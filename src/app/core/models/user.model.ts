@@ -34,7 +34,7 @@ export interface LoginCredentials {
 }
 
 export interface UserUpdatePin {
-  userId: number
+  userId: number | undefined
   pin: number
 }
 

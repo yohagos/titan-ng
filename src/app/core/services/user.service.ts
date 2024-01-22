@@ -4,7 +4,7 @@ import {
   Observable, BehaviorSubject,
   distinctUntilChanged, map
 } from "rxjs";
-import { LoginCredentials, RegisterCredentials, User, UserBasic } from '../models/user.model';
+import { LoginCredentials, RegisterCredentials, User, UserBasic, UserUpdatePin } from '../models/user.model';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { JwtService } from './jwt.service';
@@ -57,6 +57,10 @@ export class UserService {
 
   pinAuthentication(pin: string) {
     return this.http.get(`user/${pin}`)
+  }
+
+  pinUpdate(request: UserUpdatePin) {
+    return this.http.put('user/pin', request)
   }
 
   purgeAuth() {
