@@ -15,8 +15,13 @@
       <input matInput maxlength="4" type="password" formControlName="repeatNewPin">
     </mat-form-field>
   </div>
+  <div class="errorMessage" *ngIf="!areFieldsEqual()">
+    <span style="color: red; font-weight: bold;">
+      Pin's do not match
+    </span>
+  </div>
 </mat-dialog-content>
 <mat-dialog-actions>
-
+  <button mat-raised-button *ngIf="pinOneLength() && pinTwoLength() && areFieldsEqual()" (click)="updatePin()">Change Pin</button>
   <button mat-stroked-button mat-dialog-close>Cancel</button>
 </mat-dialog-actions>
