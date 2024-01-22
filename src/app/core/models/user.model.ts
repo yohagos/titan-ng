@@ -46,7 +46,7 @@ export interface UserAddRequest {
   role?: string
 }
 
-export enum UserRoles {
+export enum UserRolesEnum {
   User,
   Manager,
   Admin

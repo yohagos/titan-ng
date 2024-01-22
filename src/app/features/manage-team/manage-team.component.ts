@@ -6,6 +6,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { UserBasic } from 'src/app/core/models/user.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { AddUserDialogComponent } from './add-user-dialog/add-user-dialog.component';
 
 @Component({
   selector: 'app-manage-team',
@@ -56,6 +57,14 @@ export class ManageTeamComponent implements OnInit {
   clearFilter() {
     this.dataSource.filter = ''
     this.filterText = ''
+  }
+
+  // Add Users
+
+  addUser() {
+    this.matDialog.open(AddUserDialogComponent, {
+      width: '600px'
+    })
   }
 
   // 'Actions' Functions
