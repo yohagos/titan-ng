@@ -21,6 +21,7 @@ export class ChangePinDialogComponent {
     private formBuilder: FormBuilder
   ) {
     this.currentUser = data.user
+    console.log(this.currentUser)
 
     this.pinForm = formBuilder.group({
       previousPin: new FormControl('', Validators.required),

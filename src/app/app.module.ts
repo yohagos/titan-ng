@@ -44,6 +44,9 @@ import { ErrorInterceptor } from './core/interceptors/error.interceptor';
 import { TextFilterPipe } from './core/pipe/textfilter.pipe';
 import { EnumToArrayPipe } from "./core/pipe/enumToArray.pipe";
 
+// Directives
+import { InputRecognitionDirective } from "./core/directive/input-recognition.directive";
+
 
 
 @NgModule({
@@ -74,7 +77,9 @@ import { EnumToArrayPipe } from "./core/pipe/enumToArray.pipe";
     CashierComponent,
 
     TextFilterPipe,
-    EnumToArrayPipe
+    EnumToArrayPipe,
+
+    InputRecognitionDirective
   ],
   imports: [
     BrowserModule,
