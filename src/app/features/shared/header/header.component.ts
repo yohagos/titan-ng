@@ -36,6 +36,10 @@ export class HeaderComponent {
     this.router.navigate(['/profile'])
   }
 
+  openManagementTeam() {
+    this.router.navigate(['/manage'])
+  }
+
   openCategory() {
     this.router.navigate(['/category'])
   }
