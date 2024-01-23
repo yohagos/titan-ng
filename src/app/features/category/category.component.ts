@@ -8,6 +8,8 @@ import { AddDialogComponent } from './add-dialog/add-dialog.component';
 import { Category, CategoryFull } from 'src/app/core/models/category.model';
 import { ConfirmDialogService } from '../shared/services/confirm-dialog.service';
 import { EditDialogComponent } from './edit-dialog/edit-dialog.component';
+import { IconsService } from 'src/app/core/services/icons.service';
+import { Icons } from 'src/app/core/models/icons.model';
 
 @Component({
   selector: 'app-category',
@@ -20,13 +22,16 @@ export class CategoryComponent {
   loading = true
   filterText = ''
 
+  icons: Icons[] = []
+
   displayedColumns: string[] = ['name', 'measurement', 'unit', 'icon', 'color', 'actions']
   @ViewChild(MatSort) sort!: MatSort
 
   constructor(
     private categoryService: CategoryService,
     private confirmService: ConfirmDialogService,
-    private matDialog: MatDialog
+    private matDialog: MatDialog,
+    private iconsService: IconsService
   ) {
     this.loadingData()
   }
@@ -39,11 +44,18 @@ export class CategoryComponent {
         this.loading = false
       }
     )
+
+    this.iconsService.getIconsList().subscribe(
+      data => {
+        this.icons = data
+      }
+    )
   }
 
   addCategoryDialog() {
     const dialogRef = this.matDialog.open(AddDialogComponent, {
-      width: '300px'
+      width: '300px',
+      data: {icons: this.icons}
     })
     dialogRef.afterClosed().subscribe(
       () => {
@@ -55,7 +67,7 @@ export class CategoryComponent {
   editCategory(data: CategoryFull) {
     const dialogRef = this.matDialog.open(EditDialogComponent, {
       width: '300px',
-      data: {category: data}
+      data: {category: data, icons: this.icons}
     })
     dialogRef.afterClosed().subscribe(
       () => {

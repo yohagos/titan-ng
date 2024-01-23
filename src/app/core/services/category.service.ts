@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Category, CategoryFull } from '../models/category.model';
+import { Category, CategoryFull, CategoryI } from '../models/category.model';
 
 @Injectable({
   providedIn: 'root'
@@ -15,11 +15,11 @@ export class CategoryService {
     return this.http.get<CategoryFull[]>('category')
   }
 
-  addCategory(body: Category) {
+  addCategory(body: CategoryI) {
     return this.http.post('category/add', body, {withCredentials: true})
   }
 
-  editCategory(id: number, body: Category) {
+  editCategory(id: number, body: CategoryI) {
     return this.http.put(`category/${id}`, body)
   }
 

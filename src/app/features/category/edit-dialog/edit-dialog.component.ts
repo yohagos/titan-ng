@@ -3,7 +3,8 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { CategoryUnit } from 'src/app/core/models/category.enum';
-import { Category, CategoryFull } from 'src/app/core/models/category.model';
+import { Category, CategoryFull, CategoryI } from 'src/app/core/models/category.model';
+import { Icons } from 'src/app/core/models/icons.model';
 import { CategoryService } from 'src/app/core/services/category.service';
 
 @Component({
@@ -19,7 +20,7 @@ export class EditDialogComponent {
 
   constructor(
     public dialogRef: MatDialogRef<EditDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: {category: CategoryFull},
+    @Inject(MAT_DIALOG_DATA) public data: {category: CategoryFull, icons: Icons[]},
     private categoryService: CategoryService,
     public formBuilder: FormBuilder,
     public _snackbar: MatSnackBar
@@ -27,7 +28,8 @@ export class EditDialogComponent {
     this.editCategoryForm = this.formBuilder.group({
       categoryName: new FormControl('', Validators.required),
       measurement: new FormControl(0, Validators.required),
-      unit: new FormControl('', Validators.required)
+      unit: new FormControl('', Validators.required),
+      iconId: new FormControl()
     })
     this.fillForm()
     this.selectedColor = this.data.category.color
@@ -37,15 +39,19 @@ export class EditDialogComponent {
     this.editCategoryForm.get('categoryName')?.setValue(this.data.category.categoryName)
     this.editCategoryForm.get('measurement')?.setValue(this.data.category.measurement)
     this.editCategoryForm.get('unit')?.setValue(this.data.category.unit)
+    this.editCategoryForm.get('iconId')?.setValue(this.data.category.icon.name)
   }
 
   save() {
-    const body: Category = {
+    const body: CategoryI = {
       categoryName: this.editCategoryForm.get('categoryName')?.value,
-        measurement: this.editCategoryForm.get('measurement')?.value,
-        unit: this.editCategoryForm.get('unit')?.value,
-        color: this.selectedColor
+      measurement: this.editCategoryForm.get('measurement')?.value,
+      unit: this.editCategoryForm.get('unit')?.value,
+      color: this.selectedColor,
+      iconId: this.editCategoryForm.get('iconId')?.value
     }
+
+
 
     this.categoryService.editCategory(this.data.category.id, body).subscribe({
       next: () => {

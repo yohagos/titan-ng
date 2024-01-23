@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { CategoryUnit } from 'src/app/core/models/category.enum';
 import { Category, CategoryI } from 'src/app/core/models/category.model';
@@ -27,7 +27,7 @@ export class AddDialogComponent {
     private categoryService: CategoryService,
     public dialogRef: MatDialogRef<AddDialogComponent>,
     public _snackbar: MatSnackBar,
-    private iconsService: IconsService
+    @Inject(MAT_DIALOG_DATA) data: {icons: Icons[]}
   ) {
     this.addCategoryForm = this.fb.group({
       categoryName: new FormControl('', Validators.required),
@@ -35,12 +35,6 @@ export class AddDialogComponent {
       unit: new FormControl('', Validators.required),
       icon: new FormControl('')
     })
-    this.iconsService.getIconsList().subscribe(
-      (data) => {
-        this.icons = data
-        console.log(data)
-      }
-    )
   }
 
   add() {
