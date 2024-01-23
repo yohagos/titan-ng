@@ -12,6 +12,7 @@ import { SnackbarService } from '../../shared/services/snackbar.service';
   styleUrl: './edit-user-dialog.component.scss'
 })
 export class EditUserDialogComponent implements OnInit {
+  hide = true
   editForm: FormGroup
   currentUser: UserBasic
   roles: string[] = []

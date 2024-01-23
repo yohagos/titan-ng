@@ -18,7 +18,10 @@
 
     <mat-form-field appearance="outline">
       <mat-label>Pin</mat-label>
-      <input matInput maxlength="4" type="password" formControlName="pin">
+      <input matInput maxlength="4" [type]="hide ? 'password': 'text'" formControlName="pin">
+        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide Pin'" [attr.aria-pressed]="hide">
+          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
     </mat-form-field>
 
     <mat-form-field appearance="outline">
