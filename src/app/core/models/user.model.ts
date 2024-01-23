@@ -9,6 +9,7 @@ export interface User {
   accessToken: string
   refreshToken: string
   role?: string
+  [key: string]: number | string | undefined
 }
 
 export interface UserBasic {
@@ -19,6 +20,7 @@ export interface UserBasic {
   password: string
   pin: number
   role?: string
+  [key: string]: number | string | undefined
 }
 
 export interface RegisterCredentials {

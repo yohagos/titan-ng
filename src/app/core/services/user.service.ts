@@ -72,7 +72,7 @@ export class UserService {
   }
 
   editUser(user: UserBasic) {
-    return this.http.put<UserBasic>(`user/${user.id}`, user, {withCredentials: true})
+    return this.http.put<UserBasic>(`user/edit`, user, {withCredentials: true})
   }
 
   deleteUser(id: number) {

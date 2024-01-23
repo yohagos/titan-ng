@@ -30,7 +30,6 @@
   </div>
 </mat-dialog-content>
 <mat-dialog-actions>
-  <button mat-raised-button color="primary" (click)="editUser()">Console.log()</button>
   <button mat-raised-button color="primary" *ngIf="editForm.valid && editForm.dirty" (click)="editUser()">Save</button>
   <button mat-stroked-button mat-dialog-close>Cancel</button>
 </mat-dialog-actions>

@@ -63,14 +63,22 @@ export class ManageTeamComponent implements OnInit {
   addUser() {
     this.matDialog.open(AddUserDialogComponent, {
       width: '600px'
-    })
+    }).afterClosed().subscribe(
+      () => {
+        this.loadData()
+      }
+    )
   }
 
   editUser(user: UserBasic) {
     this.matDialog.open(EditUserDialogComponent, {
       width: '600px',
       data: { user: user }
-    })
+    }).afterClosed().subscribe(
+      () => {
+        this.loadData()
+      }
+    )
   }
 
   // 'Actions' Functions
