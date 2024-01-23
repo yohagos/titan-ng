@@ -4,7 +4,7 @@ import {
   Observable, BehaviorSubject,
   distinctUntilChanged, map
 } from "rxjs";
-import { LoginCredentials, RegisterCredentials, User } from '../models/user.model';
+import { LoginCredentials, RegisterCredentials, User, UserAddRequest, UserBasic, UserUpdatePin } from '../models/user.model';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { JwtService } from './jwt.service';
@@ -35,6 +35,16 @@ export class UserService {
     window.localStorage.removeItem('pin')
   }
 
+  saveCurrentUser(user: User) {
+    let users = this.currentUserSubject.getValue()
+    users = user
+    this.currentUserSubject.next(users)
+  }
+
+  getCurrentUser() {
+    return this.currentUserSubject.getValue()
+  }
+
   // Backend Calls
 
   register(credentials: RegisterCredentials) {
@@ -45,8 +55,28 @@ export class UserService {
     return this.http.post("auth/authenticate", credentials, {withCredentials: true})
   }
 
+  loadUsers() {
+    return this.http.get<UserBasic[]>('user')
+  }
+
   pinAuthentication(pin: string) {
     return this.http.get(`user/${pin}`)
+  }
+
+  pinUpdate(request: UserUpdatePin) {
+    return this.http.put('user/pin', request)
+  }
+
+  addNewUser(user: UserAddRequest) {
+    return this.http.post<User>("user/add", user, {withCredentials: true})
+  }
+
+  editUser(user: UserBasic) {
+    return this.http.put<UserBasic>(`user/edit`, user, {withCredentials: true})
+  }
+
+  deleteUser(id: number) {
+    return this.http.delete<UserBasic>(`user/${id}`)
   }
 
   purgeAuth() {

@@ -14,7 +14,16 @@ import { RegisterComponent } from './core/auth/register/register.component';
 import { HeaderComponent } from "./features/shared/header/header.component";
 import { NavigationComponent } from "./features/shared/navigation/navigation.component";
 import { CashierComponent } from "./features/shared/cashier/cashier.component";
+
+import { UserProfileComponent } from "./features/shared/user-profile/user-profile.component";
+import { ChangePinDialogComponent } from './features/shared/user-profile/change-pin-dialog/change-pin-dialog.component';
+import { ManageTeamComponent } from "./features/manage-team/manage-team.component";
+import { AddUserDialogComponent } from "./features/manage-team/add-user-dialog/add-user-dialog.component";
+import { EditUserDialogComponent } from "./features/manage-team/edit-user-dialog/edit-user-dialog.component";
+
 import { CategoryComponent } from './features/category/category.component';
+import { AddDialogComponent } from './features/category/add-dialog/add-dialog.component';
+import { EditDialogComponent } from './features/category/edit-dialog/edit-dialog.component';
 
 import { ProductComponent } from './features/product/product.component';
 import { AddProductDialogComponent } from './features/product/add-dialog/add-product-dialog.component';
@@ -25,9 +34,7 @@ import { BookingComponent } from './features/table/booking/booking.component';
 import { ArrangementComponent } from './features/table/arrangement/arrangement.component';
 import { AddTableDialogComponent } from "./features/table/arrangement/add-table-dialog/add-table-dialog.component";
 
-import { AddDialogComponent } from './features/category/add-dialog/add-dialog.component';
 import { ConfirmDialogComponent } from "./features/shared/confirm-dialog/confirm-dialog.component";
-import { EditDialogComponent } from './features/category/edit-dialog/edit-dialog.component';
 
 // App Modules
 import { AppRoutingModule } from './app-routing.module';
@@ -42,6 +49,10 @@ import { ErrorInterceptor } from './core/interceptors/error.interceptor';
 import { TextFilterPipe } from './core/pipe/textfilter.pipe';
 import { EnumToArrayPipe } from "./core/pipe/enumToArray.pipe";
 
+// Directives
+import { InputRecognitionDirective } from "./core/directive/input-recognition.directive";
+
+
 
 @NgModule({
   declarations: [
@@ -49,6 +60,12 @@ import { EnumToArrayPipe } from "./core/pipe/enumToArray.pipe";
     PinDialogComponent,
     LoginComponent,
     RegisterComponent,
+
+    UserProfileComponent,
+    ChangePinDialogComponent,
+    ManageTeamComponent,
+    AddUserDialogComponent,
+    EditUserDialogComponent,
 
     CategoryComponent,
     AddDialogComponent,
@@ -69,7 +86,9 @@ import { EnumToArrayPipe } from "./core/pipe/enumToArray.pipe";
     CashierComponent,
 
     TextFilterPipe,
-    EnumToArrayPipe
+    EnumToArrayPipe,
+
+    InputRecognitionDirective
   ],
   imports: [
     BrowserModule,

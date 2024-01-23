@@ -1,0 +1,39 @@
+<h2 mat-dialog-title>Edit {{currentUser.firstname}} {{currentUser.lastname}}</h2>
+<mat-dialog-content>
+  <div class="formFields" [formGroup]="editForm">
+    <mat-form-field appearance="outline">
+      <mat-label>Firstname</mat-label>
+      <input matInput formControlName="firstname">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Lastname</mat-label>
+      <input matInput formControlName="lastname">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Pin</mat-label>
+      <input matInput maxlength="4" [type]="hide ? 'password': 'text'" formControlName="pin">
+        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide Pin'" [attr.aria-pressed]="hide">
+          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Role</mat-label>
+      <mat-select formControlName="role">
+        <mat-option *ngFor="let role of roles" [value]="role">{{role}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-raised-button color="primary" *ngIf="editForm.valid && editForm.dirty" (click)="editUser()">Save</button>
+  <button mat-stroked-button mat-dialog-close>Cancel</button>
+</mat-dialog-actions>
+

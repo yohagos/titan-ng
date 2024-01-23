@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { trigger, state, style, transition, animate, keyframes } from "@angular/animations";
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { UserBasic } from 'src/app/core/models/user.model';
+import { User, UserBasic } from 'src/app/core/models/user.model';
 import { UserService } from 'src/app/core/services/user.service';
 import { MatDialogRef } from '@angular/material/dialog';
 
@@ -64,9 +64,10 @@ export class PinDialogComponent {
     this.userService.pinAuthentication(pin).subscribe({
       next: (data) => {
         this.pinForm.get('pin')?.setValue('')
-        let user = data as UserBasic
-        this.userService.savePin(user.pin)
-        this.dialogRef.close()
+        this.user = data as UserBasic
+        this.userService.savePin(this.user.pin)
+        this.userService.saveCurrentUser(this.user as User)
+        this.dialogRef.close(this.user)
       },
       error: (err) => {
         this.state = 'end'
