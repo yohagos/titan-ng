@@ -9,8 +9,8 @@
       </mat-form-field>
       <div >
         <button mat-stroked-button class="items" [ngStyle]="{'background-color': item.category.color}" *ngFor="let item of navigationList | filter: searchText" (click)="add(item)">
-          {{item.name}} <br>
-          <span class="spanSubTitle"> {{item.price | number: '1.2-2'}} €</span>
+          <div class="productName">{{item.name}}</div>
+          <div class="price"> {{item.price | number: '1.2-2'}} €</div>
         </button>
       </div>
     </div>
