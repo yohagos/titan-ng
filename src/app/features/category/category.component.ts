@@ -20,7 +20,7 @@ export class CategoryComponent {
   loading = true
   filterText = ''
 
-  displayedColumns: string[] = ['name', 'measurement', 'unit', 'color', 'actions']
+  displayedColumns: string[] = ['name', 'measurement', 'unit', 'icon', 'color', 'actions']
   @ViewChild(MatSort) sort!: MatSort
 
   constructor(

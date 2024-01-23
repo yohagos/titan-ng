@@ -9,6 +9,14 @@ export interface CategoryFull {
   icon: Icons
 }
 
+export interface CategoryI {
+  categoryName: string
+  measurement: number
+  unit: string
+  color: string
+  iconId: number
+}
+
 export interface Category {
   categoryName: string
   measurement: number
