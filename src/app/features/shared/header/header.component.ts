@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { UserService } from 'src/app/core/services/user.service';
 import { TableComponent } from '../../table/table.component';
+import { User } from 'src/app/core/models/user.model';
 
 @Component({
   selector: 'app-header',
@@ -11,6 +12,8 @@ import { TableComponent } from '../../table/table.component';
 export class HeaderComponent {
   showBackToNavigation = false
   showCashier = true
+
+  currentUser!: User | null
 
   constructor(
     private userService: UserService,
@@ -28,6 +31,13 @@ export class HeaderComponent {
             this.showBackToNavigation = false
           }
         }
+      }
+    )
+
+    this.userService.currentUser.subscribe(
+      (data) => {
+        this.currentUser = data
+        console.log(data)
       }
     )
   }
@@ -58,5 +68,14 @@ export class HeaderComponent {
 
   logout() {
     this.userService.logout()
+  }
+
+  checkUserPermission() {
+    if (this.currentUser &&
+        this.currentUser.role === 'ADMIN' ||
+        this.currentUser?.role === 'MANAGER') {
+      return true
+    }
+    return false
   }
 }
