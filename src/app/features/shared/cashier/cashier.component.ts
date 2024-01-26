@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { NavigationEnd, Router } from '@angular/router';
 import { Observable, map, ObservedValueOf, Subscription} from 'rxjs';
 import { ProductFull } from 'src/app/core/models/product.model';
+import { TransactionService } from 'src/app/core/services/transaction.service';
 import { TransferService } from 'src/app/core/services/transfer.service';
+import { CashDialogComponent } from './cash-dialog/cash-dialog.component';
 
 @Component({
   selector: 'app-cashier',
@@ -18,7 +21,8 @@ export class CashierComponent {
 
   constructor(
     private transferService: TransferService,
-    private router: Router
+    private router: Router,
+    private matDialog: MatDialog
   ) {
     this.productSubscription = this.transferService.products$.subscribe(products => {
       this.products = products
@@ -30,13 +34,17 @@ export class CashierComponent {
     this.price = this.products.reduce((sum, product) => sum + product.price, 0)
   }
 
-  cashButton() {
-    this.transferService.clear()
-    this.router.navigate(['/nav/table'])
+  cashTransactionsDialog() {
+    this.matDialog.open(CashDialogComponent, {
+      width: '400px'
+    })
+    /* this.transferService.clear()
+    this.router.navigate(['/nav/table']) */
   }
 
   cardButton() {
     this.transferService.clear()
     this.router.navigate(['/nav/table'])
   }
+
 }
