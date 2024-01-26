@@ -22,7 +22,8 @@ export class CashierComponent {
   constructor(
     private transferService: TransferService,
     private router: Router,
-    private matDialog: MatDialog
+    private matDialog: MatDialog,
+    private transactionService: TransactionService
   ) {
     this.productSubscription = this.transferService.products$.subscribe(products => {
       this.products = products
@@ -38,8 +39,6 @@ export class CashierComponent {
     this.matDialog.open(CashDialogComponent, {
       width: '400px'
     })
-    /* this.transferService.clear()
-    this.router.navigate(['/nav/table']) */
   }
 
   cardButton() {
@@ -47,4 +46,12 @@ export class CashierComponent {
     this.router.navigate(['/nav/table'])
   }
 
+
+  print() {
+    this.transactionService.getAllTransactions().subscribe(
+      (data) => {
+        console.table(data)
+      }
+    )
+  }
 }

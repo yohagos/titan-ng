@@ -1,4 +1,4 @@
-import { UserBasic } from "./user.model"
+import { User, UserBasic } from "./user.model"
 
 export interface TransactionFull {
   id: number
@@ -19,5 +19,13 @@ export interface Transaction {
   cardNumber: string
   paid: boolean
   user: UserBasic
+}
+
+export interface TransactionCash {
+  price: number
+  withTip: boolean
+  tip: number
+  paid: boolean
+  userId?: number
 }
 

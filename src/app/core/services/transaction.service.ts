@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { TransactionFull } from '../models/transaction.model';
+import { TransactionCash, TransactionFull } from '../models/transaction.model';
 
 @Injectable({
   providedIn: 'root'
@@ -13,5 +13,9 @@ export class TransactionService {
 
   getAllTransactions() {
     return this.http.get<TransactionFull[]>('transactions')
+  }
+
+  cashTransaction(request: TransactionCash) {
+    return this.http.post<TransactionFull>('transactions/cash', request, {withCredentials: true})
   }
 }

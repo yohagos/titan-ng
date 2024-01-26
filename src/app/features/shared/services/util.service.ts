@@ -21,7 +21,6 @@ export class UtilService {
 
   hasDecimalPoints(value: number) {
     let fractionalPart = value % 1
-    console.log(fractionalPart)
     return fractionalPart > 0
   }
 }

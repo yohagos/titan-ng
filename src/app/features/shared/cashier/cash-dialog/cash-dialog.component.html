@@ -22,8 +22,8 @@
 
 </mat-dialog-content>
 <mat-dialog-actions>
-  <button mat-raised-button (click)="logCashIn()">
-    Log Cash In
+  <button *ngIf="cashForm.valid && currentUser" mat-raised-button (click)="applyTransaction()">
+    Cash In
   </button>
   <button mat-flat-button mat-dialog-close>
     Cancel
