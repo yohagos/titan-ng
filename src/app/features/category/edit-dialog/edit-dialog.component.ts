@@ -6,6 +6,7 @@ import { CategoryUnit } from 'src/app/core/models/category.enum';
 import { Category, CategoryFull, CategoryI } from 'src/app/core/models/category.model';
 import { Icons } from 'src/app/core/models/icons.model';
 import { CategoryService } from 'src/app/core/services/category.service';
+import { SnackbarService } from '../../shared/services/snackbar.service';
 
 @Component({
   selector: 'app-edit-dialog',
@@ -23,7 +24,7 @@ export class EditDialogComponent {
     @Inject(MAT_DIALOG_DATA) public data: {category: CategoryFull, icons: Icons[]},
     private categoryService: CategoryService,
     public formBuilder: FormBuilder,
-    public _snackbar: MatSnackBar
+    private snackbarService: SnackbarService
   ) {
     this.editCategoryForm = this.formBuilder.group({
       categoryName: new FormControl('', Validators.required),
@@ -51,20 +52,13 @@ export class EditDialogComponent {
       iconId: this.editCategoryForm.get('iconId')?.value
     }
 
-
-
     this.categoryService.editCategory(this.data.category.id, body).subscribe({
       next: () => {
-        this._snackbar.open("Category edited successfully", "close")
+        this.snackbarService.snackbarSuccess("Category edited successfully", "close")
         this.dialogRef.close();
       },
       error: (err) => {
-        this._snackbar.open(err, 'Close', {
-          duration: 4000,
-          panelClass: ['snackbarError'],
-          horizontalPosition: 'center',
-          verticalPosition: 'bottom'
-        })
+        this.snackbarService.snackbarError(`Error occured: ${err}`, "Try Again!")
       }
     })
   }

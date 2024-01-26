@@ -7,6 +7,7 @@ import { Category, CategoryI } from 'src/app/core/models/category.model';
 import { Icons } from 'src/app/core/models/icons.model';
 import { CategoryService } from 'src/app/core/services/category.service';
 import { IconsService } from 'src/app/core/services/icons.service';
+import { SnackbarService } from '../../shared/services/snackbar.service';
 
 @Component({
   selector: 'app-add-dialog',
@@ -26,7 +27,7 @@ export class AddDialogComponent {
     private fb: FormBuilder,
     private categoryService: CategoryService,
     public dialogRef: MatDialogRef<AddDialogComponent>,
-    public _snackbar: MatSnackBar,
+    private snackbarService: SnackbarService,
     @Inject(MAT_DIALOG_DATA) data: {icons: Icons[]}
   ) {
     this.addCategoryForm = this.fb.group({
@@ -51,12 +52,7 @@ export class AddDialogComponent {
           this.dialogRef.close()
         },
         error: (err) => {
-          this._snackbar.open(err, 'Close', {
-            duration: 4000,
-            panelClass: ['snackbarError'],
-            horizontalPosition: 'center',
-            verticalPosition: 'bottom'
-          })
+          this.snackbarService.snackbarError(`Error occured: ${err}`, "Try Again!")
         }
       })
     }
