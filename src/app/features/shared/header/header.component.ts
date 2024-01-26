@@ -37,7 +37,6 @@ export class HeaderComponent {
     this.userService.currentUser.subscribe(
       (data) => {
         this.currentUser = data
-        console.log(data)
       }
     )
   }

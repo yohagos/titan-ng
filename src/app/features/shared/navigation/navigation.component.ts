@@ -23,7 +23,6 @@ export class NavigationComponent {
     this.productService.loadProducts().subscribe(
       data => {
         this.navigationList = data as ProductFull[]
-
         this.sortProducts()
       }
     )

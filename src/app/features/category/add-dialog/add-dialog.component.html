@@ -16,6 +16,14 @@
           <mat-option *ngFor="let enum of unitEnum | enumToArray" value="{{enum}}">{{enum}}</mat-option>
         </mat-select>
       </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Icon</mat-label>
+        <mat-select formControlName="icon">
+          <mat-option *ngFor="let icon of icons" value="{{icon?.id}}">
+            {{icon?.name}} <mat-icon>{{icon?.label}}</mat-icon>
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
       <input class="colorInput" [(colorPicker)]="selectedColor" [style.background]="selectedColor" placeholder="Color">
     </form>
   </mat-dialog-content>
