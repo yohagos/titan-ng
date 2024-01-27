@@ -14,6 +14,7 @@ import { RegisterComponent } from './core/auth/register/register.component';
 import { HeaderComponent } from "./features/shared/header/header.component";
 import { NavigationComponent } from "./features/shared/navigation/navigation.component";
 import { CashierComponent } from "./features/shared/cashier/cashier.component";
+import { CashDialogComponent } from "./features/shared/cashier/cash-dialog/cash-dialog.component";
 
 import { UserProfileComponent } from "./features/shared/user-profile/user-profile.component";
 import { ChangePinDialogComponent } from './features/shared/user-profile/change-pin-dialog/change-pin-dialog.component';
@@ -51,6 +52,7 @@ import { EnumToArrayPipe } from "./core/pipe/enumToArray.pipe";
 
 // Directives
 import { InputRecognitionDirective } from "./core/directive/input-recognition.directive";
+import { DecimalFormatterDirective } from './core/directive/decimal-formatter.directive';
 
 
 
@@ -84,11 +86,13 @@ import { InputRecognitionDirective } from "./core/directive/input-recognition.di
     HeaderComponent,
     NavigationComponent,
     CashierComponent,
+    CashDialogComponent,
 
     TextFilterPipe,
     EnumToArrayPipe,
 
-    InputRecognitionDirective
+    InputRecognitionDirective,
+    DecimalFormatterDirective
   ],
   imports: [
     BrowserModule,

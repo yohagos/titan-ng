@@ -1,0 +1,31 @@
+<h2 matDialogTitle>Cash Cashier</h2>
+<mat-dialog-content>
+  <form class="formFields" [formGroup]="cashForm">
+    <mat-form-field appearance="outline">
+      <mat-label>Full Price</mat-label>
+      <input matInput type="number" formControlName="fullPrice">
+    </mat-form-field>
+    <mat-divider></mat-divider>
+    <mat-form-field appearance="outline">
+      <mat-label>Tip</mat-label>
+      <input matInput formControlName="tip" appDecimalFormatter>
+      <button mat-icon-button matSuffix (click)="toNextFullNumber()">
+        <mat-icon>exposure_plus_1</mat-icon>
+      </button>
+    </mat-form-field>
+    <mat-divider></mat-divider>
+    <mat-form-field *ngIf="withTip" appearance="outline">
+      <mat-label>Total Price</mat-label>
+      <input matInput type="number" formControlName="totalPrice">
+    </mat-form-field>
+  </form>
+
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button *ngIf="cashForm.valid && currentUser" mat-raised-button (click)="applyTransaction()">
+    Cash In
+  </button>
+  <button mat-flat-button mat-dialog-close>
+    Cancel
+  </button>
+</mat-dialog-actions>

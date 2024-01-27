@@ -29,7 +29,6 @@ export class TransferService {
 
   getAllProducts() {
     const currentProducts = this.productsSubject.value
-    //this.clear()
     return currentProducts
   }
 

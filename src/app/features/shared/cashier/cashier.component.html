@@ -2,8 +2,7 @@
   <div class="price" *ngIf="price >= 1">
     {{ price  | number: '1.2-2'}} €
   </div>
-
-    <button mat-raised-button (click)="cashButton()">
+    <button mat-raised-button (click)="cashTransactionsDialog()">
       Cash
     </button>
     <button mat-raised-button (click)="cardButton()">
