@@ -4,7 +4,6 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { TransactionService } from 'src/app/core/services/transaction.service';
 import { TransferService } from 'src/app/core/services/transfer.service';
 import { UtilService } from '../../services/util.service';
-import { formatNumber } from '@angular/common';
 import { UserService } from 'src/app/core/services/user.service';
 import { User } from 'src/app/core/models/user.model';
 import { TransactionCash } from 'src/app/core/models/transaction.model';

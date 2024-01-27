@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { NavigationEnd, Router } from '@angular/router';
-import { Observable, map, ObservedValueOf, Subscription} from 'rxjs';
+import { Router } from '@angular/router';
+import { Observable, Subscription} from 'rxjs';
 import { ProductFull } from 'src/app/core/models/product.model';
 import { TransactionService } from 'src/app/core/services/transaction.service';
 import { TransferService } from 'src/app/core/services/transfer.service';
@@ -46,12 +46,4 @@ export class CashierComponent {
     this.router.navigate(['/nav/table'])
   }
 
-
-  print() {
-    this.transactionService.getAllTransactions().subscribe(
-      (data) => {
-        console.table(data)
-      }
-    )
-  }
 }

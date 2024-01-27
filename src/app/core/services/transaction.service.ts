@@ -16,6 +16,10 @@ export class TransactionService {
   }
 
   cashTransaction(request: TransactionCash) {
-    return this.http.post<TransactionFull>('transactions/cash', request, {withCredentials: true})
+    return this.http.post<TransactionFull>(
+      'transactions/cash',
+      request,
+      {withCredentials: true}
+    )
   }
 }
