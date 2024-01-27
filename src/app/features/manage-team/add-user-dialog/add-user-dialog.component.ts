@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { User, UserAddRequest, UserRolesEnum } from 'src/app/core/models/user.model';
 import { UserService } from 'src/app/core/services/user.service';
-import { SnackbarService } from '../../shared/services/snackbar.service';
+import { SnackbarService } from './../../../shared/services/snackbar.service';
 
 @Component({
   selector: 'app-add-user-dialog',

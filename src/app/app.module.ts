@@ -11,13 +11,13 @@ import { AppComponent } from './app.component';
 import { PinDialogComponent } from "./features/authentication/pin-dialog/pin-dialog.component";
 import { LoginComponent } from './core/auth/login/login.component';
 import { RegisterComponent } from './core/auth/register/register.component';
-import { HeaderComponent } from "./features/shared/header/header.component";
-import { NavigationComponent } from "./features/shared/navigation/navigation.component";
-import { CashierComponent } from "./features/shared/cashier/cashier.component";
-import { CashDialogComponent } from "./features/shared/cashier/cash-dialog/cash-dialog.component";
+import { HeaderComponent } from "./shared/header/header.component";
+import { NavigationComponent } from "./shared/navigation/navigation.component";
+import { CashierComponent } from "./shared/cashier/cashier.component";
+import { CashDialogComponent } from "./shared/cashier/cash-dialog/cash-dialog.component";
 
-import { UserProfileComponent } from "./features/shared/user-profile/user-profile.component";
-import { ChangePinDialogComponent } from './features/shared/user-profile/change-pin-dialog/change-pin-dialog.component';
+import { UserProfileComponent } from "./shared/user-profile/user-profile.component";
+import { ChangePinDialogComponent } from './shared/user-profile/change-pin-dialog/change-pin-dialog.component';
 import { ManageTeamComponent } from "./features/manage-team/manage-team.component";
 import { AddUserDialogComponent } from "./features/manage-team/add-user-dialog/add-user-dialog.component";
 import { EditUserDialogComponent } from "./features/manage-team/edit-user-dialog/edit-user-dialog.component";
@@ -35,7 +35,7 @@ import { BookingComponent } from './features/table/booking/booking.component';
 import { ArrangementComponent } from './features/table/arrangement/arrangement.component';
 import { AddTableDialogComponent } from "./features/table/arrangement/add-table-dialog/add-table-dialog.component";
 
-import { ConfirmDialogComponent } from "./features/shared/confirm-dialog/confirm-dialog.component";
+import { ConfirmDialogComponent } from "./shared/confirm-dialog/confirm-dialog.component";
 
 // App Modules
 import { AppRoutingModule } from './app-routing.module';

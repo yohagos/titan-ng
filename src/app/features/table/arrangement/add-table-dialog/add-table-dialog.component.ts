@@ -3,7 +3,6 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TableAdd } from 'src/app/core/models/table.model';
-import { TableService } from 'src/app/core/services/table.service';
 
 @Component({
   selector: 'app-add-table-dialog',

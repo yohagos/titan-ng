@@ -1,16 +1,16 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './core/auth/login/login.component';
-import { HeaderComponent } from './features/shared/header/header.component';
+import { HeaderComponent } from './shared/header/header.component';
 import { AuthGuardService } from './core/services/auth-guard.service';
-import { NavigationComponent } from './features/shared/navigation/navigation.component';
+import { NavigationComponent } from './shared/navigation/navigation.component';
 import { RegisterComponent } from './core/auth/register/register.component';
 import { CategoryComponent } from './features/category/category.component';
 import { ProductComponent } from './features/product/product.component';
 import { TableComponent } from './features/table/table.component';
 import { ArrangementComponent } from './features/table/arrangement/arrangement.component';
 import { BookingComponent } from './features/table/booking/booking.component';
-import { UserProfileComponent } from './features/shared/user-profile/user-profile.component';
+import { UserProfileComponent } from './shared/user-profile/user-profile.component';
 import { ManageTeamComponent } from './features/manage-team/manage-team.component';
 
 const routes: Routes = [

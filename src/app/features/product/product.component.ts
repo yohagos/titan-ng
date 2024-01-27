@@ -3,7 +3,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ProductFull } from 'src/app/core/models/product.model';
 import { ProductService } from 'src/app/core/services/product.service';
-import { ConfirmDialogService } from '../shared/services/confirm-dialog.service';
+import { ConfirmDialogService } from './../../shared/services/confirm-dialog.service';
 import { MatDialog } from '@angular/material/dialog';
 import { AddProductDialogComponent } from './add-dialog/add-product-dialog.component';
 import { EditProductDialogComponent } from './edit-dialog/edit-product-dialog.component';

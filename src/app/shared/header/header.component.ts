@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { UserService } from 'src/app/core/services/user.service';
-import { TableComponent } from '../../table/table.component';
 import { User } from 'src/app/core/models/user.model';
 
 @Component({

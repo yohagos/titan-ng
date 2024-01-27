@@ -1,10 +1,10 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { User, UserBasic, UserRolesEnum } from 'src/app/core/models/user.model';
+import { UserBasic, UserRolesEnum } from 'src/app/core/models/user.model';
 import { UserService } from 'src/app/core/services/user.service';
-import { UtilService } from '../../shared/services/util.service';
-import { SnackbarService } from '../../shared/services/snackbar.service';
+import { UtilService } from './../../../shared/services/util.service';
+import { SnackbarService } from './../../../shared/services/snackbar.service';
 
 @Component({
   selector: 'app-edit-user-dialog',

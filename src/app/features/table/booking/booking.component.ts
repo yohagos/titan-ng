@@ -3,7 +3,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ProductFull, StoreProductsToTable } from 'src/app/core/models/product.model';
+import { ProductFull } from 'src/app/core/models/product.model';
 import { TableFull } from 'src/app/core/models/table.model';
 import { ProductService } from 'src/app/core/services/product.service';
 import { TableService } from 'src/app/core/services/table.service';
