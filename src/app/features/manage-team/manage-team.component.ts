@@ -1,14 +1,13 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
 import { UserService } from 'src/app/core/services/user.service';
-import { ConfirmDialogService } from '../shared/services/confirm-dialog.service';
+import { ConfirmDialogService } from './../../shared/services/confirm-dialog.service';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { UserBasic } from 'src/app/core/models/user.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AddUserDialogComponent } from './add-user-dialog/add-user-dialog.component';
-import { UtilService } from '../shared/services/util.service';
-import { EditDialogComponent } from '../category/edit-dialog/edit-dialog.component';
+import { UtilService } from './../../shared/services/util.service';
 import { EditUserDialogComponent } from './edit-user-dialog/edit-user-dialog.component';
 
 @Component({

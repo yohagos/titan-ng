@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { User, UserBasic } from 'src/app/core/models/user.model';
+import { User } from 'src/app/core/models/user.model';
 import { UserService } from 'src/app/core/services/user.service';
 import { ChangePinDialogComponent } from './change-pin-dialog/change-pin-dialog.component';
 
