@@ -15,6 +15,7 @@ import { HeaderComponent } from "./shared/header/header.component";
 import { NavigationComponent } from "./shared/navigation/navigation.component";
 import { CashierComponent } from "./shared/cashier/cashier.component";
 import { CashDialogComponent } from "./shared/cashier/cash-dialog/cash-dialog.component";
+import { CardDialogComponent } from "./shared/cashier/card-dialog/card-dialog.component";
 
 import { UserProfileComponent } from "./shared/user-profile/user-profile.component";
 import { ChangePinDialogComponent } from './shared/user-profile/change-pin-dialog/change-pin-dialog.component';
@@ -87,6 +88,7 @@ import { DecimalFormatterDirective } from './core/directive/decimal-formatter.di
     NavigationComponent,
     CashierComponent,
     CashDialogComponent,
+    CardDialogComponent,
 
     TextFilterPipe,
     EnumToArrayPipe,
