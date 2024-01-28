@@ -29,3 +29,13 @@ export interface TransactionCash {
   userId?: number
 }
 
+export interface TransactionCard {
+  price: number
+  withTip: boolean
+  tip: number
+  withCard: boolean
+  cardNumber: string
+  paid: boolean
+  userId?: number
+}
+
