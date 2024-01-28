@@ -6,6 +6,7 @@ import { ProductFull } from 'src/app/core/models/product.model';
 import { TransactionService } from 'src/app/core/services/transaction.service';
 import { TransferService } from 'src/app/core/services/transfer.service';
 import { CashDialogComponent } from './cash-dialog/cash-dialog.component';
+import { CardDialogComponent } from './card-dialog/card-dialog.component';
 
 @Component({
   selector: 'app-cashier',
@@ -37,13 +38,18 @@ export class CashierComponent {
 
   cashTransactionsDialog() {
     this.matDialog.open(CashDialogComponent, {
-      width: '400px'
+      width: '400px',
+      height: '500px'
     })
   }
 
-  cardButton() {
-    this.transferService.clear()
-    this.router.navigate(['/nav/table'])
+  cardTransaction() {
+    this.matDialog.open(CardDialogComponent, {
+      width: '400px',
+      height: '500px'
+    })
   }
+
+  
 
 }
