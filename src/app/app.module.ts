@@ -22,6 +22,7 @@ import { ChangePinDialogComponent } from './shared/user-profile/change-pin-dialo
 import { ManageTeamComponent } from "./features/manage-team/manage-team.component";
 import { AddUserDialogComponent } from "./features/manage-team/add-user-dialog/add-user-dialog.component";
 import { EditUserDialogComponent } from "./features/manage-team/edit-user-dialog/edit-user-dialog.component";
+import { ManageBalanceComponent } from './features/manage-balance/manage-balance.component';
 
 import { CategoryComponent } from './features/category/category.component';
 import { AddDialogComponent } from './features/category/add-dialog/add-dialog.component';
@@ -57,6 +58,7 @@ import { DecimalFormatterDirective } from './core/directive/decimal-formatter.di
 
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -69,6 +71,7 @@ import { DecimalFormatterDirective } from './core/directive/decimal-formatter.di
     ManageTeamComponent,
     AddUserDialogComponent,
     EditUserDialogComponent,
+    ManageBalanceComponent,
 
     CategoryComponent,
     AddDialogComponent,
