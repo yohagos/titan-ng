@@ -15,6 +15,10 @@ export class TransactionService {
     return this.http.get<TransactionFull[]>('transactions')
   }
 
+  getTransactionsForDate(date: string | null) {
+    return this.http.get<TransactionFull[]>(`transactions/${date}`)
+  }
+
   cashTransaction(request: TransactionCash) {
     return this.http.post<TransactionFull>(
       'transactions/cash',
