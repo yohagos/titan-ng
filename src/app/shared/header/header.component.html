@@ -12,6 +12,10 @@
         <mat-icon>group</mat-icon>
         <span>Manage Team</span>
       </button>
+      <button mat-menu-item *ngIf="checkUserPermission()" (click)="openManagementBalance()">
+        <mat-icon>account_balance</mat-icon>
+        <span>Balance</span>
+      </button>
       <button mat-menu-item (click)="openCategory()">
         <mat-icon>category</mat-icon>
         <span>Categories</span>
