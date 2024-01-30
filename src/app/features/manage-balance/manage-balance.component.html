@@ -20,91 +20,31 @@
 
   </mat-card-header>
   <mat-card-content>
-    <section class="tableContainer">
       <div class="spinner-container" *ngIf="dataSource.loading$ | async">
         <mat-spinner></mat-spinner>
       </div>
-      <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
-        <ng-container matColumnDef="id" >
-          <th mat-header-cell *matHeaderCellDef
-              mat-sort-header sortActionDescription="Sort by ID">
-                ID
-          </th>
-          <td mat-cell *matCellDef="let element"> {{element.id}} </td>
-        </ng-container>
-
-        <ng-container matColumnDef="price" >
-          <th mat-header-cell *matHeaderCellDef
-              mat-sort-header sortActionDescription="Sort by Price">
-                Price
-          </th>
-          <td mat-cell *matCellDef="let element"> {{formatDecimal(element.price)}} </td>
-        </ng-container>
-
-        <ng-container matColumnDef="tip">
-          <th mat-header-cell *matHeaderCellDef
-              mat-sort-header sortActionDescription="Sort by Tip">
-                Tip
-          </th>
-          <td mat-cell *matCellDef="let element" > {{formatDecimal(element.tip)}} </td>
-        </ng-container>
-
-        <ng-container matColumnDef="procent">
-          <th mat-header-cell *matHeaderCellDef
-              mat-sort-header sortActionDescription="Sort by Procent">
-                Procent (price/tip)
-          </th>
-          <td mat-cell *matCellDef="let element"> {{calculateTipAsProcent(element) }} </td>
-        </ng-container>
-
-        <ng-container matColumnDef="withCard">
-          <th mat-header-cell *matHeaderCellDef>
-                Paid by Card
-          </th>
-          <td mat-cell *matCellDef="let element"> <mat-icon *ngIf="element.withCard">check</mat-icon> </td>
-        </ng-container>
-
-        <ng-container matColumnDef="cardNumber">
-          <th mat-header-cell *matHeaderCellDef
-              mat-sort-header sortActionDescription="Sort by Tip">
-                Card Info
-          </th>
-          <td mat-cell *matCellDef="let element"> <div *ngIf="element.withCard"> {{element.cardNumber}} </div> </td>
-        </ng-container>
-
-        <ng-container matColumnDef="user">
-          <th mat-header-cell *matHeaderCellDef
-              mat-sort-header sortActionDescription="Sort by User">
-                User
-          </th>
-          <td mat-cell *matCellDef="let element"> {{element.user.firstname}} {{element.user.lastname}} </td>
-        </ng-container>
-
-        <!-- <ng-container matColumnDef="actions">
-          <th mat-header-cell *matHeaderCellDef colspan="2" class="actionsWidth">Actions</th>
-          <td mat-cell *matCellDef="let element">
-            <button mat-icon-button class="icons" (click)="editUser(element)" matTooltip="Edit User">
-              <mat-icon>edit</mat-icon>
-            </button>
-            <button mat-icon-button class="icons" (click)="deleteUser(element)" matTooltip="Delete User">
-              <mat-icon>delete</mat-icon>
-            </button>
-          </td>
-        </ng-container> -->
-
-        <tr mat-header-row *matHeaderRowDef="displayedColums"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColums"></tr>
-
-        <tr class="mat-row" *matNoDataRow>
-          <td class="mat-cell" colspan="4">No Data matching the filter "{{filterText}}"</td>
-        </tr>
-      </table>
-    </section>
+      <mat-accordion displayMode="flat" multi class="mat-table">
+        <section matSort class="mat-elevation-z2 section-header">
+          <span class="mat-header-cell" mat-sort-header="id"> ID </span>
+          <span class="mat-header-cell" mat-sort-header="price"> Price </span>
+          <span class="mat-header-cell" mat-sort-header="tip"> Tip </span>
+          <span class="mat-header-cell" mat-sort-header="percentage"> Percentage </span>
+          <span class="mat-header-cell" mat-sort-header="withCard"> with Card </span>
+          <span class="mat-header-cell" mat-sort-header="user"> User </span>
+        </section>
+      </mat-accordion>
+      <mat-expansion-panel *ngFor="let transaction of transactions$ | async">
+        <mat-expansion-panel-header class="mat-row">
+          <span class="mat-cell"> {{transaction.id}} </span>
+          <span class="mat-cell"> {{formatDecimal(transaction.price)}} </span>
+          <span class="mat-cell"> {{formatDecimal(transaction.tip)}} </span>
+          <span class="mat-cell"> {{calculateTipAsProcent(transaction)}} </span>
+          <span class="mat-cell"> <mat-icon *ngIf="transaction.withCard">check</mat-icon> </span>
+          <span class="mat-cell"> {{transaction.user.firstname}} {{transaction.user.lastname}} </span>
+        </mat-expansion-panel-header>
+        <div>
+          <pre>{{transaction | json}}</pre>
+        </div>
+      </mat-expansion-panel>
   </mat-card-content>
-
-  <mat-card-actions>
-    <!-- <button mat-raised-button color="primary" (click)="addUser()">
-      Add User
-    </button> -->
-  </mat-card-actions>
 </mat-card>

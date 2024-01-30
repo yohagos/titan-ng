@@ -8,6 +8,7 @@ import { UserService } from 'src/app/core/services/user.service';
 import { User } from 'src/app/core/models/user.model';
 import { TransactionCash } from 'src/app/core/models/transaction.model';
 import { SnackbarService } from '../../services/snackbar.service';
+import { ProductFull } from 'src/app/core/models/product.model';
 
 @Component({
   selector: 'app-cash-dialog',
@@ -26,6 +27,8 @@ export class CashDialogComponent implements OnInit {
   withTip = false
   currentUser!: User | null
 
+  private products: ProductFull[] = []
+
   constructor(
     private transactionsService: TransactionService,
     private transferService: TransferService,
@@ -37,6 +40,8 @@ export class CashDialogComponent implements OnInit {
   ) {
     this.price = this.transferService.getAllProducts()
             .reduce((total, product) => total + product.price, 0)
+    this.products = this.transferService.getAllProducts()
+    console.log(this.products)
     this.actualPrice = this.price
     this.cashForm = this.formBuilder.group({
       fullPrice: new FormControl({value: this.price.toFixed(2), disabled: true}),
@@ -77,14 +82,21 @@ export class CashDialogComponent implements OnInit {
     }
 
     this.transactionsService.cashTransaction(request).subscribe({
-      next: () => {
-        this.snackbarService.snackbarSuccess("Cashed In", "Done")
-        this.dialogRef.beforeClosed().subscribe(
-          () => {
-            this.transferService.clear()
+      next: (data) => {
+        this.transactionsService.adProductsToTransaction(data.id, this.products).subscribe({
+          next: () => {
+            this.snackbarService.snackbarSuccess("Cashed In", "Done")
+            this.dialogRef.beforeClosed().subscribe(
+              () => {
+                this.transferService.clear()
+              }
+            )
+            this.dialogRef.close()
+          },
+          error: (err) => {
+            this.snackbarService.snackbarError(`Error occurred: ${err}`, 'Try Again!')
           }
-        )
-        this.dialogRef.close()
+        })
       },
       error: (err) => {
         this.snackbarService.snackbarError(`Error occurred: ${err}`, 'Try Again!')

@@ -6,15 +6,23 @@ import { TransactionService } from 'src/app/core/services/transaction.service';
 import { UtilService } from 'src/app/shared/services/util.service';
 import { BalanceDataSourceComponent } from './balance-data-source/balance-data-source.component';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 
 @Component({
   selector: 'app-manage-balance',
   templateUrl: './manage-balance.component.html',
-  styleUrl: './manage-balance.component.scss'
+  styleUrl: './manage-balance.component.scss',
+  animations: [
+    trigger('detailExpand', [
+      state('collapsed', style({height: '0px', minHeight: '0'})),
+      state('expanded', style({height: '*', minHeight: "*"})),
+      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+    ]),
+  ],
 })
 export class ManageBalanceComponent implements OnDestroy, AfterViewInit {
   dataSource!: BalanceDataSourceComponent
-  displayedColums = ['id', 'price', 'tip', 'procent', 'withCard', 'cardNumber', 'user']
+  displayedColums = ['id', 'price', 'tip', 'percentage', 'withCard', 'cardNumber', 'user']
   @ViewChild(MatSort) sort!: MatSort
   @ViewChild('input') input!: ElementRef
 
@@ -23,7 +31,9 @@ export class ManageBalanceComponent implements OnDestroy, AfterViewInit {
 
   filterDate!: Date
 
-  private transactionSubject = new BehaviorSubject<TransactionFull[]>([])
+  expandedElement: TransactionFull | null = null
+
+  transactions$: Observable<TransactionFull[]> = new Observable<TransactionFull[]>()
   private loadingSubject = new BehaviorSubject<boolean>(false)
 
   constructor(
@@ -34,6 +44,7 @@ export class ManageBalanceComponent implements OnDestroy, AfterViewInit {
   ngOnInit() {
     this.dataSource = new BalanceDataSourceComponent(this.transactionService)
     this.loadData()
+    this.transactions$ = this.dataSource.getTransactions()
   }
 
   ngAfterViewInit() {

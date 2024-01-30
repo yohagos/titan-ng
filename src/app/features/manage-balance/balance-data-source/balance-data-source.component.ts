@@ -38,8 +38,14 @@ export class BalanceDataSourceComponent implements DataSource<TransactionFull> {
       catchError(() => of([])),
       finalize(() => this.loadingSubject.next(false))
     ).subscribe(
-      transactions => this.transactionSubject.next(transactions)
+      transactions => {
+        this.transactionSubject.next(transactions)
+      }
     )
+  }
+
+  getTransactions() {
+    return this.transactionSubject.asObservable()
   }
 
 }
