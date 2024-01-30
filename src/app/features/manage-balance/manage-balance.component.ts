@@ -1,19 +1,20 @@
-import { DatePipe } from '@angular/common';
-import { Component, ViewChild } from '@angular/core';
+import { Component, OnDestroy, ViewChild } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { TransactionFull } from 'src/app/core/models/transaction.model';
 import { TransactionService } from 'src/app/core/services/transaction.service';
 import { UtilService } from 'src/app/shared/services/util.service';
+import { BalanceDataSourceComponent } from './balance-data-source/balance-data-source.component';
+import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 
 @Component({
   selector: 'app-manage-balance',
   templateUrl: './manage-balance.component.html',
   styleUrl: './manage-balance.component.scss'
 })
-export class ManageBalanceComponent {
-  dataSource: any
-  displayedColums = ['price', 'tip', 'procent', 'withCard', 'cardNumber', 'user']
+export class ManageBalanceComponent implements OnDestroy {
+  dataSource!: BalanceDataSourceComponent
+  displayedColums = ['id', 'price', 'tip', 'procent', 'withCard', 'cardNumber', 'user']
   @ViewChild(MatSort) sort!: MatSort
 
   filterText = ''
@@ -21,28 +22,32 @@ export class ManageBalanceComponent {
 
   filterDate!: Date
 
+  private transactionSubject = new BehaviorSubject<TransactionFull[]>([])
+  private loadingSubject = new BehaviorSubject<boolean>(false)
+
   constructor(
     public utilService: UtilService,
     private transactionService: TransactionService
   ) {}
 
   ngOnInit() {
+    this.dataSource = new BalanceDataSourceComponent(this.transactionService)
     this.loadData()
   }
 
-  loadData() {
-    if (!this.filterDate) {
-      this.filterDate = new Date()
-    }
-    let formattedDateTime = this.filterDate.toISOString().split('T')[0]
-    this.transactionService.getTransactionsForDate(formattedDateTime).subscribe(
-      data => {
-        this.dataSource = new MatTableDataSource(data)
-        this.dataSource.sort = this.sort
-        this.loading = false
-      }
-    )
+  ngOnDestroy() {
+    this.dataSource.disconnect()
   }
+
+  loadData(selectedDate?: Date) {
+    this.dataSource.loadTransactions(selectedDate)
+  }
+
+  onDateChange(selectedDate: MatDatepickerInputEvent<any>) {
+    this.loadData(selectedDate.value)
+  }
+
+  // Extras
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value
