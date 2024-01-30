@@ -1,6 +1,6 @@
-import { Component, OnDestroy, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, debounceTime, distinctUntilChanged, fromEvent, tap } from 'rxjs';
 import { TransactionFull } from 'src/app/core/models/transaction.model';
 import { TransactionService } from 'src/app/core/services/transaction.service';
 import { UtilService } from 'src/app/shared/services/util.service';
@@ -12,10 +12,11 @@ import { MatDatepickerInputEvent } from '@angular/material/datepicker';
   templateUrl: './manage-balance.component.html',
   styleUrl: './manage-balance.component.scss'
 })
-export class ManageBalanceComponent implements OnDestroy {
+export class ManageBalanceComponent implements OnDestroy, AfterViewInit {
   dataSource!: BalanceDataSourceComponent
   displayedColums = ['id', 'price', 'tip', 'procent', 'withCard', 'cardNumber', 'user']
   @ViewChild(MatSort) sort!: MatSort
+  @ViewChild('input') input!: ElementRef
 
   filterText = ''
   loading = true
@@ -33,6 +34,17 @@ export class ManageBalanceComponent implements OnDestroy {
   ngOnInit() {
     this.dataSource = new BalanceDataSourceComponent(this.transactionService)
     this.loadData()
+  }
+
+  ngAfterViewInit() {
+    fromEvent(this.input.nativeElement, 'keyup')
+      .pipe(
+        debounceTime(150),
+        distinctUntilChanged(),
+        tap(() => {
+          this.loadData()
+        })
+      )
   }
 
   ngOnDestroy() {
