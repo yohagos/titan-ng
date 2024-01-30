@@ -58,9 +58,11 @@ $mat-row-horizontal-padding: 24px;
 
 .mat-row {
   min-height: $mat-row-height;
+  display: flex;
+  justify-content: space-between;
 }
 
-.mat-row, .mat-header-row {
+.mat-header-row {
   display: flex;
   _border-bottom-width: 1px;
   _border-bottom-style: solid;
@@ -79,16 +81,15 @@ $mat-row-horizontal-padding: 24px;
   } */
 }
 
-/* .mat-cell {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-} */
+.mat-cell {
+  margin: auto;
+}
 
 .section-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   font-weight: bolder;
+  margin: auto;
 }
 
