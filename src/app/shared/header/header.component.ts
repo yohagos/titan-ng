@@ -45,7 +45,11 @@ export class HeaderComponent {
   }
 
   openManagementTeam() {
-    this.router.navigate(['/manage'])
+    this.router.navigate(['/manage-team'])
+  }
+
+  openManagementBalance() {
+    this.router.navigate(['/manage-balance'])
   }
 
   openCategory() {
