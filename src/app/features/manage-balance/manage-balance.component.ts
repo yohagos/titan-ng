@@ -1,11 +1,14 @@
 import { AfterViewInit, Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
-import { BehaviorSubject, Observable, debounceTime, distinctUntilChanged, fromEvent, tap } from 'rxjs';
+import { Observable, debounceTime, distinctUntilChanged, fromEvent, tap } from 'rxjs';
 import { TransactionFull } from 'src/app/core/models/transaction.model';
 import { TransactionService } from 'src/app/core/services/transaction.service';
 import { UtilService } from 'src/app/shared/services/util.service';
 import { BalanceDataSourceComponent } from './balance-data-source/balance-data-source.component';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
+import { ConfirmDialogService } from 'src/app/shared/services/confirm-dialog.service';
+import { SnackbarService } from 'src/app/shared/services/snackbar.service';
+
 
 @Component({
   selector: 'app-manage-balance',
@@ -14,7 +17,7 @@ import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 })
 export class ManageBalanceComponent implements OnDestroy, AfterViewInit {
   dataSource!: BalanceDataSourceComponent
-  displayedColums = ['id', 'price', 'tip', 'procent', 'withCard', 'cardNumber', 'user']
+  displayedColums = ['id', 'price', 'tip', 'percentage', 'withCard', 'cardNumber', 'user']
   @ViewChild(MatSort) sort!: MatSort
   @ViewChild('input') input!: ElementRef
 
@@ -23,17 +26,21 @@ export class ManageBalanceComponent implements OnDestroy, AfterViewInit {
 
   filterDate!: Date
 
-  private transactionSubject = new BehaviorSubject<TransactionFull[]>([])
-  private loadingSubject = new BehaviorSubject<boolean>(false)
+  expandedElement: TransactionFull | null = null
+
+  transactions$: Observable<TransactionFull[]> = new Observable<TransactionFull[]>()
 
   constructor(
     public utilService: UtilService,
-    private transactionService: TransactionService
+    private transactionService: TransactionService,
+    private confirmService: ConfirmDialogService,
+    private snackbarService: SnackbarService,
   ) {}
 
   ngOnInit() {
     this.dataSource = new BalanceDataSourceComponent(this.transactionService)
     this.loadData()
+    this.transactions$ = this.dataSource.getTransactions()
   }
 
   ngAfterViewInit() {
@@ -82,5 +89,26 @@ export class ManageBalanceComponent implements OnDestroy, AfterViewInit {
       return calc.toFixed(2) + ' %'
     }
     return '-'
+  }
+
+  createDisplayColumnsProducts() {
+    return ['name', 'price', 'category']
+  }
+
+  stornoTransactions(transaction: TransactionFull) {
+    this.confirmService.confirm().subscribe(
+      (result) => {
+        if (result) {
+          this.transactionService.cancelTransaction(transaction.id).subscribe({
+            next: (result) => {
+              this.snackbarService.snackbarSuccess(`Canceled Transaction: ${result.id}`, 'Done')
+            },
+            error: (err) => {
+              this.snackbarService.snackbarError("Error occurred!" + err, ' Try Again!!')
+            }
+          })
+        }
+      }
+    )
   }
 }

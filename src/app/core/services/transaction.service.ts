@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { TransactionCard, TransactionCash, TransactionFull } from '../models/transaction.model';
+import { ProductFull } from '../models/product.model';
 
 @Injectable({
   providedIn: 'root'
@@ -22,8 +23,8 @@ export class TransactionService {
   cashTransaction(request: TransactionCash) {
     return this.http.post<TransactionFull>(
       'transactions/cash',
-      request,
-      {withCredentials: true}
+      request
+
     )
   }
 
@@ -33,5 +34,16 @@ export class TransactionService {
       request,
       {withCredentials: true}
     )
+  }
+
+  addProductsToTransaction(id: number, products: ProductFull[]) {
+    return this.http.post<TransactionFull>(
+      `transactions/${id}`,
+      products
+    )
+  }
+
+  cancelTransaction(id: number) {
+    return this.http.delete<TransactionFull>(`transactions/${id}`)
   }
 }

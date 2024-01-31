@@ -1,3 +1,4 @@
+import { ProductFull } from "./product.model"
 import { User, UserBasic } from "./user.model"
 
 export interface TransactionFull {
@@ -9,6 +10,7 @@ export interface TransactionFull {
   cardNumber: string
   paid: boolean
   user: UserBasic
+  products: ProductFull[]
 }
 
 export interface Transaction {
@@ -19,6 +21,7 @@ export interface Transaction {
   cardNumber: string
   paid: boolean
   user: UserBasic
+  products?: ProductFull[]
 }
 
 export interface TransactionCash {
