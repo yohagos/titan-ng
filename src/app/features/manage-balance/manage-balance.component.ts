@@ -94,4 +94,8 @@ export class ManageBalanceComponent implements OnDestroy, AfterViewInit {
     }
     return '-'
   }
+
+  createDisplayColumnsProducts() {
+    return ['name', 'price', 'category']
+  }
 }
