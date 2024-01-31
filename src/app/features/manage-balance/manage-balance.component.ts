@@ -1,24 +1,17 @@
 import { AfterViewInit, Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
-import { BehaviorSubject, Observable, debounceTime, distinctUntilChanged, fromEvent, tap } from 'rxjs';
+import { Observable, debounceTime, distinctUntilChanged, fromEvent, tap } from 'rxjs';
 import { TransactionFull } from 'src/app/core/models/transaction.model';
 import { TransactionService } from 'src/app/core/services/transaction.service';
 import { UtilService } from 'src/app/shared/services/util.service';
 import { BalanceDataSourceComponent } from './balance-data-source/balance-data-source.component';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
-import { animate, state, style, transition, trigger } from '@angular/animations';
+
 
 @Component({
   selector: 'app-manage-balance',
   templateUrl: './manage-balance.component.html',
-  styleUrl: './manage-balance.component.scss',
-  animations: [
-    trigger('detailExpand', [
-      state('collapsed', style({height: '0px', minHeight: '0'})),
-      state('expanded', style({height: '*', minHeight: "*"})),
-      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
-    ]),
-  ],
+  styleUrl: './manage-balance.component.scss'
 })
 export class ManageBalanceComponent implements OnDestroy, AfterViewInit {
   dataSource!: BalanceDataSourceComponent
@@ -34,7 +27,6 @@ export class ManageBalanceComponent implements OnDestroy, AfterViewInit {
   expandedElement: TransactionFull | null = null
 
   transactions$: Observable<TransactionFull[]> = new Observable<TransactionFull[]>()
-  private loadingSubject = new BehaviorSubject<boolean>(false)
 
   constructor(
     public utilService: UtilService,
