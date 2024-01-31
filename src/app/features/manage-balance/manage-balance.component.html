@@ -40,7 +40,7 @@
       <span class="mat-cell"> <mat-icon *ngIf="transaction.withCard">check</mat-icon> </span>
       <span class="mat-cell"> {{transaction.user.firstname}} {{transaction.user.lastname}} </span>
     </mat-expansion-panel-header>
-    <section>
+    <section class="transaction-actions">
       <button mat-raised-button color="warn" (click)="stornoTransactions(transaction)"> Storno </button>
     </section>
     <div>
