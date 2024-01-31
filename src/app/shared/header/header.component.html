@@ -28,6 +28,10 @@
         <mat-icon>table</mat-icon>
         <span>Table Arrangement</span>
       </button>
+      <button mat-menu-item *ngIf="checkUserPermission()" (click)="openStorage()">
+        <mat-icon>warehouse</mat-icon>
+        <span>Storage</span>
+      </button>
       <mat-divider *ngIf="showBackToNavigation"></mat-divider>
       <button mat-menu-item *ngIf="showBackToNavigation" (click)="backToNavigation()">
         <mat-icon>arrow_back</mat-icon>
