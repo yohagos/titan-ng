@@ -102,6 +102,7 @@ export class ManageBalanceComponent implements OnDestroy, AfterViewInit {
           this.transactionService.cancelTransaction(transaction.id).subscribe({
             next: (result) => {
               this.snackbarService.snackbarSuccess(`Canceled Transaction: ${result.id}`, 'Done')
+              this.loadData()
             },
             error: (err) => {
               this.snackbarService.snackbarError("Error occurred!" + err, ' Try Again!!')
