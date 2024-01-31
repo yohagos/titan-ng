@@ -39,6 +39,8 @@ import { AddTableDialogComponent } from "./features/table/arrangement/add-table-
 
 import { ConfirmDialogComponent } from "./shared/confirm-dialog/confirm-dialog.component";
 
+import { StorageComponent } from "./features/storage/storage.component";
+
 // App Modules
 import { AppRoutingModule } from './app-routing.module';
 import { MaterialsModule } from './materials.module';
@@ -92,6 +94,8 @@ import { DecimalFormatterDirective } from './core/directive/decimal-formatter.di
     CashierComponent,
     CashDialogComponent,
     CardDialogComponent,
+
+    StorageComponent,
 
     TextFilterPipe,
     EnumToArrayPipe,
