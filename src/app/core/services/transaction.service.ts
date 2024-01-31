@@ -36,10 +36,14 @@ export class TransactionService {
     )
   }
 
-  adProductsToTransaction(id: number, products: ProductFull[]) {
+  addProductsToTransaction(id: number, products: ProductFull[]) {
     return this.http.post<TransactionFull>(
       `transactions/${id}`,
       products
     )
+  }
+
+  cancelTransaction(id: number) {
+    return this.http.delete<TransactionFull>(`transactions/${id}`)
   }
 }

@@ -6,6 +6,8 @@ import { TransactionService } from 'src/app/core/services/transaction.service';
 import { UtilService } from 'src/app/shared/services/util.service';
 import { BalanceDataSourceComponent } from './balance-data-source/balance-data-source.component';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
+import { ConfirmDialogService } from 'src/app/shared/services/confirm-dialog.service';
+import { SnackbarService } from 'src/app/shared/services/snackbar.service';
 
 
 @Component({
@@ -30,7 +32,9 @@ export class ManageBalanceComponent implements OnDestroy, AfterViewInit {
 
   constructor(
     public utilService: UtilService,
-    private transactionService: TransactionService
+    private transactionService: TransactionService,
+    private confirmService: ConfirmDialogService,
+    private snackbarService: SnackbarService,
   ) {}
 
   ngOnInit() {
@@ -89,5 +93,22 @@ export class ManageBalanceComponent implements OnDestroy, AfterViewInit {
 
   createDisplayColumnsProducts() {
     return ['name', 'price', 'category']
+  }
+
+  stornoTransactions(transaction: TransactionFull) {
+    this.confirmService.confirm().subscribe(
+      (result) => {
+        if (result) {
+          this.transactionService.cancelTransaction(transaction.id).subscribe({
+            next: (result) => {
+              this.snackbarService.snackbarSuccess(`Canceled Transaction: ${result.id}`, 'Done')
+            },
+            error: (err) => {
+              this.snackbarService.snackbarError("Error occurred!" + err, ' Try Again!!')
+            }
+          })
+        }
+      }
+    )
   }
 }

@@ -83,7 +83,7 @@ export class CashDialogComponent implements OnInit {
 
     this.transactionsService.cashTransaction(request).subscribe({
       next: (data) => {
-        this.transactionsService.adProductsToTransaction(data.id, this.products).subscribe({
+        this.transactionsService.addProductsToTransaction(data.id, this.products).subscribe({
           next: () => {
             this.snackbarService.snackbarSuccess("Cashed In", "Done")
             this.dialogRef.beforeClosed().subscribe(

@@ -40,7 +40,11 @@
       <span class="mat-cell"> <mat-icon *ngIf="transaction.withCard">check</mat-icon> </span>
       <span class="mat-cell"> {{transaction.user.firstname}} {{transaction.user.lastname}} </span>
     </mat-expansion-panel-header>
+    <section>
+      <button mat-raised-button color="warn" (click)="stornoTransactions(transaction)"> Storno </button>
+    </section>
     <div>
+      <mat-label class="labels">Products</mat-label>
       <table mat-table [dataSource]="transaction.products" class="mat-elevation-z8">
         <ng-container matColumnDef="name">
           <th mat-header-cell *matHeaderCellDef>Name</th>
