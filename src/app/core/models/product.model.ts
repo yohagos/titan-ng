@@ -1,16 +1,19 @@
 import { CategoryFull } from "./category.model"
+import { ProductStockFull } from "./productStock.model"
 
 export interface ProductFull {
   id: number
   name: string
   price: number
   category: CategoryFull
+  components?: ProductStockFull[]
 }
 
 export interface Product {
   name: string
   price: number
   category: CategoryFull
+  components?: ProductStockFull[]
 }
 
 export interface ProductAddRequest {
