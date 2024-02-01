@@ -15,6 +15,10 @@
         <mat-option *ngFor="let cat of categories" value="{{cat.id}}">{{cat.categoryName}} <span>{{cat.measurement}} {{cat.unit}}</span> </mat-option>
       </mat-select>
     </mat-form-field>
+    <mat-divider></mat-divider>
+    <div formArrayName="productStock">
+      
+    </div>
   </form>
 </mat-dialog-content>
 
