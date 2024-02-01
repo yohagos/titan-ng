@@ -13,6 +13,7 @@ import { BookingComponent } from './features/table/booking/booking.component';
 import { UserProfileComponent } from './shared/user-profile/user-profile.component';
 import { ManageTeamComponent } from './features/manage-team/manage-team.component';
 import { ManageBalanceComponent } from './features/manage-balance/manage-balance.component';
+import { StorageComponent } from './features/storage/storage.component';
 
 const routes: Routes = [
   {
@@ -71,6 +72,11 @@ const routes: Routes = [
       {
         path: 'arrangement',
         component: ArrangementComponent
+        //canActivate: [AuthGuardService]
+      },
+      {
+        path: 'storage',
+        component: StorageComponent
         //canActivate: [AuthGuardService]
       }
     ]

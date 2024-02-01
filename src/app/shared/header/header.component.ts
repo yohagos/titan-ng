@@ -52,6 +52,10 @@ export class HeaderComponent {
     this.router.navigate(['/manage-balance'])
   }
 
+  openStorage() {
+    this.router.navigate(['/storage'])
+  }
+
   openCategory() {
     this.router.navigate(['/category'])
   }
