@@ -1,4 +1,4 @@
-export enum CategoryUnit {
+export enum Unit {
   ML = 0.001,
   L = 1.0,
   MG = 0.001,
