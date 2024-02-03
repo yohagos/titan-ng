@@ -5,6 +5,9 @@ import { StorageDataSource } from './storageDataSource';
 import { Observable } from 'rxjs';
 import { StorageFull } from 'src/app/core/models/storage.model';
 import { MatSort } from '@angular/material/sort';
+import { UtilService } from 'src/app/shared/services/util.service';
+import { MatDialog } from '@angular/material/dialog';
+import { AddInventoryDialogComponent } from './add-inventory-dialog/add-inventory-dialog.component';
 
 @Component({
   selector: 'app-storage',
@@ -19,7 +22,9 @@ export class StorageComponent implements OnInit {
   storage$: Observable<StorageFull[]> = new Observable<StorageFull[]>()
 
   constructor(
-    private storageService: StorageService
+    private storageService: StorageService,
+    private matDialog: MatDialog,
+
   ) {
 
   }
@@ -33,6 +38,19 @@ export class StorageComponent implements OnInit {
 
   loadData() {
     this.dataSource.loadInventory()
+  }
+
+  openAddInventoryDialog() {
+    this.matDialog.open(AddInventoryDialogComponent, {
+      width: '400px'
+    })
+  }
+
+  // utils
+
+  formatDecimal(val: any) {
+    if (!val) return '-'
+    return val.toFixed(2)
   }
 
 }
