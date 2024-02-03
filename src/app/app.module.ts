@@ -40,6 +40,7 @@ import { AddTableDialogComponent } from "./features/table/arrangement/add-table-
 import { ConfirmDialogComponent } from "./shared/confirm-dialog/confirm-dialog.component";
 
 import { StorageComponent } from "./features/storage/storage.component";
+import { AddInventoryDialogComponent } from "./features/storage/add-inventory-dialog/add-inventory-dialog.component";
 
 // App Modules
 import { AppRoutingModule } from './app-routing.module';
@@ -96,6 +97,7 @@ import { DecimalFormatterDirective } from './core/directive/decimal-formatter.di
     CardDialogComponent,
 
     StorageComponent,
+    AddInventoryDialogComponent,
 
     TextFilterPipe,
     EnumToArrayPipe,
