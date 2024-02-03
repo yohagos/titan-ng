@@ -37,8 +37,7 @@ export class AddProductDialogComponent {
     this.addProductForm = this.fb.group({
       name: new FormControl('', Validators.required),
       price: new FormControl('', Validators.required),
-      category: new FormControl(),
-      productStock: this.fb.array([this.createRow()])
+      category: new FormControl()
     })
     this.loadCategoryData()
     this.loadStorageData()
