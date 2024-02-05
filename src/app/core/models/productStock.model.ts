@@ -1,15 +1,15 @@
-import { CategoryUnit } from "./category.enum"
+import { Unit } from "./category.enum"
 import { StorageFull } from "./storage.model"
 
 export interface ProductStockFull {
   id: number
-  unit: CategoryUnit
+  unit: Unit
   measurement: number
   good: StorageFull
 }
 
 export interface ProductStock {
-  unit: CategoryUnit
+  unit: Unit
   measurement: number
   good: StorageFull
 }

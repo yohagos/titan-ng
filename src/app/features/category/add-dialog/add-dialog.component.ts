@@ -1,7 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { CategoryUnit } from 'src/app/core/models/category.enum';
+import { Unit } from 'src/app/core/models/category.enum';
 import { CategoryI } from 'src/app/core/models/category.model';
 import { Icons } from 'src/app/core/models/icons.model';
 import { CategoryService } from 'src/app/core/services/category.service';
@@ -19,7 +19,7 @@ export class AddDialogComponent {
 
   icons: Icons[] = []
 
-  unitEnum = CategoryUnit
+  unitEnum = Unit
 
   constructor(
     private fb: FormBuilder,
