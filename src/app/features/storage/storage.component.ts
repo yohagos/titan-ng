@@ -8,6 +8,7 @@ import { MatSort } from '@angular/material/sort';
 import { UtilService } from 'src/app/shared/services/util.service';
 import { MatDialog } from '@angular/material/dialog';
 import { AddInventoryDialogComponent } from './add-inventory-dialog/add-inventory-dialog.component';
+import { EditInventoryDialogComponent } from './edit-inventory-dialog/edit-inventory-dialog.component';
 
 @Component({
   selector: 'app-storage',
@@ -42,13 +43,20 @@ export class StorageComponent implements OnInit {
 
   openAddInventoryDialog() {
     const dialog =this.matDialog.open(AddInventoryDialogComponent, {
-      width: '400px'
+      width: '500px'
     })
     dialog.afterClosed().subscribe(
       () => {
         this.loadData()
       }
     )
+  }
+
+  openEditInventoryDialog(data: StorageFull) {
+    const dialog = this.matDialog.open(EditInventoryDialogComponent, {
+      width: '500px',
+      data: {inv: data}
+    })
   }
 
   // utils

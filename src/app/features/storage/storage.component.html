@@ -33,7 +33,7 @@
           <mat-icon>more_vert</mat-icon>
         </button>
         <mat-menu #menu>
-          <button mat-menu-item>
+          <button mat-menu-item (click)="openEditInventoryDialog(element)">
             <mat-icon>edit</mat-icon> Edit
           </button>
           <button mat-menu-item>
