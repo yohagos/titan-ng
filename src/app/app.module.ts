@@ -41,6 +41,7 @@ import { ConfirmDialogComponent } from "./shared/confirm-dialog/confirm-dialog.c
 
 import { StorageComponent } from "./features/storage/storage.component";
 import { AddInventoryDialogComponent } from "./features/storage/add-inventory-dialog/add-inventory-dialog.component";
+import { EditInventoryDialogComponent } from './features/storage/edit-inventory-dialog/edit-inventory-dialog.component';
 
 // App Modules
 import { AppRoutingModule } from './app-routing.module';
@@ -58,7 +59,6 @@ import { EnumToArrayPipe } from "./core/pipe/enumToArray.pipe";
 // Directives
 import { InputRecognitionDirective } from "./core/directive/input-recognition.directive";
 import { DecimalFormatterDirective } from './core/directive/decimal-formatter.directive';
-
 
 
 
@@ -98,6 +98,7 @@ import { DecimalFormatterDirective } from './core/directive/decimal-formatter.di
 
     StorageComponent,
     AddInventoryDialogComponent,
+    EditInventoryDialogComponent,
 
     TextFilterPipe,
     EnumToArrayPipe,
