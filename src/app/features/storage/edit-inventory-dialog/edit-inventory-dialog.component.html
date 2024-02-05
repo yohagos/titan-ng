@@ -34,7 +34,9 @@
   </div>
 </mat-dialog-content>
 <mat-dialog-actions>
-  <button mat-raised-button color="primary">
+  <button mat-raised-button  color="primary"
+    *ngIf="editInventoryForm.dirty && editInventoryForm.valid"
+    (click)="editInventory()">
     Edit
   </button>
   <button mat-stroked-button matDialogClose>Cancel</button>

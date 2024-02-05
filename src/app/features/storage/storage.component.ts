@@ -57,6 +57,11 @@ export class StorageComponent implements OnInit {
       width: '500px',
       data: {inv: data}
     })
+    dialog.afterClosed().subscribe(
+      () => {
+        this.loadData()
+      }
+    )
   }
 
   // utils
