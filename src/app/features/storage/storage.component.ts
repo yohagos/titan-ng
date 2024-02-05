@@ -41,9 +41,14 @@ export class StorageComponent implements OnInit {
   }
 
   openAddInventoryDialog() {
-    this.matDialog.open(AddInventoryDialogComponent, {
+    const dialog =this.matDialog.open(AddInventoryDialogComponent, {
       width: '400px'
     })
+    dialog.afterClosed().subscribe(
+      () => {
+        this.loadData()
+      }
+    )
   }
 
   // utils
