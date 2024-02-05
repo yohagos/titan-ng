@@ -18,4 +18,8 @@ export class StorageService {
   addInventory(request: Storage) {
     return this.http.post<StorageFull>('storages/add', request, {withCredentials: true})
   }
+
+  editInventory(id: number, request: Storage) {
+    return this.http.put<StorageFull>(`storages/${id}`, request, {withCredentials: true})
+  }
 }
