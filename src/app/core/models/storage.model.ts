@@ -4,6 +4,8 @@ export interface StorageFull {
   pricePerBottle: number
   stockOfBottles: number
   currentStock: number
+  unit: string
+  measurement: number
   criticalStockOfBottles: number
 }
 
@@ -12,6 +14,8 @@ export interface Storage {
   pricePerBottle: number
   stockOfBottles: number
   currentStock: number
+  unit: string
+  measurement: number
   criticalStockOfBottles: number
 }
 

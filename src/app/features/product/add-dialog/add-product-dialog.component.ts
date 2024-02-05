@@ -2,10 +2,9 @@ import { Component } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { CategoryUnit } from 'src/app/core/models/category.enum';
+import { Unit } from 'src/app/core/models/category.enum';
 import { CategoryFull } from 'src/app/core/models/category.model';
 import { ProductAddRequest } from 'src/app/core/models/product.model';
-import { ProductStock } from 'src/app/core/models/productStock.model';
 import { StorageFull } from 'src/app/core/models/storage.model';
 import { CategoryService } from 'src/app/core/services/category.service';
 import { ProductService } from 'src/app/core/services/product.service';
@@ -24,7 +23,7 @@ export class AddProductDialogComponent {
   categories: CategoryFull[] = []
   inventory: StorageFull[] = []
 
-  categuryUnits = Object.keys(CategoryUnit)
+  categuryUnits = Object.keys(Unit)
 
   constructor(
     private fb: FormBuilder,
@@ -58,7 +57,7 @@ export class AddProductDialogComponent {
   createRow(): FormGroup {
     return this.fb.group({
       measurement: new FormControl(0),
-      unit: new FormControl(CategoryUnit.CL),
+      unit: new FormControl(Unit.CL),
       good: new FormControl(null)
     })
   }

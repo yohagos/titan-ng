@@ -21,7 +21,13 @@
 </mat-dialog-content>
 
 <mat-dialog-actions>
-  <button mat-raised-button color="primary" *ngIf="addProductForm.valid && (addProductForm.get('category')?.value != '' || addProductForm.get('category')?.value != undefined)" (click)="addProduct()">Add</button>
+  <button mat-raised-button color="primary"
+      *ngIf="addProductForm.valid &&
+      (addProductForm.get('category')?.value != '' ||
+      addProductForm.get('category')?.value != undefined)"
+      (click)="addProduct()">
+        Add
+  </button>
   <button mat-button  mat-dialog-close >Cancel</button>
 </mat-dialog-actions>
 
