@@ -53,7 +53,7 @@ export class EditInventoryDialogComponent implements OnInit {
       }
       this.storageService.editInventory(this.data.inv.id, request).subscribe({
         next: (data) => {
-          this.snackbarService.snackbarSuccess(`Added ${data.name}`, "Done")
+          this.snackbarService.snackbarSuccess(`Edited ${data.name}`, "Done")
           this.matDialogRef.close()
         },
         error: (err) => {

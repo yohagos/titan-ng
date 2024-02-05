@@ -22,4 +22,8 @@ export class StorageService {
   editInventory(id: number, request: Storage) {
     return this.http.put<StorageFull>(`storages/${id}`, request, {withCredentials: true})
   }
+
+  deleteInventory(id: number) {
+    return this.http.delete<StorageFull>(`storages/${id}`)
+  }
 }
