@@ -41,7 +41,6 @@ export class CashDialogComponent implements OnInit {
     this.price = this.transferService.getAllProducts()
             .reduce((total, product) => total + product.price, 0)
     this.products = this.transferService.getAllProducts()
-    console.log(this.products)
     this.actualPrice = this.price
     this.cashForm = this.formBuilder.group({
       fullPrice: new FormControl({value: this.price.toFixed(2), disabled: true}),

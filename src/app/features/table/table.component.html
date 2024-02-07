@@ -1,15 +1,58 @@
 <mat-spinner *ngIf="loading"></mat-spinner>
 
-<section class="mainContainer">
-  <h2>Tables</h2>
-</section>
+<div *ngIf="!productsAreSelected">
+  <section class="mainContainer">
+    <h2>Tables</h2>
+  </section>
 
-<section>
-  <div class="example-box" *ngFor="let table of tables$ | async"
-    [cdkDragFreeDragPosition]="tablePositon(table)" [cdkDragDisabled]="true" cdkDrag>
-    <button mat-raised-button [ngStyle]="changeColorDependingOnOccupied(table)" (click)="openTable(table)">
-      {{table.tableNumber}}
+  <section>
+    <div class="example-box" *ngFor="let table of tables$ | async"
+      [cdkDragFreeDragPosition]="tablePositon(table)" [cdkDragDisabled]="true" cdkDrag>
+      <button mat-raised-button [ngStyle]="changeColorDependingOnOccupied(table)" (click)="openTable(table)">
+        {{table.tableNumber}}
+      </button>
+    </div>
+  </section>
+</div>
+
+<div *ngIf="productsAreSelected">
+  <mat-form-field class="filter" appearance="fill">
+    <mat-label>Filter</mat-label>
+    <input matInput [(ngModel)]="filterText" (keyup)="applyFilter($event)" placeholder="E.g. Drink" #input>
+    <button mat-icon-button matSuffix *ngIf="filterText" (click)="clearFilter()">
+      <mat-icon>delete</mat-icon>
     </button>
-  </div>
-</section>
+  </mat-form-field>
+
+  <section class="tableContainer">
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
+      <ng-container matColumnDef="item">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by item">Item</th>
+        <td mat-cell *matCellDef="let element">{{element.item}}</td>
+      </ng-container>
+      <ng-container matColumnDef="price">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by price">Price</th>
+        <td mat-cell *matCellDef="let element">{{element.price}}</td>
+      </ng-container>
+      <ng-container matColumnDef="quantity">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by quantity">Quantity</th>
+        <td mat-cell *matCellDef="let element">{{element.quantity}}</td>
+      </ng-container>
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let element">
+          <button mat-icon-button (click)="addQuantity(element)">
+            <mat-icon>add</mat-icon>
+          </button>
+          <button mat-icon-button (click)="reduceQuantity(element)">
+            <mat-icon>remove</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+  </section>
+</div>
 

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 
 import { Router, Scroll } from '@angular/router';
 import { TableFull } from 'src/app/core/models/table.model';
@@ -6,7 +6,17 @@ import { TableService } from 'src/app/core/services/table.service';
 
 import { MatDialog } from '@angular/material/dialog';
 import { PinDialogComponent } from '../authentication/pin-dialog/pin-dialog.component';
+import { TransferService } from 'src/app/core/services/transfer.service';
+import { Subscription } from 'rxjs';
+import { ProductFull } from 'src/app/core/models/product.model';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 
+interface ProductList {
+  item: string
+  price: number
+  quantity: number
+}
 
 @Component({
   selector: 'app-table',
@@ -22,10 +32,20 @@ export class TableComponent implements OnInit {
   private timeout: number = 30000
   private isDialogOpen = false;
 
+  private productSubscription: Subscription
+  selectedProducts: ProductFull[] = []
+  productsAreSelected = false
+
+  filterText = ''
+  dataSource = new MatTableDataSource()
+  displayedColumns: string [] = ['item', 'price', 'quantity', 'actions']
+  @ViewChild(MatSort) sort!: MatSort
+
   constructor(
     private readonly tableService: TableService,
     private router: Router,
     private matDialog: MatDialog,
+    private transferService: TransferService
   ) {
     router.events.subscribe((event) => {
       if (event instanceof Scroll) {
@@ -35,6 +55,15 @@ export class TableComponent implements OnInit {
       }
     })
     this.dialog()
+    this.productSubscription = this.transferService.products$.subscribe((data) => {
+      this.selectedProducts = data
+      if (data.length > 0) {
+        this.productsAreSelected = true
+        this.loadingTable(data)
+      } else {
+        this.productsAreSelected = false
+      }
+    })
   }
 
   ngOnInit() {
@@ -105,5 +134,45 @@ export class TableComponent implements OnInit {
   resetTimer() {
     clearTimeout(this.timer)
     this.startTimer()
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value
+    this.dataSource.filter = filterValue.trim().toLowerCase()
+  }
+
+  clearFilter() {
+    this.filterText = ''
+  }
+
+  addQuantity(element: ProductList) {
+    let prod = this.selectedProducts.find((product) => product.name === element.item)
+    if (prod != undefined) {
+      this.transferService.addProduct(prod)
+    }
+  }
+
+  reduceQuantity(element: ProductList) {
+    this.transferService.removeProduct(element.item)
+  }
+
+  loadingTable(products: ProductFull[]) {
+    let distinctProducts: ProductList[] = []
+
+    products.forEach((product) => {
+      const isInArray = distinctProducts?.some((el) => el.item === product.name)
+      if (isInArray) {
+        const index = distinctProducts.findIndex((el) => el.item === product.name)
+        distinctProducts[index].quantity += 1
+      } else {
+        const prod: ProductList = {
+          item: product.name,
+          price: product.price,
+          quantity: 1
+        }
+        distinctProducts.push(prod)
+      }
+    })
+    this.dataSource.data = distinctProducts
   }
 }
