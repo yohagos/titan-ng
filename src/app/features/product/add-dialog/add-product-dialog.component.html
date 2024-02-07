@@ -33,7 +33,7 @@
           </mat-form-field>
           <mat-form-field>
             <mat-label>Measurement</mat-label>
-            <input matInput placeholder="Measurement">
+            <input matInput placeholder="Measurement" formControlName="measurement">
           </mat-form-field>
           <button mat-icon-button (click)="remove(i)">
             <mat-icon>cancel</mat-icon>
@@ -54,6 +54,8 @@
         Add
   </button>
   <button mat-button  mat-dialog-close >Cancel</button>
-  <button mat-raised-button color="blue" (click)="onSubmit()"> OnSubmit() </button>
+  <button mat-raised-button (click)="prepareItems()">
+    print
+  </button>
 </mat-dialog-actions>
 

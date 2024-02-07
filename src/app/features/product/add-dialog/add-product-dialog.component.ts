@@ -5,10 +5,12 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Unit } from 'src/app/core/models/category.enum';
 import { CategoryFull } from 'src/app/core/models/category.model';
 import { ProductAddRequest } from 'src/app/core/models/product.model';
+import { ProductStockAddRequest } from 'src/app/core/models/productStock.model';
 import { StorageFull } from 'src/app/core/models/storage.model';
 import { CategoryService } from 'src/app/core/services/category.service';
 import { ProductService } from 'src/app/core/services/product.service';
 import { StorageService } from 'src/app/core/services/storage.service';
+import { SnackbarService } from 'src/app/shared/services/snackbar.service';
 
 @Component({
   selector: 'app-add-dialog',
@@ -28,7 +30,7 @@ export class AddProductDialogComponent {
     private categoryService: CategoryService,
     private productService: ProductService,
     public dialogRef: MatDialogRef<AddProductDialogComponent>,
-    public _snackbar: MatSnackBar,
+    private snackbarService: SnackbarService,
     private storageService: StorageService,
   ) {
     this.addProductForm = this.fb.group({
@@ -76,14 +78,24 @@ export class AddProductDialogComponent {
     this.items.removeAt(index)
   }
 
-  onSubmit() {
-    console.log(this.addProductForm.value)
-  }
-
   getUnits() {
     return Object.keys(Unit).filter((item) => {
       return isNaN(Number(item))
     })
+  }
+
+  prepareItems() {
+    let products: ProductStockAddRequest[] = []
+    let items = this.addProductForm.get('items')?.value
+    for( let item of items) {
+      let pro: ProductStockAddRequest = {
+        unit: item.unit,
+        measurement: +item.measurement,
+        good: item.good
+      }
+      products.push(pro)
+    }
+    return products
   }
 
   addProduct() {
@@ -93,17 +105,21 @@ export class AddProductDialogComponent {
         price: this.addProductForm.get('price')?.value,
         productCategoryId: +this.addProductForm.get('category')?.value,
       }
+
+      let items: ProductStockAddRequest[] = this.prepareItems()
       this.productService.addProduct(product).subscribe({
-        next: () => {
-          this.dialogRef.close()
+        next: (data) => {
+          this.productService.addComponentsToProduct(data.id, items).subscribe({
+            next: () => {
+              this.dialogRef.close()
+            },
+            error: (err) => {
+              this.snackbarService.snackbarError("Err", "Try Again")
+            }
+          })
         },
         error: (err) => {
-          this._snackbar.open(err, 'Close', {
-            duration: 4000,
-            panelClass: ['snackbarError'],
-            horizontalPosition: 'center',
-            verticalPosition: 'bottom'
-          })
+          this.snackbarService.snackbarError("Err", "Try Again")
         }
       })
     }
