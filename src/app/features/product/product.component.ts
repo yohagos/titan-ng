@@ -43,7 +43,7 @@ export class ProductComponent implements OnInit {
 
   addProduct() {
     const dialogRef = this.matDialog.open(AddProductDialogComponent, {
-      width: '500px'
+      width: '600px'
     })
     dialogRef.afterClosed().subscribe(
       () => {
@@ -54,7 +54,7 @@ export class ProductComponent implements OnInit {
 
   editProduct(product: ProductFull) {
     const dialogRef = this.matDialog.open(EditProductDialogComponent, {
-      width: '500px',
+      width: '600px',
       data: {product: product}
     })
     dialogRef.afterClosed().subscribe(

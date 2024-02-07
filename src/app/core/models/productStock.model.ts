@@ -13,3 +13,9 @@ export interface ProductStock {
   measurement: number
   good: StorageFull
 }
+
+export interface ProductStockAddRequest {
+  unit: string
+  measurement: number
+  good: string
+}

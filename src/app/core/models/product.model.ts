@@ -33,3 +33,8 @@ export interface StoreProductsToTable {
   id: number
   products: number[]
 }
+
+export interface ProductResponse {
+  id: number
+  name: string
+}
