@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { JwtService } from './jwt.service';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-import { ProductAddRequest, ProductEditRequest, ProductFull, StoreProductsToTable } from '../models/product.model';
+import { ProductAddRequest, ProductEditRequest, ProductFull, ProductResponse, StoreProductsToTable } from '../models/product.model';
+import { ProductStockAddRequest } from '../models/productStock.model';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +21,11 @@ export class ProductService {
   }
 
   addProduct(product: ProductAddRequest) {
-    return this.http.post('product/add', product, {withCredentials: true})
+    return this.http.post<ProductResponse>('product/add', product, {withCredentials: true})
+  }
+
+  addComponentsToProduct(id: number, items: ProductStockAddRequest[]) {
+    return this.http.post(`product/add/${id}`, items)
   }
 
   editProduct(product: ProductEditRequest) {

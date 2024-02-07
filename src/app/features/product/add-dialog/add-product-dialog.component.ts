@@ -5,10 +5,12 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Unit } from 'src/app/core/models/category.enum';
 import { CategoryFull } from 'src/app/core/models/category.model';
 import { ProductAddRequest } from 'src/app/core/models/product.model';
+import { ProductStockAddRequest } from 'src/app/core/models/productStock.model';
 import { StorageFull } from 'src/app/core/models/storage.model';
 import { CategoryService } from 'src/app/core/services/category.service';
 import { ProductService } from 'src/app/core/services/product.service';
 import { StorageService } from 'src/app/core/services/storage.service';
+import { SnackbarService } from 'src/app/shared/services/snackbar.service';
 
 @Component({
   selector: 'app-add-dialog',
@@ -16,9 +18,7 @@ import { StorageService } from 'src/app/core/services/storage.service';
   styleUrl: './add-product-dialog.component.scss'
 })
 export class AddProductDialogComponent {
-[x: string]: any;
   addProductForm: FormGroup
-  formArray!: FormArray
 
   categories: CategoryFull[] = []
   inventory: StorageFull[] = []
@@ -30,13 +30,20 @@ export class AddProductDialogComponent {
     private categoryService: CategoryService,
     private productService: ProductService,
     public dialogRef: MatDialogRef<AddProductDialogComponent>,
-    public _snackbar: MatSnackBar,
+    private snackbarService: SnackbarService,
     private storageService: StorageService,
   ) {
     this.addProductForm = this.fb.group({
       name: new FormControl('', Validators.required),
       price: new FormControl('', Validators.required),
-      category: new FormControl()
+      category: new FormControl(),
+      items: this.fb.array([
+        this.fb.group({
+          measurement: new FormControl('', Validators.required),
+          unit: new FormControl('', Validators.required),
+          good: new FormControl('', Validators.required)
+        })
+      ])
     })
     this.loadCategoryData()
     this.loadStorageData()
@@ -54,16 +61,41 @@ export class AddProductDialogComponent {
     )
   }
 
-  createRow(): FormGroup {
-    return this.fb.group({
-      measurement: new FormControl(0),
-      unit: new FormControl(Unit.CL),
-      good: new FormControl(null)
+  get items() {
+    return this.addProductForm.get('items') as FormArray
+  }
+
+  add() {
+    this.items.push(this.fb.group({
+      measurement: new FormControl(),
+      unit: new FormControl(),
+      good: new FormControl()
     })
+    )
+  }
+
+  remove(index: number) {
+    this.items.removeAt(index)
   }
 
   getUnits() {
-    this.categuryUnits.slice(this.categuryUnits.length/2)
+    return Object.keys(Unit).filter((item) => {
+      return isNaN(Number(item))
+    })
+  }
+
+  prepareItems() {
+    let products: ProductStockAddRequest[] = []
+    let items = this.addProductForm.get('items')?.value
+    for( let item of items) {
+      let pro: ProductStockAddRequest = {
+        unit: item.unit,
+        measurement: +item.measurement,
+        good: item.good
+      }
+      products.push(pro)
+    }
+    return products
   }
 
   addProduct() {
@@ -73,17 +105,21 @@ export class AddProductDialogComponent {
         price: this.addProductForm.get('price')?.value,
         productCategoryId: +this.addProductForm.get('category')?.value,
       }
+
+      let items: ProductStockAddRequest[] = this.prepareItems()
       this.productService.addProduct(product).subscribe({
-        next: () => {
-          this.dialogRef.close()
+        next: (data) => {
+          this.productService.addComponentsToProduct(data.id, items).subscribe({
+            next: () => {
+              this.dialogRef.close()
+            },
+            error: (err) => {
+              this.snackbarService.snackbarError("Err", "Try Again")
+            }
+          })
         },
         error: (err) => {
-          this._snackbar.open(err, 'Close', {
-            duration: 4000,
-            panelClass: ['snackbarError'],
-            horizontalPosition: 'center',
-            verticalPosition: 'bottom'
-          })
+          this.snackbarService.snackbarError("Err", "Try Again")
         }
       })
     }
