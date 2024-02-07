@@ -9,14 +9,39 @@
       <mat-label>Price</mat-label>
       <input type="number" matInput placeholder="0.00" formControlName="price">
     </mat-form-field>
-    <mat-form-field>
+    <mat-form-field appearance="fill">
       <mat-label>Category</mat-label>
       <mat-select formControlName="category">
         <mat-option *ngFor="let cat of categories" value="{{cat.id}}">{{cat.categoryName}} <span>{{cat.measurement}} {{cat.unit}}</span> </mat-option>
       </mat-select>
     </mat-form-field>
     <mat-divider></mat-divider>
-
+    <div formArrayName="items">
+      <div *ngFor="let item of items.controls; let i = index">
+        <div [formGroupName]="i">
+          <mat-form-field>
+            <mat-label>Good</mat-label>
+            <mat-select formControlName="good">
+              <mat-option *ngFor="let g of inventory" [value]="g.name">{{g.name}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Unit</mat-label>
+            <mat-select formControlName="unit">
+              <mat-option *ngFor="let item of getUnits()" [value]="item">{{item}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Measurement</mat-label>
+            <input matInput placeholder="Measurement">
+          </mat-form-field>
+          <button mat-icon-button (click)="remove(i)">
+            <mat-icon>cancel</mat-icon>
+          </button>
+        </div>
+      </div>
+      <button mat-raised-button (click)="add()">Add item</button>
+    </div>
   </form>
 </mat-dialog-content>
 
@@ -29,5 +54,6 @@
         Add
   </button>
   <button mat-button  mat-dialog-close >Cancel</button>
+  <button mat-raised-button color="blue" (click)="onSubmit()"> OnSubmit() </button>
 </mat-dialog-actions>
 

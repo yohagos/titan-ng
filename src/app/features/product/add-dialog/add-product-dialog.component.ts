@@ -16,9 +16,7 @@ import { StorageService } from 'src/app/core/services/storage.service';
   styleUrl: './add-product-dialog.component.scss'
 })
 export class AddProductDialogComponent {
-[x: string]: any;
   addProductForm: FormGroup
-  formArray!: FormArray
 
   categories: CategoryFull[] = []
   inventory: StorageFull[] = []
@@ -36,7 +34,14 @@ export class AddProductDialogComponent {
     this.addProductForm = this.fb.group({
       name: new FormControl('', Validators.required),
       price: new FormControl('', Validators.required),
-      category: new FormControl()
+      category: new FormControl(),
+      items: this.fb.array([
+        this.fb.group({
+          measurement: new FormControl('', Validators.required),
+          unit: new FormControl('', Validators.required),
+          good: new FormControl('', Validators.required)
+        })
+      ])
     })
     this.loadCategoryData()
     this.loadStorageData()
@@ -54,16 +59,31 @@ export class AddProductDialogComponent {
     )
   }
 
-  createRow(): FormGroup {
-    return this.fb.group({
-      measurement: new FormControl(0),
-      unit: new FormControl(Unit.CL),
-      good: new FormControl(null)
+  get items() {
+    return this.addProductForm.get('items') as FormArray
+  }
+
+  add() {
+    this.items.push(this.fb.group({
+      measurement: new FormControl(),
+      unit: new FormControl(),
+      good: new FormControl()
     })
+    )
+  }
+
+  remove(index: number) {
+    this.items.removeAt(index)
+  }
+
+  onSubmit() {
+    console.log(this.addProductForm.value)
   }
 
   getUnits() {
-    this.categuryUnits.slice(this.categuryUnits.length/2)
+    return Object.keys(Unit).filter((item) => {
+      return isNaN(Number(item))
+    })
   }
 
   addProduct() {
