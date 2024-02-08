@@ -55,6 +55,7 @@ export class TableComponent implements OnInit {
       }
     })
     this.dialog()
+    this.startTimer()
     this.productSubscription = this.transferService.products$.subscribe((data) => {
       this.selectedProducts = data
       if (data.length > 0) {
@@ -67,8 +68,6 @@ export class TableComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.startTimer()
-
     document.addEventListener('click', this.resetTimer.bind(this))
     document.addEventListener('keydown', this.resetTimer.bind(this))
     document.addEventListener('mousemove', this.resetTimer.bind(this))
