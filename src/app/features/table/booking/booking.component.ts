@@ -3,11 +3,13 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { ProductFull } from 'src/app/core/models/product.model';
 import { TableFull } from 'src/app/core/models/table.model';
 import { ProductService } from 'src/app/core/services/product.service';
 import { TableService } from 'src/app/core/services/table.service';
 import { TransferService } from 'src/app/core/services/transfer.service';
+import { SnackbarService } from 'src/app/shared/services/snackbar.service';
 
 interface ProductList {
   item: string
@@ -20,16 +22,19 @@ interface ProductList {
   templateUrl: './booking.component.html',
   styleUrl: './booking.component.scss'
 })
-export class BookingComponent implements OnInit, AfterViewInit {
+export class BookingComponent implements OnInit {
   table!: TableFull
   dataSource = new MatTableDataSource()
-
-  allProducts: ProductFull[] = []
 
   filterText = ''
 
   displayedColumns: string [] = ['item', 'price', 'quantity', 'actions']
   @ViewChild(MatSort) sort!: MatSort
+
+  allProducts: ProductFull[] = []
+  private productSubscribtion!: Subscription
+
+  previousProducts: ProductFull[] = []
 
   constructor(
     private router: Router,
@@ -37,27 +42,21 @@ export class BookingComponent implements OnInit, AfterViewInit {
     private transferService: TransferService,
     private productService: ProductService,
     private tableService: TableService,
-    private _snackbar: MatSnackBar
+    private snackbarService: SnackbarService
   ) {
     this.route.queryParams.subscribe(
       (params) => {
         this.table = params as TableFull
       }
     )
-    this.transferService.products$.subscribe(
+    this.productSubscribtion = this.transferService.products$.subscribe(
       data => {
-        this.loadingTable(data)
+        data.forEach((prod) => {
+          this.previousProducts.push(prod)
+        })
+        this.loadingTable(this.previousProducts)
       }
     )
-  }
-
-  ngOnInit() {
-    this.tableService.getProductsForTable(this.table.id).subscribe(
-      data => this.loadingTable(data)
-    )
-  }
-
-  ngAfterViewInit() {
     this.productService.loadProducts().subscribe(
       data => {
         this.allProducts = data
@@ -65,9 +64,17 @@ export class BookingComponent implements OnInit, AfterViewInit {
     )
   }
 
-  loadingTable(products: ProductFull[]) {
-    let distinctProducts: ProductList[] = []
+  ngOnInit() {
+    this.tableService.getProductsForTable(this.table.id).subscribe(
+      data => {
+        this.loadingTable(data)
+      }
+    )
+  }
 
+  loadingTable(products: ProductFull[]) {
+    console.log(products)
+    let distinctProducts: ProductList[] = []
     products.forEach((product) => {
       const isInArray = distinctProducts?.some((el) => el.item === product.name)
       if (isInArray) {
@@ -82,11 +89,13 @@ export class BookingComponent implements OnInit, AfterViewInit {
         distinctProducts.push(prod)
       }
     })
-    this.dataSource.data = distinctProducts
+    this.dataSource.data = [...distinctProducts]
   }
 
-  addQuantity(element: ProductList) {
-    let prod = this.allProducts.find((product) => product.name === element.item)
+  addQuantity(element: ProductFull) {
+    console.log(element)
+    let prod = this.allProducts.find((product) => product.id === element.id)
+    console.log(prod)
     if (prod != undefined) {
       this.transferService.addProduct(prod)
     }
@@ -106,27 +115,18 @@ export class BookingComponent implements OnInit, AfterViewInit {
   }
 
   saveTable() {
-    let products = this.transferService.getAllProducts()
-
+    this.router.navigate(['/nav/able'])
+    /* let products = this.transferService.getAllProducts() */
+    /* let products: ProductFull[] = this.dataSource.data as ProductFull[]
     this.tableService.storeProductToTable(this.table.id, products).subscribe({
       next: () => {
-        this._snackbar.open('Parked order', 'Close', {
-          duration: 2000,
-          horizontalPosition: 'center',
-          verticalPosition: 'bottom'
-        })
-        this.transferService.clear()
-        this.router.navigate(['/nav/table'])
+        this.snackbarService.snackbarSuccess("", "")
+        this.router.navigate(['/nav/able'])
       },
       error: (err) => {
-        this._snackbar.open(err, 'Close', {
-          duration: 4000,
-          panelClass: ['snackbarError'],
-          horizontalPosition: 'center',
-          verticalPosition: 'bottom'
-        })
+        this.snackbarService.snackbarError(`Err: ${err}`, "")
       }
-    })
+    }) */
   }
 
 }
