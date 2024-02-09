@@ -51,9 +51,7 @@ export class BookingComponent implements OnInit {
     )
     this.productSubscribtion = this.transferService.products$.subscribe(
       data => {
-        data.forEach((prod) => {
-          this.previousProducts.push(prod)
-        })
+        this.previousProducts = data
         this.loadingTable(this.previousProducts)
       }
     )
@@ -68,17 +66,18 @@ export class BookingComponent implements OnInit {
     this.tableService.getProductsForTable(this.table.id).subscribe(
       data => {
         this.loadingTable(data)
+        console.log(data)
       }
     )
   }
 
   loadingTable(products: ProductFull[]) {
-    console.log(products)
     let distinctProducts: ProductList[] = []
     products.forEach((product) => {
       const isInArray = distinctProducts?.some((el) => el.item === product.name)
       if (isInArray) {
         const index = distinctProducts.findIndex((el) => el.item === product.name)
+        console.log(index)
         distinctProducts[index].quantity += 1
       } else {
         const prod: ProductList = {
@@ -115,18 +114,18 @@ export class BookingComponent implements OnInit {
   }
 
   saveTable() {
-    this.router.navigate(['/nav/able'])
     /* let products = this.transferService.getAllProducts() */
-    /* let products: ProductFull[] = this.dataSource.data as ProductFull[]
+    let products: ProductFull[] = this.dataSource.data as ProductFull[]
+    console.log(products)
     this.tableService.storeProductToTable(this.table.id, products).subscribe({
       next: () => {
         this.snackbarService.snackbarSuccess("", "")
-        this.router.navigate(['/nav/able'])
+        this.router.navigate(['/nav/table'])
       },
       error: (err) => {
         this.snackbarService.snackbarError(`Err: ${err}`, "")
       }
-    }) */
+    })
   }
 
 }

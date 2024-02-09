@@ -55,7 +55,7 @@ export class TableComponent implements OnInit {
       }
     })
     this.dialog()
-    this.startTimer()
+    //this.startTimer()
     this.productSubscription = this.transferService.products$.subscribe((data) => {
       this.selectedProducts = data
       if (data.length > 0) {
@@ -148,6 +148,7 @@ export class TableComponent implements OnInit {
     let prod = this.selectedProducts.find((product) => product.name === element.item)
     if (prod != undefined) {
       this.transferService.addProduct(prod)
+      this.dataSource.data.push(prod)
     }
   }
 
