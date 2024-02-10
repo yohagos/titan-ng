@@ -22,9 +22,7 @@ export class CashierComponent {
 
   constructor(
     private transferService: TransferService,
-    private router: Router,
     private matDialog: MatDialog,
-    private transactionService: TransactionService
   ) {
     this.productSubscription = this.transferService.products$.subscribe(products => {
       this.products = products
@@ -34,6 +32,10 @@ export class CashierComponent {
 
   private calculateTotalPrice() {
     this.price = this.products.reduce((sum, product) => sum + product.price, 0)
+  }
+
+  get isDisabled() {
+    return this.price <= 0
   }
 
   cashTransactionsDialog() {
@@ -49,7 +51,4 @@ export class CashierComponent {
       height: '500px'
     })
   }
-
-  
-
 }

@@ -34,6 +34,7 @@ import { EditProductDialogComponent } from './features/product/edit-dialog/edit-
 
 import { TableComponent } from './features/table/table.component';
 import { BookingComponent } from './features/table/booking/booking.component';
+import { TogoComponent } from './features/table/togo/togo.component';
 import { ArrangementComponent } from './features/table/arrangement/arrangement.component';
 import { AddTableDialogComponent } from "./features/table/arrangement/add-table-dialog/add-table-dialog.component";
 
@@ -86,6 +87,7 @@ import { DecimalFormatterDirective } from './core/directive/decimal-formatter.di
     EditProductDialogComponent,
 
     TableComponent,
+    TogoComponent,
     BookingComponent,
     ArrangementComponent,
     AddTableDialogComponent,

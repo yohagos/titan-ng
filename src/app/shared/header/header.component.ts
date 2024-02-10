@@ -22,12 +22,15 @@ export class HeaderComponent {
       (val) => {
         if (val instanceof NavigationEnd) {
           let url = val.url
-          if (!url.includes('/nav')) {
+          if (!url.includes('/nav/table')) {
             this.showCashier = false
             this.showBackToNavigation = true
           } else {
             this.showCashier = true
             this.showBackToNavigation = false
+          }
+          if (url.includes('/togo')) {
+            this.showCashier = true
           }
         }
       }
