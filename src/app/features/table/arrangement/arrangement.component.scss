@@ -21,7 +21,7 @@
               0 1px 5px 0 rgba(0, 0, 0, 0.12);
 }
 
-.example-box:active {
+.boundary:active {
   box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
               0 8px 10px 1px rgba(0, 0, 0, 0.14),
               0 3px 14px 2px rgba(0, 0, 0, 0.12);
@@ -37,4 +37,29 @@
   height: 500px;
   _max-width: 100%;
   border: dotted #ccc 2px;
+}
+
+
+.boundary {
+  position: relative;
+  width: 800px; /* Set your desired boundary dimensions */
+  height: 600px;
+  background:
+    linear-gradient(0deg, rgba(0,0,0,.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,0,0,.1) 1px, transparent 1px),
+    white;
+  border: dotted #ccc 2px;
+  margin: auto;
+}
+
+.object {
+  position: absolute;
+  width: 50px; /* Set your object dimensions */
+  height: 50px;
+  background-color: #63a8f1;
+  /* Additional styling as needed */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 }

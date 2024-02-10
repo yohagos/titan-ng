@@ -1,10 +1,11 @@
-import { AfterContentChecked, Component } from '@angular/core';
-import { CdkDragEnd } from "@angular/cdk/drag-drop";
+import { AfterContentChecked, Component, EventEmitter, Output } from '@angular/core';
+import { CdkDragDrop, CdkDragEnd, CdkDropList } from "@angular/cdk/drag-drop";
 import { TableService } from 'src/app/core/services/table.service';
 import { TableAddRequest, TableFull } from 'src/app/core/models/table.model';
 import { MatDialog } from '@angular/material/dialog';
 import { AddTableDialogComponent } from './add-table-dialog/add-table-dialog.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Observable } from 'rxjs';
 
 
 @Component({
@@ -13,7 +14,9 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrl: './arrangement.component.scss'
 })
 export class ArrangementComponent implements AfterContentChecked {
-  tables$ = this.tableService.tables
+  tables$: Observable<TableFull[]>
+
+  objects: { x: number; y: number, id: number }[] = [];
 
   changesDetected = false
 
@@ -21,7 +24,9 @@ export class ArrangementComponent implements AfterContentChecked {
     private tableService: TableService,
     public matDialog: MatDialog,
     private _snackbar: MatSnackBar
-  ) {}
+  ) {
+    this.tables$ = this.tableService.tables
+  }
 
   ngAfterContentChecked() {
     this.tableService.changeDetectionEmitter.subscribe(() => {
