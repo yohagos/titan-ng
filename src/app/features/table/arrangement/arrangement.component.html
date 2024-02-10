@@ -4,11 +4,12 @@
     (cdkDragEnded)="dragEnded($event, item)" cdkDrag>
     {{item.tableNumber}}
   </div>
+
+(cdkDragEnded)="dragEnded($event, table)"
+
+
 </div>
-<section>
-  <button *ngIf="changesDetected" mat-raised-button color="primary" (click)="updateAllPositions()"> Save arrangement </button>
-  <button mat-raised-button (click)="addNewTable()">Add Dining Table</button>
-</section> -->
+-->
 
 <div class="boundary">
   <div
@@ -18,8 +19,14 @@
     [style.top.px]="table.positionY"
     cdkDrag
     cdkDragBoundary=".boundary"
-    cdkDragResizable
+    (cdkDragEnded)="dragEnded($event, table)"
+    (cdkDragReleased)="dragReleased($event)"
   >
     <span class="content">{{table.tableNumber}}</span>
   </div>
 </div>
+
+<section>
+  <button *ngIf="changesDetected" mat-raised-button color="primary" (click)="updateAllPositions()"> Save arrangement </button>
+  <button mat-raised-button (click)="addNewTable()">Add Dining Table</button>
+</section>

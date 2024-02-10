@@ -1,5 +1,5 @@
 import { AfterContentChecked, Component, EventEmitter, Output } from '@angular/core';
-import { CdkDragDrop, CdkDragEnd, CdkDropList } from "@angular/cdk/drag-drop";
+import { CdkDragDrop, CdkDragEnd, CdkDragRelease, CdkDropList, CdkDropListGroup } from "@angular/cdk/drag-drop";
 import { TableService } from 'src/app/core/services/table.service';
 import { TableAddRequest, TableFull } from 'src/app/core/models/table.model';
 import { MatDialog } from '@angular/material/dialog';
@@ -19,6 +19,11 @@ export class ArrangementComponent implements AfterContentChecked {
   objects: { x: number; y: number, id: number }[] = [];
 
   changesDetected = false
+
+  position!: {
+    offsetX: number,
+    offsetY: number
+  }
 
   constructor(
     private tableService: TableService,
@@ -74,13 +79,24 @@ export class ArrangementComponent implements AfterContentChecked {
   }
 
   dragEnded(event: CdkDragEnd, item: TableFull) {
-    let tabs = this.tableService.getAllTables()
+    /* let tabs = this.tableService.getAllTables()
     let table = tabs.find(tab => tab.id == item.id)
     if (table != null) {
       table.positionX = event.source.getFreeDragPosition().x
       table.positionY = event.source.getFreeDragPosition().y
     }
-    this.tableService.updateTableObservable(tabs)
+    this.tableService.updateTableObservable(tabs) */
+/*     console.table(item)
+    console.table(event) */
+  }
+
+  dragDropped(event: CdkDragDrop<TableFull>) {
+    //console.table(event)
+  }
+
+  dragReleased(event: CdkDragRelease<any>) {
+    console.log(event.event)
+
   }
 
   updateAllPositions() {
