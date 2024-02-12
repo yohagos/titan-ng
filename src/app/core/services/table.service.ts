@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, ChangeDetectorRef, EventEmitter } from '@angular/core';
 
 import { BehaviorSubject, Observable } from "rxjs";
-import { TableAddRequest, TableFull } from '../models/table.model';
+import { TableAddRequest, TableFull, Tile } from '../models/table.model';
 import { ProductFull } from '../models/product.model';
 
 @Injectable({
@@ -67,5 +67,12 @@ export class TableService {
   saveTableArrangements() {
     let tables = this.tablesSubject.value
     return this.http.put('table', tables, {withCredentials: true})
+  }
+
+
+
+  // Tables tiles
+  getTiles() {
+    return this.http.get<Tile[]>('table/tiles')
   }
 }

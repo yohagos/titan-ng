@@ -8,8 +8,7 @@ export interface TableFull {
   occupied?: boolean
   occupiedFrom?: any
   occupiedTill?: any
-  positionX: number
-  positionY: number
+  tile: Tile
   products?: ProductFull[]
 }
 
@@ -20,8 +19,7 @@ export interface Table {
   occupied: boolean
   occupiedFrom: any
   occupiedTill: any
-  positionX: number
-  positionY: number
+  tile: Tile
 }
 
 export interface TableAdd {
@@ -32,6 +30,12 @@ export interface TableAdd {
 export interface TableAddRequest {
   tableNummer: number
   numberOfPeople: number
-  positionX: number
-  positionY: number
+  tile: Tile
+}
+
+export interface Tile {
+  id: number
+  cols: number
+  rows: number
+  color: string
 }
