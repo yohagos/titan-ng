@@ -25,6 +25,7 @@ export class AddTableDialogComponent {
   }
 
   submit() {
+    console.log(this.addTableForm.valid)
     if (this.addTableForm.valid) {
       const table: TableAdd = {
         numberOfPeople: this.addTableForm.get('seats')?.value,
