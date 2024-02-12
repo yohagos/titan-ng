@@ -6,7 +6,7 @@
 
 <section>
   <div class="example-box" *ngFor="let table of tables$ | async"
-    [cdkDragFreeDragPosition]="tablePositon(table)" [cdkDragDisabled]="true" cdkDrag>
+     [cdkDragDisabled]="true" cdkDrag>
     <button mat-raised-button [ngStyle]="changeColorDependingOnOccupied(table)" (click)="openTable(table)">
       {{table.tableNumber}}
     </button>

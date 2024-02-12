@@ -87,7 +87,7 @@ export class TableComponent implements OnInit, OnDestroy {
   }
 
   tablePositon(table: TableFull) {
-    return {x: table.positionX, y: table.positionY}
+    //return {x: table.positionX, y: table.positionY}
   }
 
   dialog() {
