@@ -1,11 +1,11 @@
-import { AfterContentChecked, Component, EventEmitter, Output } from '@angular/core';
+import { AfterContentChecked, Component, ElementRef, EventEmitter, Output, ViewChild } from '@angular/core';
 import { CdkDragDrop, CdkDragEnd, CdkDragRelease, CdkDropList, CdkDropListGroup } from "@angular/cdk/drag-drop";
 import { TableService } from 'src/app/core/services/table.service';
-import { TableAddRequest, TableFull } from 'src/app/core/models/table.model';
+import { TableAddRequest, TableFull, Tile } from 'src/app/core/models/table.model';
 import { MatDialog } from '@angular/material/dialog';
 import { AddTableDialogComponent } from './add-table-dialog/add-table-dialog.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 
 
 @Component({
@@ -20,10 +20,7 @@ export class ArrangementComponent implements AfterContentChecked {
 
   changesDetected = false
 
-  position!: {
-    offsetX: number,
-    offsetY: number
-  }
+  tiles: Tile[] = [];
 
   constructor(
     private tableService: TableService,
@@ -31,6 +28,14 @@ export class ArrangementComponent implements AfterContentChecked {
     private _snackbar: MatSnackBar
   ) {
     this.tables$ = this.tableService.tables
+    this.tables$.subscribe(
+      data => { console.log(data)}
+    )
+    this.tableService.getTiles().subscribe(
+      data => {
+        this.tiles = data
+      }
+    )
   }
 
   ngAfterContentChecked() {
@@ -43,7 +48,7 @@ export class ArrangementComponent implements AfterContentChecked {
     const dialogRef = this.matDialog.open(AddTableDialogComponent, {
       width: '300px'
     })
-    dialogRef.afterClosed().subscribe(
+    /* dialogRef.afterClosed().subscribe(
       (data: TableAddRequest) => {
         data.positionX = 1
         data.positionY = 1
@@ -62,11 +67,11 @@ export class ArrangementComponent implements AfterContentChecked {
           }
         })
       }
-    )
+    ) */
   }
 
   tablePosition(table: TableFull) {
-    return {x: table.positionX, y: table.positionY}
+    /* return {x: table.positionX, y: table.positionY} */
   }
 
   checkTableSize(size: number) {
@@ -94,9 +99,29 @@ export class ArrangementComponent implements AfterContentChecked {
     //console.table(event)
   }
 
-  dragReleased(event: CdkDragRelease<any>) {
-    console.log(event.event)
+  dragReleased(event: CdkDragRelease<any>, table: TableFull) {
+    // console.log(event.source.getFreeDragPosition())
+    /* table.positionX = event.source.element.nativeElement.getBoundingClientRect().left
+    table.positionY = event.source.element.nativeElement.getBoundingClientRect().top */
+    //console.log(table)
+  }
 
+  dropTable(event: CdkDragDrop<TableFull[] | null, any, any>) {
+    const { item, currentIndex, previousIndex, container } = event
+    const tables = container.data
+
+    const tableToMove = item.data
+
+    const posX = event.distance.x + tableToMove.positionX
+    const posY = event.distance.y + tableToMove.positionY
+
+    this.tables$ = this.tables$.pipe(
+      map(tables =>
+        tables.map(table =>
+          (table.id === tableToMove.id) ? {...table, positionX: posX, positionY: posY} : table
+        )
+      )
+    )
   }
 
   updateAllPositions() {

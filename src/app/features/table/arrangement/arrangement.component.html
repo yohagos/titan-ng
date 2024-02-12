@@ -9,23 +9,39 @@
 
 
 </div>
--->
+--
 
 <div class="boundary">
-  <div
-    *ngFor="let table of tables$ | async"
+  <- <div *ngFor="let table of tables$ | async"
     class="object"
     [style.left.px]="table.positionX"
     [style.top.px]="table.positionY"
     cdkDrag
     cdkDragBoundary=".boundary"
-    (cdkDragEnded)="dragEnded($event, table)"
-    (cdkDragReleased)="dragReleased($event)"
+    (cdkDragReleased)="dragReleased($event, table)"
   >
     <span class="content">{{table.tableNumber}}</span>
   </div>
-</div>
+  <mat-grid-list cols="30"  rowHeight="50px">
+    -- Replace this with your dynamic content (e.g., tables) --
+    <mat-grid-tile *ngFor="let item of tables$ | async" [colspan]="1" [rowspan]="1" cdkDrag>
+      < Your item content goes here --
+      {{ item.tableNumber }}
+    </mat-grid-tile>
+  </mat-grid-list>
+</div> -->
 
+<mat-grid-list cols="12" rowHeight="60px">
+  @for (tile of tiles; track tile) {
+    <mat-grid-tile
+      [colspan]="tile.cols"
+      [rowspan]="tile.rows">
+    </mat-grid-tile>
+  }
+</mat-grid-list>
+
+
+<br>
 <section>
   <button *ngIf="changesDetected" mat-raised-button color="primary" (click)="updateAllPositions()"> Save arrangement </button>
   <button mat-raised-button (click)="addNewTable()">Add Dining Table</button>

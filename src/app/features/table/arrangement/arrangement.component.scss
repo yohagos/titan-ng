@@ -57,9 +57,9 @@
   width: 50px; /* Set your object dimensions */
   height: 50px;
   background-color: #63a8f1;
-  /* Additional styling as needed */
-  display: flex;
-  justify-content: center;
-  align-items: center;
   text-align: center;
+}
+
+mat-grid-tile {
+  border: 1px solid black;
 }
