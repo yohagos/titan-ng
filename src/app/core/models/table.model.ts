@@ -8,7 +8,8 @@ export interface TableFull {
   occupied?: boolean
   occupiedFrom?: any
   occupiedTill?: any
-  tile: Tile
+  positionX: number
+  positionY: number
   products?: ProductFull[]
 }
 
