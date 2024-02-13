@@ -75,12 +75,12 @@ export class ArrangementComponent implements AfterContentChecked {
   }
 
   checkTableSize(size: number) {
-    switch(size) {
+    /* switch(size) {
       case 2: return 'two-pair-table.jpg'
       case 4: return 'four-pair-table.jpg'
       case 6: return 'six-pair-table.jpg'
       default: return 'two-pair-table.jpg'
-    }
+    } */
   }
 
   dragEnded(event: CdkDragEnd, item: TableFull) {
@@ -100,10 +100,10 @@ export class ArrangementComponent implements AfterContentChecked {
   }
 
   dragReleased(event: CdkDragRelease<any>, table: TableFull) {
-    // console.log(event.source.getFreeDragPosition())
-    /* table.positionX = event.source.element.nativeElement.getBoundingClientRect().left
-    table.positionY = event.source.element.nativeElement.getBoundingClientRect().top */
-    //console.log(table)
+    console.log(event.source.getFreeDragPosition())
+    table.positionX = event.source.element.nativeElement.getBoundingClientRect().left
+    table.positionY = event.source.element.nativeElement.getBoundingClientRect().top
+    console.log(table)
   }
 
   dropTable(event: CdkDragDrop<TableFull[] | null, any, any>) {
