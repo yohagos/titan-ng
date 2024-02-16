@@ -3,6 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { Router } from '@angular/router';
 import { UserService } from '../../services/user.service';
 import { LoginCredentials } from '../../models/user.model';
+import { JwtService } from '../../services/jwt.service';
 
 @Component({
   selector: 'app-login',
@@ -16,7 +17,8 @@ export class LoginComponent {
   constructor(
     private router: Router,
     private formBuilder: FormBuilder,
-    private readonly userService: UserService
+    private readonly userService: UserService,
+    private jwtService: JwtService,
   ) {
     this.loginForm = formBuilder.group({
       email: new FormControl('david@david.com', [Validators.required, Validators.email]),
@@ -37,7 +39,9 @@ export class LoginComponent {
     }
 
     this.userService.login(credentials).subscribe({
-      next: () => {
+      next: (data) => {
+        this.jwtService.saveToken(data.accessToken)
+        this.jwtService.saveEmail(data.email)
         void this.router.navigate(['/nav/table'])
       },
       error: (err) => {
