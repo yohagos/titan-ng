@@ -40,6 +40,17 @@ export class TableService {
     return tabs
   }
 
+  updateTable(tableNumber: number, posX: number, posY: number) {
+    const tables = this.tablesSubject.value
+    //console.log(tables)
+    const item = tables.map(tab => {
+      if (tab.tableNumber === tableNumber) {
+        tab.positionX += posX
+        tab.positionY += posY
+      }
+    })
+  }
+
   updateTableObservable(tables: TableFull[]) {
     this.tablesSubject.next(tables)
     this.changeDetectionEmitter.emit()

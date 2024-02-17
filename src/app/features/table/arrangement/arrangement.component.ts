@@ -1,5 +1,5 @@
-import { AfterContentChecked, Component, ElementRef, EventEmitter, Output, ViewChild } from '@angular/core';
-import { CdkDragDrop, CdkDragEnd, CdkDragRelease, CdkDropList, CdkDropListGroup } from "@angular/cdk/drag-drop";
+import { AfterContentChecked, AfterViewInit, Component, ElementRef, EventEmitter, Output, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import { CdkDrag, CdkDragDrop, CdkDragEnd, CdkDragRelease, CdkDragStart, CdkDropList, CdkDropListGroup } from "@angular/cdk/drag-drop";
 import { TableService } from 'src/app/core/services/table.service';
 import { TableAddRequest, TableFull, Tile } from 'src/app/core/models/table.model';
 import { MatDialog } from '@angular/material/dialog';
@@ -14,6 +14,8 @@ import { Observable, map } from 'rxjs';
   styleUrl: './arrangement.component.scss'
 })
 export class ArrangementComponent implements AfterContentChecked {
+  changeDetectionEmitter: EventEmitter<void> = new EventEmitter<void>();
+  @ViewChildren(CdkDrag) tablesContainer!: QueryList<CdkDrag>
   tables$: Observable<TableFull[]>
 
   objects: { x: number; y: number, id: number }[] = [];
@@ -28,20 +30,37 @@ export class ArrangementComponent implements AfterContentChecked {
     private _snackbar: MatSnackBar
   ) {
     this.tables$ = this.tableService.tables
-    this.tables$.subscribe(
-      data => { console.log(data)}
-    )
     this.tableService.getTiles().subscribe(
       data => {
         this.tiles = data
       }
     )
+
+    this.changeDetectionEmitter.subscribe(event => {
+      this.changesDetected = true
+    })
   }
 
   ngAfterContentChecked() {
     this.tableService.changeDetectionEmitter.subscribe(() => {
       this.changesDetected = true
     })
+  }
+
+  getPositions() {
+    console.log(this.tableService.getAllTables())
+    this.tablesContainer.forEach((obj) => {
+      const freePosition = obj.getFreeDragPosition()
+      const rootElement = obj.getRootElement()
+      //console.log('Table: ', obj.element.nativeElement.textContent, ' root element ',rootElement, ' free position ', freePosition)
+      if (obj.element.nativeElement.textContent) {
+        this.tableService.updateTable(+obj.element.nativeElement.textContent, freePosition.x, freePosition.y)
+      }
+    })
+  }
+
+  dragStarted(event: CdkDragStart) {
+    this.changeDetectionEmitter.emit()
   }
 
   addNewTable() {
@@ -100,14 +119,14 @@ export class ArrangementComponent implements AfterContentChecked {
   }
 
   dragReleased(event: CdkDragRelease<any>, table: TableFull) {
-    console.log(event.source.getFreeDragPosition())
+    /* console.log(event.source.getFreeDragPosition())
     table.positionX = event.source.element.nativeElement.getBoundingClientRect().left
     table.positionY = event.source.element.nativeElement.getBoundingClientRect().top
-    console.log(table)
+    console.log(table) */
   }
 
   dropTable(event: CdkDragDrop<TableFull[] | null, any, any>) {
-    const { item, currentIndex, previousIndex, container } = event
+    /* const { item, currentIndex, previousIndex, container } = event
     const tables = container.data
 
     const tableToMove = item.data
@@ -121,11 +140,13 @@ export class ArrangementComponent implements AfterContentChecked {
           (table.id === tableToMove.id) ? {...table, positionX: posX, positionY: posY} : table
         )
       )
-    )
+    ) */
   }
 
   updateAllPositions() {
-    this.tableService.saveTableArrangements().subscribe({
+    this.getPositions()
+    console.log('done')
+    /* this.tableService.saveTableArrangements().subscribe({
       next: () => {
         this.tableService.reloadTables()
         this.changesDetected = !this.changesDetected
@@ -138,7 +159,7 @@ export class ArrangementComponent implements AfterContentChecked {
           verticalPosition: 'bottom'
         })
       }
-    })
+    }) */
   }
 
 }
