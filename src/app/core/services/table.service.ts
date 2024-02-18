@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable, ChangeDetectorRef, EventEmitter } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
 
 import { BehaviorSubject, Observable } from "rxjs";
 import { TableAddRequest, TableFull, Tile } from '../models/table.model';

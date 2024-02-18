@@ -39,13 +39,14 @@
     (cdkDragReleased)="dragReleased($event, table)"
    -->
 
-<div  id="tablesContainer" class="example-boundary">
+<div class="example-boundary" #tablesChildren>
   <div *ngFor="let table of tables$ | async"
     class="object"
     [style.left.px]="table.positionX"
     [style.top.px]="table.positionY"
     cdkDrag
     (cdkDragStarted)="dragStarted($event)"
+    cdkDragBoundary=".example-boundary"
   >
     <span class="content">{{table.tableNumber}}</span>
     <div cdkDragHandle>
