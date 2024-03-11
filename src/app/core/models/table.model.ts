@@ -31,7 +31,6 @@ export interface TableAdd {
 export interface TableAddRequest {
   tableNummer: number
   numberOfPeople: number
-  tile: Tile
 }
 
 export interface Tile {

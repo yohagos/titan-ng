@@ -1,9 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, EventEmitter } from '@angular/core';
 
-import { BehaviorSubject, Observable } from "rxjs";
+import { BehaviorSubject, Observable, find } from "rxjs";
 import { TableAddRequest, TableFull, Tile } from '../models/table.model';
 import { ProductFull } from '../models/product.model';
+
 
 @Injectable({
   providedIn: 'root'
@@ -40,20 +41,26 @@ export class TableService {
     return tabs
   }
 
-  updateTable(tableNumber: number, posX: number, posY: number) {
-    const tables = this.tablesSubject.value
-    //console.log(tables)
-    const item = tables.map(tab => {
-      if (tab.tableNumber === tableNumber) {
-        tab.positionX += posX
-        tab.positionY += posY
-      }
-    })
+  removeTable(table: TableFull) {
+    const currentTables = this.tablesSubject.getValue()
+    const updatedTables = currentTables.filter(t => t.id !== table.id)
+    this.tablesSubject.next(updatedTables)
+
   }
 
   updateTableObservable(tables: TableFull[]) {
     this.tablesSubject.next(tables)
     this.changeDetectionEmitter.emit()
+
+    console.log('update table observable')
+    this.saveTableArrangements(tables).subscribe({
+      next: () => {
+        this.reloadTables()
+      },
+      error: (err) => {
+        console.log(err)
+      }
+    })
   }
 
 
@@ -63,8 +70,12 @@ export class TableService {
     return this.http.get<TableFull[]>('table')
   }
 
-  addTable(table: TableAddRequest) {
-    return this.http.post('table/add', table, {withCredentials: true})
+  addTable(table: TableFull) {
+    const newTable : TableAddRequest = {
+      tableNummer: table.tableNumber,
+      numberOfPeople: table.numberOfPeople
+    }
+    return this.http.post('table/add', newTable, {withCredentials: true})
   }
 
   getProductsForTable(id: number) {
@@ -75,8 +86,9 @@ export class TableService {
     return this.http.put(`table/store/${id}`, products, {withCredentials: true})
   }
 
-  saveTableArrangements() {
-    let tables = this.tablesSubject.value
+  saveTableArrangements(tables: TableFull[]) {
+    //let tables = this.tablesSubject.value
+    //console.log(tables)
     return this.http.put('table', tables, {withCredentials: true})
   }
 
