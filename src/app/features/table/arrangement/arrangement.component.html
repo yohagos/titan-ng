@@ -8,6 +8,6 @@
 </div>
 
 <section>
-  <button mat-raised-button color="primary" (click)="updateAllPositions()"> Save arrangement </button>
+  <button mat-raised-button color="primary" *ngIf="changesDetected" (click)="updateAllPositions()"> Save arrangement </button>
   <button mat-raised-button (click)="addNewTable()">Add Dining Table</button>
 </section>

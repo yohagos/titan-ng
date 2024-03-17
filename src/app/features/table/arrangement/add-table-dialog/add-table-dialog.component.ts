@@ -12,7 +12,6 @@ import { TableAdd } from 'src/app/core/models/table.model';
 export class AddTableDialogComponent {
   addTableForm: FormGroup
 
-
   constructor(
     private formBuilder: FormBuilder,
     public dialogRef: MatDialogRef<AddTableDialogComponent>,
@@ -25,7 +24,6 @@ export class AddTableDialogComponent {
   }
 
   submit() {
-    console.log(this.addTableForm.valid)
     if (this.addTableForm.valid) {
       const table: TableAdd = {
         numberOfPeople: this.addTableForm.get('seats')?.value,

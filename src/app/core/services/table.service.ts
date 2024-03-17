@@ -4,6 +4,7 @@ import { Injectable, EventEmitter } from '@angular/core';
 import { BehaviorSubject, Observable, find } from "rxjs";
 import { TableAddRequest, TableFull, Tile } from '../models/table.model';
 import { ProductFull } from '../models/product.model';
+import { SnackbarService } from 'src/app/shared/services/snackbar.service';
 
 
 @Injectable({
@@ -16,7 +17,8 @@ export class TableService {
   changeDetectionEmitter: EventEmitter<void> = new EventEmitter<void>();
 
   constructor(
-    private readonly http: HttpClient
+    private readonly http: HttpClient,
+    private snackbarService: SnackbarService
   ) {
     this.reloadTables()
   }
@@ -45,20 +47,21 @@ export class TableService {
     const currentTables = this.tablesSubject.getValue()
     const updatedTables = currentTables.filter(t => t.id !== table.id)
     this.tablesSubject.next(updatedTables)
-
   }
 
   updateTableObservable(tables: TableFull[]) {
-    this.tablesSubject.next(tables)
-    this.changeDetectionEmitter.emit()
+    //this.tablesSubject.next(tables)
+    //this.changeDetectionEmitter.emit()
 
-    console.log('update table observable')
+    //console.log('update table observable')
     this.saveTableArrangements(tables).subscribe({
       next: () => {
         this.reloadTables()
+        this.snackbarService.snackbarSuccess("Updated Table Arrangement", 'Done')
       },
       error: (err) => {
         console.log(err)
+        this.snackbarService.snackbarError(err, err)
       }
     })
   }
@@ -88,7 +91,7 @@ export class TableService {
 
   saveTableArrangements(tables: TableFull[]) {
     //let tables = this.tablesSubject.value
-    //console.log(tables)
+    console.log(tables)
     return this.http.put('table', tables, {withCredentials: true})
   }
 

@@ -60,6 +60,7 @@ import { EnumToArrayPipe } from "./core/pipe/enumToArray.pipe";
 // Directives
 import { InputRecognitionDirective } from "./core/directive/input-recognition.directive";
 import { DecimalFormatterDirective } from './core/directive/decimal-formatter.directive';
+import { DinnerTableComponent } from './features/table/arrangement/dinner-table/dinner-table.component';
 
 
 
@@ -90,6 +91,7 @@ import { DecimalFormatterDirective } from './core/directive/decimal-formatter.di
     TogoComponent,
     BookingComponent,
     ArrangementComponent,
+    DinnerTableComponent,
     AddTableDialogComponent,
 
     HeaderComponent,
@@ -117,7 +119,7 @@ import { DecimalFormatterDirective } from './core/directive/decimal-formatter.di
     FormsModule,
     ReactiveFormsModule,
     ColorPickerModule,
-    DragDropModule,
+    DragDropModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: ApiInterceptor, multi: true},
