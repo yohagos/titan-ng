@@ -57,6 +57,7 @@ export class ArrangementComponent implements AfterViewInit {
 
   reloadTables() {
     setTimeout(() => {
+      //console.log('reloadTables')
       const boundary = this.boundary?.nativeElement?.getBoundingClientRect();
       if (boundary) {
         this.parentArea = boundary;
