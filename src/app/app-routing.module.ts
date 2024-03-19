@@ -15,6 +15,7 @@ import { ManageTeamComponent } from './features/manage-team/manage-team.componen
 import { ManageBalanceComponent } from './features/manage-balance/manage-balance.component';
 import { StorageComponent } from './features/storage/storage.component';
 import { TogoComponent } from './features/table/togo/togo.component';
+import { SettingsComponent } from './shared/settings/settings.component';
 
 const routes: Routes = [
   {
@@ -86,7 +87,12 @@ const routes: Routes = [
         path: 'storage',
         component: StorageComponent
         //canActivate: [AuthGuardService]
-      }
+      },
+      {
+        path: 'settings',
+        component: SettingsComponent
+        //canActivate: [AuthGuardService]
+      },
     ]
   },
   {
