@@ -1,1 +1,76 @@
-<p>settings works!</p>
+<mat-card>
+  <mat-card-header>
+    <mat-card-title><h1>Settings</h1></mat-card-title>
+    <button mat-icon-button (click)="editing()">
+      <mat-icon>edit</mat-icon>
+    </button>
+  </mat-card-header>
+  <mat-card-content>
+    <div class="formFields" [formGroup]="settingsForm">
+      <mat-form-field appearance="fill">
+        <mat-label>Company Name</mat-label>
+        <input matInput formControlName="companyName">
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Street Name</mat-label>
+        <input matInput formControlName="streetName">
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Street Number</mat-label>
+        <input matInput formControlName="streetNumber">
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Postal Code</mat-label>
+        <input matInput formControlName="postalCode">
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>City Name</mat-label>
+        <input matInput formControlName="cityName">
+      </mat-form-field>
+      <mat-divider>Colors</mat-divider>
+      <p>
+        <mat-label>Custom Color Theme</mat-label>
+        <mat-checkbox  formControlName="customColorTheme">
+          Use Custom Color Theme
+        </mat-checkbox>
+      </p>
+      <!-- <mat-form-field appearance="fill" *ngIf="settingsForm.get('customColorTheme')?.value">
+        <mat-label>Primary Color</mat-label>
+        <!- <input matInput formControlName="primaryColor"> -
+        <input matInput [(colorPicker)]="primaryColor" [style.background]="primaryColor">
+      </mat-form-field>
+      <mat-form-field appearance="fill" *ngIf="settingsForm.get('customColorTheme')?.value">
+        <mat-label>Accent Color</mat-label>
+        <input class="colorInput" [(colorPicker)]="accentColor">
+      </mat-form-field>
+      <mat-form-field appearance="fill" *ngIf="settingsForm.get('customColorTheme')?.value">
+        <mat-label>Warn Color</mat-label>
+        <input matInput [(colorPicker)]="warnColor">
+      </mat-form-field> -->
+      <!-- <div *ngIf="settingsForm.get('customColorTheme')?.value"> -->
+        <div class="custom-color-picker" *ngIf="settingsForm.get('customColorTheme')?.value">
+          <label for="color-picker">Primary Color</label>
+          <input class="color-input" [(colorPicker)]="primaryColor" [style.background]="primaryColor">
+        </div>
+        <div class="custom-color-picker" *ngIf="settingsForm.get('customColorTheme')?.value">
+          <label for="color-picker">Accent Color</label>
+          <input class="color-input" [(colorPicker)]="accentColor" [style.background]="accentColor">
+        </div>
+        <div class="custom-color-picker" *ngIf="settingsForm.get('customColorTheme')?.value">
+          <label for="color-picker">Warn Color</label>
+          <input class="color-input" [(colorPicker)]="warnColor" [style.background]="warnColor">
+        </div>
+        <button mat-raised-button (click)="colors()">check colors</button>
+      <!-- </div> -->
+
+
+      <mat-form-field appearance="fill">
+        <mat-label>Timer for Lock Screen</mat-label>
+        <input matInput formControlName="timerLockScreen">
+      </mat-form-field>
+    </div>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-raised-button color="primary" *ngIf="settingsForm.dirty">Save Settings</button>
+  </mat-card-actions>
+</mat-card>
