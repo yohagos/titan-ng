@@ -5,3 +5,23 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+:root {
+  --primary-color: #f44d36;
+  --accent-color: #ffc107;
+  --warn-color: #9c27b0;
+}
+
+.custom-theme {
+  .custom-primary {
+    color: var(--primary-color)
+  }
+}
+
+.custom-theme mat-toolbar {
+  background-color: var(--primary-color);
+}
+
+.custom-theme mat-raised-button .custom-primary {
+  color: var(--primary-color);
+}
