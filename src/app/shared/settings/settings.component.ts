@@ -1,18 +1,20 @@
-import { AfterViewInit, Component } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Settings } from 'src/app/core/models/settings.model';
 import { SettingsService } from 'src/app/core/services/settings.service';
+import { SnackbarService } from '../services/snackbar.service';
+import { KeyValuePipe } from '@angular/common';
 
 @Component({
   selector: 'app-settings',
   templateUrl: './settings.component.html',
   styleUrl: './settings.component.scss'
 })
-export class SettingsComponent implements AfterViewInit {
-  settings!: Settings
+export class SettingsComponent implements OnInit {
+  //settings!: Settings
   settings$ = this.settingsService.settings
 
-  settingsForm: FormGroup
+  settingsForm!: FormGroup
 
   editMode = true
 
@@ -22,8 +24,21 @@ export class SettingsComponent implements AfterViewInit {
 
   constructor(
     private settingsService: SettingsService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private snackbarService: SnackbarService,
   ) {
+    this.settingsService.getSettings()
+    this.fillForm()
+  }
+
+  ngOnInit(): void {
+    this.settingsService.loadSettings().subscribe((data) => {
+      let currentData = data[0] as Settings
+      this.updateFormValues(currentData)
+    })
+  }
+
+  fillForm() {
     this.settingsForm = this.fb.group({
       companyName: new FormControl({value: '', disabled: this.editMode}, Validators.required),
       streetName: new FormControl({value: '', disabled: this.editMode}, Validators.required),
@@ -35,20 +50,12 @@ export class SettingsComponent implements AfterViewInit {
     })
   }
 
-  ngAfterViewInit() {
-      this.settings$.subscribe(data => {
-        if (Object.keys(data).length !== 0) {
-          this.editMode = !this.editMode
-        }
-      })
-  }
-
   editing() {
     this.editMode = !this.editMode
-    this.updateFormControls()
+    this.updateEditMode()
   }
 
-  updateFormControls() {
+  updateEditMode() {
     const controls = Object.keys(this.settingsForm.controls)
     for (const controlName of controls) {
       const control = this.settingsForm.get(controlName)
@@ -58,10 +65,36 @@ export class SettingsComponent implements AfterViewInit {
     }
   }
 
-  colors() {
-    console.log(this.primaryColor)
-    console.log(this.accentColor)
-    console.log(this.warnColor)
+  updateFormValues(data: Settings) {
+    const keys = Object.keys(this.settingsForm.controls)
+    for (const key of keys) {
+      if (data[key]) {
+        this.settingsForm.get(key)?.setValue(data[key])
+      }
+    }
   }
 
+  addColorsToSetting(setting: Settings) {
+    this.primaryColor !== '' || this.primaryColor !== null ? setting.primaryColor = this.primaryColor : delete setting.primaryColor
+    this.accentColor !== '' || this.accentColor !== null ? setting.accentColor = this.accentColor : delete setting.accentColor
+    this.warnColor !== '' || this.warnColor !== null ? setting.warnColor = this.warnColor : delete setting.warnColor
+    return setting
+  }
+
+  saveSettings() {
+    let settings: Settings = {}
+    const formValues = this.settingsForm.value
+
+    for(const key in formValues) {
+      if (formValues[key] !== '' && formValues[key] !== null && formValues[key] !== undefined) {
+        settings[key] = formValues[key]
+      } else {
+        settings[key] = ''
+      }
+    }
+    if (settings.customColorTheme) {
+      settings = this.addColorsToSetting(settings)
+    }
+    this.settingsService.adjustSettings(settings)
+  }
 }

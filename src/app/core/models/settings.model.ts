@@ -13,4 +13,6 @@ export interface Settings {
   warnColor?: string
 
   timerLockScreen?: number
+
+  [key: string]: any
 }
