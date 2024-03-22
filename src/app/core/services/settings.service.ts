@@ -17,13 +17,14 @@ export class SettingsService {
     private readonly http: HttpClient,
     private snackbarService: SnackbarService
   ) {
-    //this.settingsSubject.pipe()
+    
    }
 
   // BehaviorSubject functions
   getSettings() {
     this.loadSettings().subscribe(data => {
       this.settingsSubject.next(data)
+      this.applyColorScheme()
     })
   }
 
@@ -43,9 +44,20 @@ export class SettingsService {
   // Settings functions
   applyColorScheme() {
     const settings = this.settingsSubject.value
-    settings.primaryColor ? document.documentElement.style.setProperty('--primary-color', settings?.primaryColor.replace("'", '')) : null
-    settings.accentColor ? document.documentElement.style.setProperty('--primary-color', settings?.accentColor.replace("'", '')) : null
-    settings.warnColor ? document.documentElement.style.setProperty('--primary-color', settings?.warnColor.replace("'", '')) : null
+
+    if (settings.primaryColor) {
+      document.documentElement.style.setProperty('--primary-color', settings.primaryColor)
+    }
+    if (settings.accentColor) {
+      document.documentElement.style.setProperty('--accent-color', settings.accentColor)
+    }
+    if (settings.warnColor) {
+      document.documentElement.style.setProperty('--warn-color', settings.warnColor)
+    }
+
+    //settings.primaryColor ? document.documentElement.style.setProperty('--primary-color', settings.primaryColor) : null
+    //settings.accentColor ? document.documentElement.style.setProperty('--accent-color', settings.accentColor) : null
+    //settings.warnColor ? document.documentElement.style.setProperty('--warn-color', settings.warnColor) : null
   }
 
   // Backend Calls

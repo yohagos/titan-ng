@@ -95,7 +95,7 @@ export class SettingsComponent implements OnInit {
         settings[key] = ''
       }
     }
-    
+
     if (settings.customColorTheme) {
       settings = this.addColorsToSetting(settings)
     }

@@ -1,27 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
-
 //@import url("https://fonts.googleapis.com/icon?family=Material+Icons");
 @import url("https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp");
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
-:root {
-  --primary-color: #f44d36;
-  --accent-color: #ffc107;
-  --warn-color: #9c27b0;
-}
 
-.custom-theme {
-  .custom-primary {
-    color: var(--primary-color)
-  }
-}
-
-.custom-theme mat-toolbar {
-  background-color: var(--primary-color);
-}
-
-.custom-theme mat-raised-button .custom-primary {
-  color: var(--primary-color);
-}
