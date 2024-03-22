@@ -1,0 +1,54 @@
+mat-card {
+  width: 80%;
+  margin: 5em;
+}
+
+.formFields {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  mat-form-field {
+    width: 70%;
+  }
+}
+
+/* .colorInput {
+  width: 100%;
+  height: auto;
+  flex: auto;
+  display: inline-flex;
+  align-items: baseline;
+  padding: 0 16px;
+  position: relative;
+  box-sizing: border-box;
+  overflow: hidden;
+  will-change: opacity,transform,color;
+  min-height: 56px;
+  overflow: visible;
+} */
+
+.color-input {
+  width: 95%;
+  display: flex;
+  margin: auto;
+}
+
+.custom-color-picker {
+  /* Apply styles to match your input fields here */
+  _border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 5px;
+  width: 70%;
+
+  margin: 0.5em;
+  /* Add other styles as needed (font-size, background-color, etc.) */
+}
+
+.custom-color-picker label {
+  /* Style the label to match your input field labels */
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
