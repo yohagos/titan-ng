@@ -12,6 +12,6 @@ export class AppComponent {
   constructor(
     private settingsService: SettingsService
   ) {
-    this.settingsService.applyColorScheme()
+    this.settingsService.getSettings()
   }
 }

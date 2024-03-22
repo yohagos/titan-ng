@@ -7,11 +7,6 @@ export interface Settings {
   postalCode?: string
   cityName?: string
 
-  customColorTheme?: boolean
-  primaryColor?: string
-  accentColor?: string
-  warnColor?: string
-
   timerLockScreen?: number
 
   [key: string]: any

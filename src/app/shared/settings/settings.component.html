@@ -27,25 +27,6 @@
         <mat-label>City Name</mat-label>
         <input matInput formControlName="cityName">
       </mat-form-field>
-      <mat-divider>Colors</mat-divider>
-      <p>
-        <mat-label>Custom Color Theme</mat-label>
-        <mat-checkbox  formControlName="customColorTheme">
-          Use Custom Color Theme
-        </mat-checkbox>
-      </p>
-        <div class="custom-color-picker" *ngIf="settingsForm.get('customColorTheme')?.value">
-          <label for="color-picker">Primary Color</label>
-          <input class="color-input" [(colorPicker)]="primaryColor" [style.background]="primaryColor" [disabled]="editMode">
-        </div>
-        <div class="custom-color-picker" *ngIf="settingsForm.get('customColorTheme')?.value">
-          <label for="color-picker">Accent Color</label>
-          <input class="color-input" [(colorPicker)]="accentColor" [style.background]="accentColor" [disabled]="editMode">
-        </div>
-        <div class="custom-color-picker" *ngIf="settingsForm.get('customColorTheme')?.value">
-          <label for="color-picker">Warn Color</label>
-          <input class="color-input" [(colorPicker)]="warnColor" [style.background]="warnColor" [disabled]="editMode">
-        </div>
       <mat-form-field appearance="fill">
         <mat-label>Timer for Lock Screen</mat-label>
         <input matInput formControlName="timerLockScreen">

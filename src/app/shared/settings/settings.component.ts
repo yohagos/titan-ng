@@ -15,10 +15,6 @@ export class SettingsComponent implements OnInit {
   settingsForm!: FormGroup
   editMode = true
 
-  primaryColor!: string
-  accentColor!: string
-  warnColor!: string
-
   constructor(
     private settingsService: SettingsService,
     private fb: FormBuilder,
@@ -43,7 +39,6 @@ export class SettingsComponent implements OnInit {
       streetNumber: new FormControl({value: '', disabled: this.editMode}, Validators.required),
       postalCode: new FormControl({value: '', disabled: this.editMode}, Validators.required),
       cityName: new FormControl({value: '', disabled: this.editMode}, Validators.required),
-      customColorTheme: new FormControl({value: false, disabled: this.editMode}),
       timerLockScreen: new FormControl({value: '', disabled: this.editMode}),
     })
   }
@@ -70,19 +65,8 @@ export class SettingsComponent implements OnInit {
         this.settingsForm.get(key)?.setValue(data[key])
       }
     }
-    if (data.customColorTheme) {
-      data.primaryColor ? this.primaryColor = data.primaryColor : this.primaryColor = ''
-      data.accentColor ? this.accentColor = data.accentColor : this.accentColor = ''
-      data.warnColor ? this.warnColor = data.warnColor : this.warnColor = ''
-    }
   }
 
-  addColorsToSetting(setting: Settings) {
-    this.primaryColor !== '' || this.primaryColor !== null ? setting.primaryColor = this.primaryColor : delete setting.primaryColor
-    this.accentColor !== '' || this.accentColor !== null ? setting.accentColor = this.accentColor : delete setting.accentColor
-    this.warnColor !== '' || this.warnColor !== null ? setting.warnColor = this.warnColor : delete setting.warnColor
-    return setting
-  }
 
   saveSettings() {
     let settings: Settings = {}
@@ -96,9 +80,6 @@ export class SettingsComponent implements OnInit {
       }
     }
 
-    if (settings.customColorTheme) {
-      settings = this.addColorsToSetting(settings)
-    }
     this.settingsService.adjustSettings(settings)
   }
 }
