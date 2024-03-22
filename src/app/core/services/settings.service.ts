@@ -32,9 +32,10 @@ export class SettingsService {
       next: (data) => {
         this.settingsSubject.next(data)
         this.applyColorScheme()
+        this.snackbarService.snackbarSuccess('Updated Settings', 'Done')
       },
       error: (err) => {
-        console.error(err)
+        this.snackbarService.snackbarError(err, 'Try Again!')
       }
     })
   }
@@ -42,11 +43,9 @@ export class SettingsService {
   // Settings functions
   applyColorScheme() {
     const settings = this.settingsSubject.value
-    console.log(settings)
-
-    settings.primaryColor ? document.documentElement.style.setProperty('--primary-color', settings?.primaryColor.replace("'", '')) : console.log('primary')
-    settings.accentColor ? document.documentElement.style.setProperty('--primary-color', settings?.accentColor.replace("'", '')) : console.log('accent')
-    settings.warnColor ? document.documentElement.style.setProperty('--primary-color', settings?.warnColor.replace("'", '')) : console.log('warn')
+    settings.primaryColor ? document.documentElement.style.setProperty('--primary-color', settings?.primaryColor.replace("'", '')) : null
+    settings.accentColor ? document.documentElement.style.setProperty('--primary-color', settings?.accentColor.replace("'", '')) : null
+    settings.warnColor ? document.documentElement.style.setProperty('--primary-color', settings?.warnColor.replace("'", '')) : null
   }
 
   // Backend Calls

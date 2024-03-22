@@ -1,9 +1,8 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Settings } from 'src/app/core/models/settings.model';
 import { SettingsService } from 'src/app/core/services/settings.service';
 import { SnackbarService } from '../services/snackbar.service';
-import { KeyValuePipe } from '@angular/common';
 
 @Component({
   selector: 'app-settings',
@@ -11,11 +10,9 @@ import { KeyValuePipe } from '@angular/common';
   styleUrl: './settings.component.scss'
 })
 export class SettingsComponent implements OnInit {
-  //settings!: Settings
   settings$ = this.settingsService.settings
 
   settingsForm!: FormGroup
-
   editMode = true
 
   primaryColor!: string
@@ -25,7 +22,6 @@ export class SettingsComponent implements OnInit {
   constructor(
     private settingsService: SettingsService,
     private fb: FormBuilder,
-    private snackbarService: SnackbarService,
   ) {
     this.settingsService.getSettings()
     this.fillForm()
@@ -34,7 +30,9 @@ export class SettingsComponent implements OnInit {
   ngOnInit(): void {
     this.settingsService.loadSettings().subscribe((data) => {
       let currentData = data[0] as Settings
-      this.updateFormValues(currentData)
+      if (currentData) {
+        this.updateFormValues(currentData)
+      }
     })
   }
 
@@ -72,6 +70,11 @@ export class SettingsComponent implements OnInit {
         this.settingsForm.get(key)?.setValue(data[key])
       }
     }
+    if (data.customColorTheme) {
+      data.primaryColor ? this.primaryColor = data.primaryColor : this.primaryColor = ''
+      data.accentColor ? this.accentColor = data.accentColor : this.accentColor = ''
+      data.warnColor ? this.warnColor = data.warnColor : this.warnColor = ''
+    }
   }
 
   addColorsToSetting(setting: Settings) {
@@ -92,6 +95,7 @@ export class SettingsComponent implements OnInit {
         settings[key] = ''
       }
     }
+    
     if (settings.customColorTheme) {
       settings = this.addColorsToSetting(settings)
     }
