@@ -71,6 +71,10 @@ export class HeaderComponent {
     this.router.navigate(['/arrangement'])
   }
 
+  openSettings() {
+    this.router.navigate(['/settings'])
+  }
+
   backToNavigation() {
     this.router.navigate(['nav/table'])
   }

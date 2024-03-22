@@ -8,6 +8,7 @@ import { ColorPickerModule } from "ngx-color-picker";
 
 // Components
 import { AppComponent } from './app.component';
+
 import { PinDialogComponent } from "./features/authentication/pin-dialog/pin-dialog.component";
 import { LoginComponent } from './core/auth/login/login.component';
 import { RegisterComponent } from './core/auth/register/register.component';
@@ -44,6 +45,8 @@ import { ConfirmDialogComponent } from "./shared/confirm-dialog/confirm-dialog.c
 import { StorageComponent } from "./features/storage/storage.component";
 import { AddInventoryDialogComponent } from "./features/storage/add-inventory-dialog/add-inventory-dialog.component";
 import { EditInventoryDialogComponent } from './features/storage/edit-inventory-dialog/edit-inventory-dialog.component';
+
+import { SettingsComponent } from "./shared/settings/settings.component";
 
 // App Modules
 import { AppRoutingModule } from './app-routing.module';
@@ -103,6 +106,8 @@ import { DecimalFormatterDirective } from './core/directive/decimal-formatter.di
     StorageComponent,
     AddInventoryDialogComponent,
     EditInventoryDialogComponent,
+
+    SettingsComponent,
 
     TextFilterPipe,
     EnumToArrayPipe,

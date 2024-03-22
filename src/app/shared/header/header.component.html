@@ -32,6 +32,10 @@
         <mat-icon>warehouse</mat-icon>
         <span>Storage</span>
       </button>
+      <button mat-menu-item *ngIf="checkUserPermission()" (click)="openSettings()">
+        <mat-icon>settings</mat-icon>
+        <span>Settings</span>
+      </button>
       <mat-divider *ngIf="showBackToNavigation"></mat-divider>
       <button mat-menu-item *ngIf="showBackToNavigation" (click)="backToNavigation()">
         <mat-icon>arrow_back</mat-icon>
