@@ -1,5 +1,8 @@
 <mat-toolbar color="primary">
   <div class="menu">
+    <button mat-icon-button (click)="setTheme()">
+        <mat-icon>palette</mat-icon>
+    </button>
     <button mat-icon-button [matMenuTriggerFor]="menu" matTooltip="Menu">
       <mat-icon>more_vert</mat-icon>
     </button>
