@@ -65,7 +65,8 @@ import { EnumToArrayPipe } from "./core/pipe/enumToArray.pipe";
 import { InputRecognitionDirective } from "./core/directive/input-recognition.directive";
 import { DecimalFormatterDirective } from './core/directive/decimal-formatter.directive';
 
-
+// Services
+import { ThemeService } from "./core/services/theme.service";
 
 @NgModule({
   declarations: [
@@ -130,6 +131,8 @@ import { DecimalFormatterDirective } from './core/directive/decimal-formatter.di
     { provide: HTTP_INTERCEPTORS, useClass: ApiInterceptor, multi: true},
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true},
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
+    ThemeService,
+    
   ],
   bootstrap: [AppComponent]
 })
