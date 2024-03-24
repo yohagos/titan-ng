@@ -26,6 +26,8 @@ export interface Table {
 export interface TableAdd {
   tableNumber: number
   numberOfPeople: number
+  positionX: number
+  positionY: number
 }
 
 export interface TableAddRequest {

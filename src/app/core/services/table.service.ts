@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, EventEmitter } from '@angular/core';
 
 import { BehaviorSubject, Observable, find } from "rxjs";
-import { TableAddRequest, TableFull, Tile } from '../models/table.model';
+import { TableAdd, TableAddRequest, TableFull, Tile } from '../models/table.model';
 import { ProductFull } from '../models/product.model';
 import { SnackbarService } from 'src/app/shared/services/snackbar.service';
 
@@ -50,10 +50,6 @@ export class TableService {
   }
 
   updateTableObservable(tables: TableFull[]) {
-    //this.tablesSubject.next(tables)
-    //this.changeDetectionEmitter.emit()
-
-    //console.log('update table observable')
     this.saveTableArrangements(tables).subscribe({
       next: () => {
         this.reloadTables()
@@ -66,19 +62,14 @@ export class TableService {
     })
   }
 
-
   // Backend Calls
 
   loadTables() {
     return this.http.get<TableFull[]>('table')
   }
 
-  addTable(table: TableFull) {
-    const newTable : TableAddRequest = {
-      tableNummer: table.tableNumber,
-      numberOfPeople: table.numberOfPeople
-    }
-    return this.http.post('table/add', newTable, {withCredentials: true})
+  addTable(table: TableAdd) {
+    return this.http.post('table/add', table, {withCredentials: true})
   }
 
   getProductsForTable(id: number) {
@@ -90,12 +81,8 @@ export class TableService {
   }
 
   saveTableArrangements(tables: TableFull[]) {
-    //let tables = this.tablesSubject.value
-    console.log(tables)
     return this.http.put('table', tables, {withCredentials: true})
   }
-
-
 
   // Tables tiles
   getTiles() {

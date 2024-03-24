@@ -37,6 +37,7 @@ import { BookingComponent } from './features/table/booking/booking.component';
 import { TogoComponent } from './features/table/togo/togo.component';
 import { ArrangementComponent } from './features/table/arrangement/arrangement.component';
 import { AddTableDialogComponent } from "./features/table/arrangement/add-table-dialog/add-table-dialog.component";
+import { EditTableDialogComponent } from "./features/table/arrangement/edit-table-dialog/edit-table-dialog.component";
 
 import { ConfirmDialogComponent } from "./shared/confirm-dialog/confirm-dialog.component";
 
@@ -60,7 +61,6 @@ import { EnumToArrayPipe } from "./core/pipe/enumToArray.pipe";
 // Directives
 import { InputRecognitionDirective } from "./core/directive/input-recognition.directive";
 import { DecimalFormatterDirective } from './core/directive/decimal-formatter.directive';
-import { DinnerTableComponent } from './features/table/arrangement/dinner-table/dinner-table.component';
 
 
 
@@ -91,8 +91,8 @@ import { DinnerTableComponent } from './features/table/arrangement/dinner-table/
     TogoComponent,
     BookingComponent,
     ArrangementComponent,
-    DinnerTableComponent,
     AddTableDialogComponent,
+    EditTableDialogComponent,
 
     HeaderComponent,
     NavigationComponent,
