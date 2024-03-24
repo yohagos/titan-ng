@@ -72,6 +72,11 @@ export class ArrangementComponent implements AfterViewInit {
 
           this.renderer.setStyle(item.nativeElement, 'left', `${translateX}px`)
           this.renderer.setStyle(item.nativeElement, 'top', `${translateY}px`)
+
+          if (table.tableNumber === 210) {
+            console.log('left: ', item.nativeElement.style['left'])
+            console.log('top: ', item.nativeElement.style['top'])
+          }
         }
       });
     }, 100);
