@@ -2,12 +2,13 @@ import { AfterContentChecked, AfterViewChecked, AfterViewInit, Component, Elemen
 import { CdkDrag, CdkDragDrop, CdkDragEnd, CdkDragEnter, CdkDragMove, CdkDragRelease, CdkDragStart, CdkDropList, CdkDropListGroup, moveItemInArray, transferArrayItem } from "@angular/cdk/drag-drop";
 import { animate, keyframes, style, transition, trigger, state } from "@angular/animations";
 import { TableService } from 'src/app/core/services/table.service';
-import { TableAddRequest, TableFull } from 'src/app/core/models/table.model';
+import { TableAdd, TableAddRequest, TableFull } from 'src/app/core/models/table.model';
 import { MatDialog } from '@angular/material/dialog';
 import { AddTableDialogComponent } from './add-table-dialog/add-table-dialog.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable } from 'rxjs';
 import { SnackbarService } from 'src/app/shared/services/snackbar.service';
+import { EditTableDialogComponent } from './edit-table-dialog/edit-table-dialog.component';
 
 
 @Component({
@@ -41,39 +42,25 @@ export class ArrangementComponent implements AfterViewInit {
   ) {
     this.tableService.tables.subscribe(tables => {
       this.tables = tables
-      //console.log(this.tables)
     })
-    /* this.changeDetectionEmitter.subscribe(event => {
-      this.changesDetected = true
-    }) */
-
     this.reloadTables()
   }
 
   ngAfterViewInit() {
-    //this.reloadTables()
-
     this.parentArea = this.boundary.nativeElement
     this.boundaryOffsetLeft = this.parentArea.offsetLeft
     this.boundaryOffsetTop = this.parentArea.offsetTop
     this.boundaryOffsetHeight = this.parentArea.offsetHeight
     this.boundaryOffsetWidth = this.parentArea.offsetWidth
 
-    /* console.log(this.boundaryOffsetHeight)
-    console.log(this.boundaryOffsetWidth)
-    console.log(this.boundaryOffsetLeft)
-    console.log(this.boundaryOffsetTop) */
-
-    //console.log(this.parentArea)
-    console.log(this.boundaryOffsetLeft)
+    /* console.log(this.boundaryOffsetLeft)
     console.log(this.boundaryOffsetTop)
     console.log(this.boundaryOffsetHeight)
-    console.log(this.boundaryOffsetWidth)
+    console.log(this.boundaryOffsetWidth) */
   }
 
   reloadTables() {
     setTimeout(() => {
-      //console.log('reloadTables')
       const boundary = this.boundary?.nativeElement?.getBoundingClientRect();
       if (boundary) {
         this.parentArea = boundary;
@@ -83,11 +70,11 @@ export class ArrangementComponent implements AfterViewInit {
         const tableNumber = parseInt(item.nativeElement.innerText);
         const table = this.tables.find(t => t.tableNumber === tableNumber);
         if (table) {
-          const nativeElement = item.nativeElement.getBoundingClientRect();
+          //const nativeElement = item.nativeElement.getBoundingClientRect();
           const translateX = table.positionX - this.boundaryOffsetLeft
           const translateY = table.positionY - this.boundaryOffsetTop
 
-          if (table.tableNumber === 210) {
+          if (table) {
             console.log(table.tableNumber, ' ',table.positionX, ' ', table.positionY)
           }
 
@@ -103,7 +90,7 @@ export class ArrangementComponent implements AfterViewInit {
     }, 100);
   }
 
-  calculateOffsetX(elementRect: DOMRect, parentRect: DOMRect, targetX: number): number {
+  /* calculateOffsetX(elementRect: DOMRect, parentRect: DOMRect, targetX: number): number {
     const availableWidth = parentRect.width - elementRect.width;
     targetX = Math.max(0, Math.min(targetX, availableWidth))
     return targetX //+ availableWidth / 2
@@ -113,9 +100,12 @@ export class ArrangementComponent implements AfterViewInit {
     const availableHeight = parentRect.height - elementRect.height;
     targetY = Math.max(0, Math.min(targetY, availableHeight))
     return targetY //+ availableHeight / 2
-  }
+  } */
 
   adjustWidth(num: number) {
+    if (num === 2) {
+      return num * 25
+    }
     return num * 15
   }
 
@@ -123,13 +113,16 @@ export class ArrangementComponent implements AfterViewInit {
     this.changesDetected = true
     const mouseEvent: MouseEvent = event.event as MouseEvent
     if (event.source.element) {
+      console.log('Mouseevent: ', mouseEvent.clientX, ' ', mouseEvent.clientY)
       const dom = event.source.element.nativeElement.getBoundingClientRect()
-      item.positionX = this.boundaryOffsetLeft + mouseEvent.clientX // - dom.left
-      item.positionY = this.boundaryOffsetTop + mouseEvent.clientY // - dom.top
+      /* item.positionX = this.boundaryOffsetLeft + mouseEvent.clientX // - dom.left
+      item.positionY = this.boundaryOffsetTop + mouseEvent.clientY // - dom.top */
+      item.positionX = mouseEvent.clientX // - dom.left
+      item.positionY = mouseEvent.clientY // - dom.top
 
-      if (item.tableNumber === 210) {
+
         console.log(item.tableNumber, ' ',item.positionX, ' ', item.positionY)
-      }
+
     }
     this.tableSet.add(item)
     console.log(this.tableSet)
@@ -137,14 +130,12 @@ export class ArrangementComponent implements AfterViewInit {
 
   addNewTable() {
     const dialogRef = this.matDialog.open(AddTableDialogComponent, {
-      width: '300px'
+      width: '400px'
     })
     dialogRef.afterClosed().subscribe(
-      (data: TableFull) => {
-        data.positionX = 1
-        data.positionY = 1
-        console.log(data)
-        /* this.tableService.addTable(data).subscribe({
+      (data: TableAdd) => {
+
+        this.tableService.addTable(data).subscribe({
           next: () => {
             this.tableService.reloadTables()
             this.snackbarService.snackbarSuccess('Added new Table', 'Done')
@@ -152,7 +143,20 @@ export class ArrangementComponent implements AfterViewInit {
           error: (err) => {
             this.snackbarService.snackbarError(err, err)
           }
-        }) */
+        })
+      }
+    )
+  }
+
+  editTables() {
+    const dialogRef = this.matDialog.open(EditTableDialogComponent, {
+      width: '600px',
+      height: '400px',
+      data: {tables: this.tables}
+    })
+    dialogRef.afterClosed().subscribe(
+      data => {
+        console.log(data)
       }
     )
   }
@@ -161,10 +165,12 @@ export class ArrangementComponent implements AfterViewInit {
     const tabs = this.tables
 
     for (const table of this.tableSet) {
+      console.log(table)
       const tab = tabs.find(t => t.id === table.id)
       if (tab) {
         tab.positionX = table.positionX
         tab.positionY = table.positionY
+        console.log(tab)
       }
     }
 
@@ -175,7 +181,7 @@ export class ArrangementComponent implements AfterViewInit {
 
   }
 
-  getAllPositions() {
+  /* getAllPositions() {
     const boundary = this.boundary?.nativeElement?.getBoundingClientRect();
       if (boundary) {
         this.parentArea = boundary;
@@ -193,5 +199,5 @@ export class ArrangementComponent implements AfterViewInit {
           }
         }
       });
-  }
+  } */
 }
