@@ -1,0 +1,37 @@
+<h1 matDialogTitle>Edit Tables</h1>
+<div matDialogContent>
+  <!-- left side -->
+  <section class="leftSection">
+    <div *ngFor="let table of data.tables" class="buttons">
+      <button mat-raised-button class="tableButtons" (click)="fillForm(table)">{{table.tableNumber}}</button>
+    </div>
+  </section>
+
+  <!-- right side -->
+  <section class="rightSection">
+    <div [formGroup]="editTableForm" class="formFields">
+      <mat-form-field>
+        <mat-label>Table Number</mat-label>
+        <input matInput formControlName="tableNumber">
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Number of People</mat-label>
+        <input matInput formControlName="numberOfPeople">
+      </mat-form-field>
+    </div>
+    <section>
+      <button mat-icon-button *ngIf="editTableForm.disabled" (click)="editForm()">
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button mat-icon-button *ngIf="editTableForm.enabled" (click)="saveChanges()">
+        <mat-icon>save</mat-icon>
+      </button>
+      <button mat-icon-button *ngIf="editTableForm.enabled" (click)="editTableForm.disable()">
+        <mat-icon>cancel</mat-icon>
+      </button>
+    </section>
+  </section>
+</div>
+<section matDialogActions>
+  <button mat-stroked-button matDialogClose>Cancel</button>
+</section>
