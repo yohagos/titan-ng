@@ -64,7 +64,6 @@ import { EnumToArrayPipe } from "./core/pipe/enumToArray.pipe";
 // Directives
 import { InputRecognitionDirective } from "./core/directive/input-recognition.directive";
 import { DecimalFormatterDirective } from './core/directive/decimal-formatter.directive';
-import { DinnerTableComponent } from './features/table/arrangement/dinner-table/dinner-table.component';
 
 // Services
 import { ThemeService } from "./core/services/theme.service";
@@ -96,7 +95,6 @@ import { ThemeService } from "./core/services/theme.service";
     TogoComponent,
     BookingComponent,
     ArrangementComponent,
-    DinnerTableComponent,
     AddTableDialogComponent,
     EditTableDialogComponent,
 
