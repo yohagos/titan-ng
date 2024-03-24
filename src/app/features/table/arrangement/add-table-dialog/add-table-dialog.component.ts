@@ -27,7 +27,9 @@ export class AddTableDialogComponent {
     if (this.addTableForm.valid) {
       const table: TableAdd = {
         numberOfPeople: this.addTableForm.get('seats')?.value,
-        tableNumber: this.addTableForm.get('tableNumber')?.value
+        tableNumber: this.addTableForm.get('tableNumber')?.value,
+        positionX: 1,
+        positionY: 1
       }
       this.dialogRef.close(table)
     }
