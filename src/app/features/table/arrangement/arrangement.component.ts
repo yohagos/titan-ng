@@ -63,6 +63,12 @@ export class ArrangementComponent implements AfterViewInit {
     console.log(this.boundaryOffsetWidth)
     console.log(this.boundaryOffsetLeft)
     console.log(this.boundaryOffsetTop) */
+
+    //console.log(this.parentArea)
+    console.log(this.boundaryOffsetLeft)
+    console.log(this.boundaryOffsetTop)
+    console.log(this.boundaryOffsetHeight)
+    console.log(this.boundaryOffsetWidth)
   }
 
   reloadTables() {
@@ -78,8 +84,8 @@ export class ArrangementComponent implements AfterViewInit {
         const table = this.tables.find(t => t.tableNumber === tableNumber);
         if (table) {
           const nativeElement = item.nativeElement.getBoundingClientRect();
-          const translateX = table.positionX
-          const translateY = table.positionY
+          const translateX = table.positionX - this.boundaryOffsetLeft
+          const translateY = table.positionY - this.boundaryOffsetTop
 
           if (table.tableNumber === 210) {
             console.log(table.tableNumber, ' ',table.positionX, ' ', table.positionY)
@@ -87,6 +93,11 @@ export class ArrangementComponent implements AfterViewInit {
 
           this.renderer.setStyle(item.nativeElement, 'left', `${translateX}px`)
           this.renderer.setStyle(item.nativeElement, 'top', `${translateY}px`)
+
+          if (table.tableNumber === 210) {
+            console.log('left: ', item.nativeElement.style['left'])
+            console.log('top: ', item.nativeElement.style['top'])
+          }
         }
       });
     }, 100);
@@ -110,25 +121,16 @@ export class ArrangementComponent implements AfterViewInit {
 
   localDragReleased(event: CdkDragRelease, item: TableFull) {
     this.changesDetected = true
-    //console.log(item.positionX, ' ', item.positionY)
     const mouseEvent: MouseEvent = event.event as MouseEvent
-    //console.log(mouseEvent.clientX, ' ', mouseEvent.clientY)
-    //item.positionX = mouseEvent.clientX
-    //item.positionY = mouseEvent.clientY
     if (event.source.element) {
       const dom = event.source.element.nativeElement.getBoundingClientRect()
-      //item.positionX = this.calculateOffsetX(dom, this.parentArea, mouseEvent.clientX)
-      //item.positionY = this.calculateOffsetX(dom, this.parentArea, mouseEvent.clientY)
-      item.positionX = mouseEvent.clientX // - dom.left
-      item.positionY = mouseEvent.clientY // - dom.top
+      item.positionX = this.boundaryOffsetLeft + mouseEvent.clientX // - dom.left
+      item.positionY = this.boundaryOffsetTop + mouseEvent.clientY // - dom.top
 
       if (item.tableNumber === 210) {
         console.log(item.tableNumber, ' ',item.positionX, ' ', item.positionY)
       }
     }
-    //console.log(event)
-    //console.log(item.positionX, ' ', item.positionY)
-    //console.log(mouseEvent)
     this.tableSet.add(item)
     console.log(this.tableSet)
   }
@@ -141,7 +143,8 @@ export class ArrangementComponent implements AfterViewInit {
       (data: TableFull) => {
         data.positionX = 1
         data.positionY = 1
-        this.tableService.addTable(data).subscribe({
+        console.log(data)
+        /* this.tableService.addTable(data).subscribe({
           next: () => {
             this.tableService.reloadTables()
             this.snackbarService.snackbarSuccess('Added new Table', 'Done')
@@ -149,16 +152,14 @@ export class ArrangementComponent implements AfterViewInit {
           error: (err) => {
             this.snackbarService.snackbarError(err, err)
           }
-        })
+        }) */
       }
     )
   }
 
   updateAllPositions() {
-    //console.log(this.tableSet)
-
     const tabs = this.tables
-    //console.log(tabs)
+
     for (const table of this.tableSet) {
       const tab = tabs.find(t => t.id === table.id)
       if (tab) {
@@ -166,43 +167,12 @@ export class ArrangementComponent implements AfterViewInit {
         tab.positionY = table.positionY
       }
     }
-    //console.log(tabs)
-    //this.childElements.forEach((item: ElementRef) =>{
-      /* if (item.nativeElement.innerText === '210') {
-        console.log(item.nativeElement.style.left, ' ', item.nativeElement.style.top)
-        console.log(item)
-      } */
 
-      /* const table = this.tables.find(t => t.tableNumber == item.nativeElement.innerText)
-      console.log(table?.positionX, ' ', table?.positionY) */
-      /* const table = this.tables.find(t => t.tableNumber == item.nativeElement.innerText)
-      if (table) {
-        //console.log(`item ${item.nativeElement.innerText}: `,item.nativeElement.style.left, ' ', item.nativeElement.style.top)
-        //setTimeout(() => {
-          //console.log(table)
-          //console.log(item.nativeElement?.offsetLeft)
-          let left: string = item.nativeElement?.style.left
-          let top: string = item.nativeElement?.style.top
-          console.log(`UPDATE from -> ${item.nativeElement.innerText}: `, left, ' ', top)
-          table.positionX = parseInt(left.slice(0, -2), 10)
-          table.positionY = parseInt(top.slice(0, -2), 10)
-
-          console.log(`UPDATE -> table ${table.tableNumber} : `, table.positionX, ' ', table.positionY)
-          //console.log(table)
-        //}, 20);
-      } */
-    //})
-    /* setTimeout(() => {
-      //console.log(this.tables)
-    }, 300) */
     this.tableService.updateTableObservable(tabs)
     setTimeout(() => {
       window.location.reload()
     }, 30)
-    //this.reloadTables()
-    //this.getAllPositions()
 
-    //this.changesDetected = !this.changesDetected
   }
 
   getAllPositions() {
@@ -215,18 +185,11 @@ export class ArrangementComponent implements AfterViewInit {
         if (item.nativeElement.innerText === '210') {
           const tableNumber = parseInt(item.nativeElement.innerText);
           const table = this.tables.find(t => t.tableNumber === tableNumber);
-          //console.log(table)
-          //console.log(item)
           if (table) {
             const nativeElement = item.nativeElement.getBoundingClientRect();
             const translateX = this.calculateOffsetX(nativeElement, this.parentArea, table.positionX);
             const translateY = this.calculateOffsetY(nativeElement, this.parentArea, table.positionY);
-            /* table.positionX = translateX
-            table.positionY = translateY */
             console.log(table.tableNumber, ' ', translateX, ' ', translateY)
-            //console.log(table?.tableNumber, ' ', table?.positionX, ' ', table?.positionY)
-            /* this.renderer.setStyle(item.nativeElement, 'left', `${translateX}px`)
-            this.renderer.setStyle(item.nativeElement, 'top', `${translateY}px`) */
           }
         }
       });
