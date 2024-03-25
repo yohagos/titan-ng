@@ -40,9 +40,7 @@ export class ArrangementComponent implements AfterViewInit {
     private snackbarService: SnackbarService,
     private renderer: Renderer2
   ) {
-    this.tableService.tables.subscribe(tables => {
-      this.tables = tables
-    })
+    this.loadTables()
     this.reloadTables()
   }
 
@@ -57,6 +55,12 @@ export class ArrangementComponent implements AfterViewInit {
     console.log(this.boundaryOffsetTop)
     console.log(this.boundaryOffsetHeight)
     console.log(this.boundaryOffsetWidth) */
+  }
+
+  loadTables() {
+    this.tableService.tables.subscribe(tables => {
+      this.tables = tables
+    })
   }
 
   reloadTables() {
@@ -154,11 +158,11 @@ export class ArrangementComponent implements AfterViewInit {
       height: '400px',
       data: {tables: this.tables}
     })
-    dialogRef.afterClosed().subscribe(
-      data => {
-        console.log(data)
+    dialogRef.afterClosed().subscribe({
+      next: () => {
+        this.loadTables()
       }
-    )
+    })
   }
 
   updateAllPositions() {
