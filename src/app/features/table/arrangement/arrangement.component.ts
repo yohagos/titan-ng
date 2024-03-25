@@ -1,10 +1,11 @@
-import { AfterContentChecked, Component } from '@angular/core';
-import { CdkDragEnd } from "@angular/cdk/drag-drop";
+import { AfterViewInit, Component, ElementRef, EventEmitter, QueryList, Renderer2, ViewChild, ViewChildren } from '@angular/core';
+import { CdkDragRelease } from "@angular/cdk/drag-drop";
 import { TableService } from 'src/app/core/services/table.service';
-import { TableAddRequest, TableFull } from 'src/app/core/models/table.model';
+import { TableAdd, TableFull } from 'src/app/core/models/table.model';
 import { MatDialog } from '@angular/material/dialog';
 import { AddTableDialogComponent } from './add-table-dialog/add-table-dialog.component';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { SnackbarService } from 'src/app/shared/services/snackbar.service';
+import { EditTableDialogComponent } from './edit-table-dialog/edit-table-dialog.component';
 
 
 @Component({
@@ -12,87 +13,138 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   templateUrl: './arrangement.component.html',
   styleUrl: './arrangement.component.scss'
 })
-export class ArrangementComponent implements AfterContentChecked {
-  tables$ = this.tableService.tables
-
+export class ArrangementComponent implements AfterViewInit {
+  @ViewChild('boundary') boundary!: ElementRef<HTMLElement>
+  @ViewChildren('tablesList') childElements: QueryList<ElementRef>  = new QueryList()
+  changeDetectionEmitter: EventEmitter<void> = new EventEmitter<void>();
   changesDetected = false
+
+  tables: TableFull[] = []
+  tableSet: Set<TableFull> = new Set()
+
+  parentArea: any
+
+  boundaryOffsetLeft!: number
+  boundaryOffsetTop!: number
+  boundaryOffsetHeight!: number
+  boundaryOffsetWidth!: number
+
+  isGreen = true
 
   constructor(
     private tableService: TableService,
     public matDialog: MatDialog,
-    private _snackbar: MatSnackBar
-  ) {}
+    private snackbarService: SnackbarService,
+    private renderer: Renderer2
+  ) {
+    this.loadTables()
+    this.reloadTables()
+  }
 
-  ngAfterContentChecked() {
-    this.tableService.changeDetectionEmitter.subscribe(() => {
-      this.changesDetected = true
+  ngAfterViewInit() {
+    this.parentArea = this.boundary.nativeElement
+    this.boundaryOffsetLeft = this.parentArea.offsetLeft
+    this.boundaryOffsetTop = this.parentArea.offsetTop
+    this.boundaryOffsetHeight = this.parentArea.offsetHeight
+    this.boundaryOffsetWidth = this.parentArea.offsetWidth
+  }
+
+  loadTables() {
+    this.tableService.tables.subscribe(tables => {
+      this.tables = tables
     })
+  }
+
+  reloadTables() {
+    setTimeout(() => {
+      //console.log('reloadTables')
+      const boundary = this.boundary?.nativeElement?.getBoundingClientRect();
+      if (boundary) {
+        this.parentArea = boundary;
+      }
+
+      this.childElements.forEach((item: ElementRef) => {
+        const tableNumber = parseInt(item.nativeElement.innerText);
+        const table = this.tables.find(t => t.tableNumber === tableNumber);
+        if (table) {
+          const translateX = table.positionX - this.boundaryOffsetLeft
+          const translateY = table.positionY - this.boundaryOffsetTop
+
+          this.renderer.setStyle(item.nativeElement, 'left', `${translateX}px`)
+          this.renderer.setStyle(item.nativeElement, 'top', `${translateY}px`)
+
+          if (table.tableNumber === 210) {
+            console.log('left: ', item.nativeElement.style['left'])
+            console.log('top: ', item.nativeElement.style['top'])
+          }
+        }
+      });
+    }, 100);
+  }
+
+
+  adjustWidth(num: number) {
+    if (num === 2) {
+      return num * 25
+    }
+    return num * 15
+  }
+
+  localDragReleased(event: CdkDragRelease, item: TableFull) {
+    this.changesDetected = true
+    const mouseEvent: MouseEvent = event.event as MouseEvent
+    if (event.source.element) {
+      const dom = event.source.element.nativeElement.getBoundingClientRect()
+      item.positionX = mouseEvent.clientX
+      item.positionY = mouseEvent.clientY
+    }
+    this.tableSet.add(item)
   }
 
   addNewTable() {
     const dialogRef = this.matDialog.open(AddTableDialogComponent, {
-      width: '300px'
+      width: '400px'
     })
     dialogRef.afterClosed().subscribe(
-      (data: TableAddRequest) => {
-        data.positionX = 1
-        data.positionY = 1
+      (data: TableAdd) => {
         this.tableService.addTable(data).subscribe({
           next: () => {
             this.tableService.reloadTables()
-            this.changesDetected = !this.changesDetected
+            this.snackbarService.snackbarSuccess('Added new Table', 'Done')
           },
           error: (err) => {
-            this._snackbar.open(err, 'Close', {
-              duration: 3500,
-              panelClass: ['snackbarError'],
-              horizontalPosition: 'center',
-              verticalPosition: 'bottom'
-            })
+            this.snackbarService.snackbarError(err, err)
           }
         })
       }
     )
   }
 
-  tablePosition(table: TableFull) {
-    return {x: table.positionX, y: table.positionY}
-  }
-
-  checkTableSize(size: number) {
-    switch(size) {
-      case 2: return 'two-pair-table.jpg'
-      case 4: return 'four-pair-table.jpg'
-      case 6: return 'six-pair-table.jpg'
-      default: return 'two-pair-table.jpg'
-    }
-  }
-
-  dragEnded(event: CdkDragEnd, item: TableFull) {
-    let tabs = this.tableService.getAllTables()
-    let table = tabs.find(tab => tab.id == item.id)
-    if (table != null) {
-      table.positionX = event.source.getFreeDragPosition().x
-      table.positionY = event.source.getFreeDragPosition().y
-    }
-    this.tableService.updateTableObservable(tabs)
-  }
-
-  updateAllPositions() {
-    this.tableService.saveTableArrangements().subscribe({
+  editTables() {
+    const dialogRef = this.matDialog.open(EditTableDialogComponent, {
+      width: '600px',
+      height: '400px',
+      data: {tables: this.tables}
+    })
+    dialogRef.afterClosed().subscribe({
       next: () => {
-        this.tableService.reloadTables()
-        this.changesDetected = !this.changesDetected
-      },
-      error: (err) => {
-        this._snackbar.open(err, 'Close', {
-          duration: 3500,
-          panelClass: ['snackbarError'],
-          horizontalPosition: 'center',
-          verticalPosition: 'bottom'
-        })
+        this.loadTables()
       }
     })
   }
 
+  updateAllPositions() {
+    const tabs = this.tables
+    for (const table of this.tableSet) {
+      const tab = tabs.find(t => t.id === table.id)
+      if (tab) {
+        tab.positionX = table.positionX
+        tab.positionY = table.positionY
+      }
+    }
+    this.tableService.updateTableObservable(tabs)
+    setTimeout(() => {
+      window.location.reload()
+    }, 30)
+  }
 }

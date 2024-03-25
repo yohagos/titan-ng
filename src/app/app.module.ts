@@ -38,6 +38,7 @@ import { BookingComponent } from './features/table/booking/booking.component';
 import { TogoComponent } from './features/table/togo/togo.component';
 import { ArrangementComponent } from './features/table/arrangement/arrangement.component';
 import { AddTableDialogComponent } from "./features/table/arrangement/add-table-dialog/add-table-dialog.component";
+import { EditTableDialogComponent } from "./features/table/arrangement/edit-table-dialog/edit-table-dialog.component";
 
 import { ConfirmDialogComponent } from "./shared/confirm-dialog/confirm-dialog.component";
 
@@ -95,6 +96,7 @@ import { ThemeService } from "./core/services/theme.service";
     BookingComponent,
     ArrangementComponent,
     AddTableDialogComponent,
+    EditTableDialogComponent,
 
     HeaderComponent,
     NavigationComponent,
@@ -123,7 +125,7 @@ import { ThemeService } from "./core/services/theme.service";
     FormsModule,
     ReactiveFormsModule,
     ColorPickerModule,
-    DragDropModule,
+    DragDropModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: ApiInterceptor, multi: true},

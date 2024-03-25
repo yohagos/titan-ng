@@ -8,6 +8,7 @@ import { LoginCredentials, RegisterCredentials, User, UserAddRequest, UserBasic,
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { JwtService } from './jwt.service';
+import { AuthModel } from '../models/auth.model';
 
 @Injectable({
   providedIn: 'root'
@@ -52,7 +53,7 @@ export class UserService {
   }
 
   login(credentials: LoginCredentials) {
-    return this.http.post("auth/authenticate", credentials, {withCredentials: true})
+    return this.http.post<AuthModel>("auth/authenticate", credentials, {withCredentials: true})
   }
 
   loadUsers() {
