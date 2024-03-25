@@ -1,6 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ProductFull } from 'src/app/core/models/product.model';
 import { ProductService } from 'src/app/core/services/product.service';
@@ -26,10 +27,10 @@ export class TogoComponent {
   displayedColumns: string [] = ['item', 'price', 'quantity', 'actions']
   @ViewChild(MatSort) sort!: MatSort
 
-
   constructor(
     private transferService: TransferService,
-    private productService: ProductService
+    private productService: ProductService,
+    private router: Router
   ) {
     this.productSubscribiton = this.transferService.products$.subscribe((data) => {
       this.loadingTable(data)
@@ -50,7 +51,6 @@ export class TogoComponent {
 
   addQuantity(element: ProductList) {
     let prod = this.selectedProducts.find((product) => product.name === element.item)
-    console.log('prod: ', prod)
     if (prod != undefined) {
       this.transferService.addProduct(prod)
       this.dataSource.data.push(prod)
@@ -63,7 +63,6 @@ export class TogoComponent {
 
   loadingTable(products: ProductFull[]) {
     let distinctProducts: ProductList[] = []
-
     products.forEach((product) => {
       const isInArray = distinctProducts?.some((el) => el.item === product.name)
       if (isInArray) {
@@ -79,6 +78,11 @@ export class TogoComponent {
       }
     })
     this.dataSource.data = distinctProducts
+  }
+
+  cancelToGo() {
+    this.selectedProducts = []
+    this.router.navigate(['nav/table'])
   }
 
 }
