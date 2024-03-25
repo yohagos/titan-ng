@@ -84,6 +84,10 @@ export class TableService {
     return this.http.put('table', tables, {withCredentials: true})
   }
 
+  deleteTable(id: number) {
+    return this.http.delete(`table/${id}`)
+  }
+
   // Tables tiles
   getTiles() {
     return this.http.get<Tile[]>('table/tiles')
