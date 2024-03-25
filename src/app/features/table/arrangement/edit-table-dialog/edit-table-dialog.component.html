@@ -26,6 +26,9 @@
       <button mat-icon-button *ngIf="editTableForm.enabled" (click)="saveChanges()">
         <mat-icon>save</mat-icon>
       </button>
+      <button mat-icon-button *ngIf="editTableForm.enabled" (click)="deleteTable()">
+        <mat-icon>delete</mat-icon>
+      </button>
       <button mat-icon-button *ngIf="editTableForm.enabled" (click)="editTableForm.disable()">
         <mat-icon>cancel</mat-icon>
       </button>
