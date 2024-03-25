@@ -14,6 +14,7 @@
   text-align: center;
   background: #fff;
   border-radius: 4px;
+  margin-left: 20px;
   margin-right: 25px;
   position: relative;
   z-index: 1;
@@ -64,7 +65,8 @@ button.mat-raised-button span {
 @media only screen {
   .mainContainer {
     display: flex;
-    overflow-y: scroll;
+    _overflow-y: scroll;
+    margin: 8px;
   }
 
   button.mat-raised-button {
