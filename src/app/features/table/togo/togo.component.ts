@@ -38,6 +38,7 @@ export class TogoComponent {
     this.productService.loadProducts().subscribe(data => {
       this.selectedProducts = data
     })
+    console.log(this.selectedProducts)
   }
 
   applyFilter(event: Event) {
