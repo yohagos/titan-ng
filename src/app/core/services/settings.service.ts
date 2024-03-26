@@ -23,7 +23,9 @@ export class SettingsService {
   // BehaviorSubject functions
   getSettings() {
     this.loadSettings().subscribe(data => {
-      this.settingsSubject.next(data)
+      if (data) {
+        this.settingsSubject.next(data)
+      }
     })
   }
 

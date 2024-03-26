@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { AfterContentInit, AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { StorageService } from 'src/app/core/services/storage.service';
 import { StorageDataSource } from './storageDataSource';
@@ -17,12 +17,14 @@ import { SnackbarService } from 'src/app/shared/services/snackbar.service';
   templateUrl: './storage.component.html',
   styleUrl: './storage.component.scss'
 })
-export class StorageComponent implements OnInit {
+export class StorageComponent implements OnInit, AfterContentInit {
   dataSource: any
   displayColumns = ['name', 'price', 'stock', 'currentStock', 'criticalStock', 'actions']
   @ViewChild(MatSort) sort!: MatSort
 
   storage$: Observable<StorageFull[]> = new Observable<StorageFull[]>()
+
+  storageValue = 0
 
   constructor(
     private storageService: StorageService,
@@ -38,6 +40,12 @@ export class StorageComponent implements OnInit {
     this.loadData()
     this.storage$ = this.dataSource.getInventory()
     this.dataSource.sort = this.sort
+  }
+
+  ngAfterContentInit() {
+    this.storageService.getStorageValue().subscribe(data => {
+      this.storageValue = data
+    })
   }
 
   loadData() {

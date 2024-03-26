@@ -5,6 +5,9 @@
     <mat-icon>delete</mat-icon>
   </button>
 </mat-form-field>
+<div class="storno" *ngIf="selectedProducts.length >= 10">
+  <button mat-raised-button color="accent" (click)="cancelToGo()"> Storno </button>
+</div>
 
 <section class="tableContainer">
   <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
@@ -36,3 +39,4 @@
     <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
   </table>
 </section>
+
