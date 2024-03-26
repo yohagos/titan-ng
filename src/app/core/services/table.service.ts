@@ -56,8 +56,7 @@ export class TableService {
         this.snackbarService.snackbarSuccess("Updated Table Arrangement", 'Done')
       },
       error: (err) => {
-        console.log(err)
-        this.snackbarService.snackbarError(err, err)
+        this.snackbarService.snackbarError(err.error.message, err)
       }
     })
   }
