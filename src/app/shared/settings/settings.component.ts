@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Settings } from 'src/app/core/models/settings.model';
 import { SettingsService } from 'src/app/core/services/settings.service';
-import { SnackbarService } from '../services/snackbar.service';
 
 @Component({
   selector: 'app-settings',

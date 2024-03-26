@@ -1,11 +1,9 @@
-import { AfterContentInit, AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-import { MatTableDataSource } from '@angular/material/table';
+import { AfterContentInit, Component, OnInit, ViewChild } from '@angular/core';
 import { StorageService } from 'src/app/core/services/storage.service';
 import { StorageDataSource } from './storageDataSource';
 import { Observable } from 'rxjs';
 import { StorageFull } from 'src/app/core/models/storage.model';
 import { MatSort } from '@angular/material/sort';
-import { UtilService } from 'src/app/shared/services/util.service';
 import { MatDialog } from '@angular/material/dialog';
 import { AddInventoryDialogComponent } from './add-inventory-dialog/add-inventory-dialog.component';
 import { EditInventoryDialogComponent } from './edit-inventory-dialog/edit-inventory-dialog.component';

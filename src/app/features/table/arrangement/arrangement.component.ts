@@ -57,7 +57,6 @@ export class ArrangementComponent implements AfterViewInit {
 
   reloadTables() {
     setTimeout(() => {
-      //console.log('reloadTables')
       const boundary = this.boundary?.nativeElement?.getBoundingClientRect();
       if (boundary) {
         this.parentArea = boundary;
@@ -72,11 +71,6 @@ export class ArrangementComponent implements AfterViewInit {
 
           this.renderer.setStyle(item.nativeElement, 'left', `${translateX}px`)
           this.renderer.setStyle(item.nativeElement, 'top', `${translateY}px`)
-
-          if (table.tableNumber === 210) {
-            console.log('left: ', item.nativeElement.style['left'])
-            console.log('top: ', item.nativeElement.style['top'])
-          }
         }
       });
     }, 100);
@@ -113,7 +107,7 @@ export class ArrangementComponent implements AfterViewInit {
             this.snackbarService.snackbarSuccess('Added new Table', 'Done')
           },
           error: (err) => {
-            this.snackbarService.snackbarError(err, err)
+            this.snackbarService.snackbarError(err, 'Error')
           }
         })
       }

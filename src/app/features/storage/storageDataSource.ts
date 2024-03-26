@@ -42,7 +42,6 @@ export class StorageDataSource implements DataSource<StorageFull> {
         let price = item.pricePerBottle *  item.currentStock;
         this.storageValueSum  += price
       })
-      console.log(this.storageValueSum)
       this.storageService.setStorageValue(this.storageValueSum)
     }
   }

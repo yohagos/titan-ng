@@ -40,7 +40,6 @@ export class TableComponent implements OnInit, OnDestroy {
       }
     })
     this.dialog()
-    //this.startTimer()
     this.productSubscription = this.transferService.products$.subscribe((data) => {
       if (data.length > 0) {
         this.toGo()
@@ -84,10 +83,6 @@ export class TableComponent implements OnInit, OnDestroy {
 
   openTable(table: TableFull) {
     this.router.navigate(['/nav/table', table.id], {queryParams: {...table}, skipLocationChange: true})
-  }
-
-  tablePositon(table: TableFull) {
-    //return {x: table.positionX, y: table.positionY}
   }
 
   dialog() {
