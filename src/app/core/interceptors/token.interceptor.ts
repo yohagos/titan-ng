@@ -1,8 +1,9 @@
-import { HttpEvent, HttpHandler, HttpHeaders, HttpInterceptor, HttpRequest } from "@angular/common/http";
+import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Observable, EMPTY, catchError, throwError } from "rxjs";
+import { Observable, catchError, throwError } from "rxjs";
 import { JwtService } from "../services/jwt.service";
 import { Router } from "@angular/router";
+import { SnackbarService } from "src/app/shared/services/snackbar.service";
 
 @Injectable({
   providedIn: "root"
@@ -11,7 +12,8 @@ export class TokenInterceptor implements HttpInterceptor {
 
   constructor(
     private jwtService: JwtService,
-    private router: Router
+    private router: Router,
+    private snackbarService: SnackbarService,
   ) { }
 
   intercept(
@@ -28,7 +30,7 @@ export class TokenInterceptor implements HttpInterceptor {
     return next.handle(request).pipe(
       catchError((error, caught) => {
         if (error.status === 401) {
-          console.log(error)
+          this.snackbarService.snackbarError(error.message, 'Error')
           this.jwtService.destroyToken()
           this.router.navigate(['/login'])
         }
