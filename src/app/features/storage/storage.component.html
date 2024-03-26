@@ -4,6 +4,13 @@
   </button>
 </section>
 
+<div class="storage-value">
+  <button mat-flat-button disabled>
+    Current Value in Storage {{ storageValue  | number: '1.2-2'}} €
+  </button>
+</div>
+
+
 <div class="storage-table">
   <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
     <ng-container matColumnDef="name">
@@ -51,8 +58,3 @@
     </tr>
   </table>
 </div>
-
-<section>
-  Current Value in Storage {{ storageValue  | number: '1.2-2'}} €
-</section>
-
