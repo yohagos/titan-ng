@@ -57,20 +57,10 @@ export class HeaderComponent {
   }
 
   ngOnInit() {
-    /* this.themeService.currentTheme$.subscribe(theme => {
-      const lightTheme = this.themeService.createLightTheme(theme.primary, theme.accent, theme.warn)
-      const darkTheme = this.themeService.createDarkTheme(theme.primary, theme.accent, theme.warn)
-      console.log(theme)
-      document.body.classList.toggle('my-light-theme', theme.name === 'light')
-      document.body.classList.toggle('my-dark-theme', theme.name === 'dark')
-
-      theme.name !== 'light' ? document.body.classList.remove('my-light-theme') : document.body.classList.remove('my-dark-theme')
-    }) */
   }
 
   setTheme() {
     let currentTheme = this.themeService.currentActive()
-    console.log(currentTheme)
     this.themeService.update(currentTheme === 'dark' ? 'light' : 'dark')
   }
 

@@ -66,7 +66,6 @@ export class BookingComponent implements OnInit {
     this.tableService.getProductsForTable(this.table.id).subscribe(
       data => {
         this.loadingTable(data)
-        console.log(data)
       }
     )
   }
@@ -77,7 +76,6 @@ export class BookingComponent implements OnInit {
       const isInArray = distinctProducts?.some((el) => el.item === product.name)
       if (isInArray) {
         const index = distinctProducts.findIndex((el) => el.item === product.name)
-        console.log(index)
         distinctProducts[index].quantity += 1
       } else {
         const prod: ProductList = {
@@ -92,9 +90,7 @@ export class BookingComponent implements OnInit {
   }
 
   addQuantity(element: ProductFull) {
-    console.log(element)
     let prod = this.allProducts.find((product) => product.id === element.id)
-    console.log(prod)
     if (prod != undefined) {
       this.transferService.addProduct(prod)
     }
@@ -114,9 +110,7 @@ export class BookingComponent implements OnInit {
   }
 
   saveTable() {
-    /* let products = this.transferService.getAllProducts() */
     let products: ProductFull[] = this.dataSource.data as ProductFull[]
-    console.log(products)
     this.tableService.storeProductToTable(this.table.id, products).subscribe({
       next: () => {
         this.snackbarService.snackbarSuccess("", "")

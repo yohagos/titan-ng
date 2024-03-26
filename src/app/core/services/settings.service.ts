@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { ThemePalette } from "@angular/material/core";
 
 import { Settings } from '../models/settings.model';
 import { SnackbarService } from 'src/app/shared/services/snackbar.service';

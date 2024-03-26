@@ -1,9 +1,7 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Router } from '@angular/router';
 import { Observable, Subscription} from 'rxjs';
 import { ProductFull } from 'src/app/core/models/product.model';
-import { TransactionService } from 'src/app/core/services/transaction.service';
 import { TransferService } from 'src/app/core/services/transfer.service';
 import { CashDialogComponent } from './cash-dialog/cash-dialog.component';
 import { CardDialogComponent } from './card-dialog/card-dialog.component';
@@ -41,14 +39,14 @@ export class CashierComponent {
   cashTransactionsDialog() {
     this.matDialog.open(CashDialogComponent, {
       width: '400px',
-      height: '500px'
+      height: '400px'
     })
   }
 
   cardTransaction() {
     this.matDialog.open(CardDialogComponent, {
       width: '400px',
-      height: '500px'
+      height: '400px'
     })
   }
 }

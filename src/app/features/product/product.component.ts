@@ -43,7 +43,7 @@ export class ProductComponent implements OnInit {
 
   addProduct() {
     const dialogRef = this.matDialog.open(AddProductDialogComponent, {
-      width: '600px'
+      width: '650px'
     })
     dialogRef.afterClosed().subscribe(
       () => {

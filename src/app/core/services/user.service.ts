@@ -1,9 +1,5 @@
 import { Injectable } from '@angular/core';
-
-import {
-  Observable, BehaviorSubject,
-  distinctUntilChanged, map
-} from "rxjs";
+import { BehaviorSubject, distinctUntilChanged } from "rxjs";
 import { LoginCredentials, RegisterCredentials, User, UserAddRequest, UserBasic, UserUpdatePin } from '../models/user.model';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';

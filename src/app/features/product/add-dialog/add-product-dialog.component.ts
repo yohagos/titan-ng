@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { Unit } from 'src/app/core/models/category.enum';
 import { CategoryFull } from 'src/app/core/models/category.model';
 import { ProductAddRequest } from 'src/app/core/models/product.model';
