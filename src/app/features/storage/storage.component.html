@@ -23,7 +23,7 @@
     </ng-container>
     <ng-container matColumnDef="stock">
       <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription=""> Stock of Bottles </th>
-      <td mat-cell class="number-cell" *matCellDef="let element"> {{ formatDecimal(element.stockOfBottles) }} </td>
+      <td mat-cell class="number-cell" *matCellDef="let element"> {{ element.stockOfBottles }} </td>
     </ng-container>
     <ng-container matColumnDef="currentStock">
       <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription=""> Current Stock </th>
@@ -31,7 +31,7 @@
     </ng-container>
     <ng-container matColumnDef="criticalStock">
       <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription=""> Critical Stock </th>
-      <td mat-cell class="number-cell" *matCellDef="let element"> {{formatDecimal(element.criticalStockOfBottles)}} </td>
+      <td mat-cell class="number-cell" *matCellDef="let element"> {{element.criticalStockOfBottles}} </td>
     </ng-container>
     <ng-container matColumnDef="actions">
       <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription=""> Actions </th>
