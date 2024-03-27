@@ -17,7 +17,6 @@
         </mat-select>
       </mat-form-field>
     </div>
-
     <mat-divider></mat-divider>
     <div formArrayName="items">
       <div *ngFor="let item of items.controls; let i = index">
@@ -57,5 +56,8 @@
         Add
   </button>
   <button mat-button  mat-dialog-close >Cancel</button>
+  <button mat-raised-button (click)="prepareItems()">
+    print
+  </button>
 </mat-dialog-actions>
 
