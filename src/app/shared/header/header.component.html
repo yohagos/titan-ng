@@ -1,0 +1,56 @@
+<mat-toolbar color="primary">
+  <div class="menu">
+    <button mat-icon-button (click)="setTheme()">
+        <mat-icon>palette</mat-icon>
+    </button>
+    <button mat-icon-button [matMenuTriggerFor]="menu" matTooltip="Menu">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item (click)="openUserProfile()">
+        <mat-icon>person</mat-icon>
+        <span>Profile</span>
+      </button>
+      <button mat-menu-item *ngIf="checkUserPermission()" (click)="openManagementTeam()">
+        <mat-icon>group</mat-icon>
+        <span>Manage Team</span>
+      </button>
+      <button mat-menu-item *ngIf="checkUserPermission()" (click)="openManagementBalance()">
+        <mat-icon>account_balance</mat-icon>
+        <span>Balance</span>
+      </button>
+      <button mat-menu-item (click)="openCategory()">
+        <mat-icon>category</mat-icon>
+        <span>Categories</span>
+      </button>
+      <button mat-menu-item (click)="openProduct()">
+        <mat-icon>restaurant_menu</mat-icon>
+        <span>Product</span>
+      </button>
+      <button mat-menu-item *ngIf="checkUserPermission()" (click)="openTableArrangement()">
+        <mat-icon>table</mat-icon>
+        <span>Table Arrangement</span>
+      </button>
+      <button mat-menu-item *ngIf="checkUserPermission()" (click)="openStorage()">
+        <mat-icon>warehouse</mat-icon>
+        <span>Storage</span>
+      </button>
+      <button mat-menu-item *ngIf="checkUserPermission()" (click)="openSettings()">
+        <mat-icon>settings</mat-icon>
+        <span>Settings</span>
+      </button>
+      <mat-divider *ngIf="showBackToNavigation"></mat-divider>
+      <button mat-menu-item *ngIf="showBackToNavigation" (click)="backToNavigation()">
+        <mat-icon>arrow_back</mat-icon>
+        <span>Navigation</span>
+      </button>
+    </mat-menu>
+    <button mat-icon-button (click)="logout()" matTooltip="Logout">
+      <mat-icon>
+        logout
+      </mat-icon>
+    </button>
+  </div>
+</mat-toolbar>
+<router-outlet></router-outlet>
+<app-cashier class="cashier" *ngIf="showCashier"></app-cashier>

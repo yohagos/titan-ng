@@ -1,0 +1,35 @@
+.title {
+  display: block;
+  text-align: center;
+  margin-top: 30px;
+}
+
+.pin {
+  display: block;
+  margin: auto;
+}
+
+.inputField {
+  width: 98%;
+  height: 30px;
+  margin-left: 10px;
+  text-align: center;
+  letter-spacing: 20px;
+  font-size: 30px;
+}
+
+table {
+  margin: auto;
+}
+
+button {
+  width: 100%;
+  padding: 20px 40px;
+  font-size: 24px;
+  margin: 10px;
+  border: none;
+}
+
+.snackbarError {
+  background-color: '#23e13f';
+}

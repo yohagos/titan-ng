@@ -1,0 +1,130 @@
+body {
+  height: 100%;
+}
+
+@media screen and (min-width: 768px) {
+  .mainContainer {
+    display: flex;
+    height: 86%;
+  }
+
+  .leftSection{
+    flex: 4.5;
+    overflow: auto;
+  }
+
+  .rightSection {
+    flex: 10;
+    overflow: auto;
+  }
+
+  .items {
+    width: 10em;
+    height: 7.5em;
+    flex-direction: row;
+    justify-content: center;
+    text-align: center;
+    margin: 2px;
+  }
+
+  .productName {
+    font-size: 12px;
+    margin-bottom: 5px;
+    color: black;
+  }
+
+  .price {
+    font-size: 8px;
+    font-style: italic;
+    color: black;
+  }
+
+  .spanSubTitle {
+    font-size: smaller;
+  }
+
+  .searchInput {
+    width: 100%;
+    padding-bottom: 0;
+    margin-bottom: -1.3em !important;
+  }
+
+  button.mat-raised-button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  button.mat-raised-button span {
+    margin-top: 8px;
+  }
+}
+
+
+@media screen and (max-width:767px) {
+  .mainContainer {
+    display: flex;
+    height: 86%;
+  }
+
+  .leftSection{
+    flex: 7;
+    overflow: auto;
+  }
+
+  .rightSection {
+    flex: 13;
+    overflow: auto;
+  }
+  .items {
+    width: 7em;
+    height: 6em;
+    flex-direction: row;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .productName {
+    font-size: 10px;
+    margin-bottom: 5px;
+    color: black;
+  }
+
+  .price {
+    font-size: 8px;
+    font-style: italic;
+    color: black;
+  }
+
+  button.mat-stroked-button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  button.mat-stroked-button span {
+    margin-top: 8px;
+    display: block;
+  }
+
+  .searchInput {
+    width: 93.5%;
+  }
+
+  .mainContainer {
+    display: flex;
+    height: 86%;
+  }
+
+  .leftSection{
+    flex: 5;
+    overflow: auto;
+  }
+
+  .rightSection {
+    flex: 10;
+    overflow: auto;
+  }
+}

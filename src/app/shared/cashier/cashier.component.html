@@ -1,0 +1,12 @@
+<mat-toolbar class="cashierBar" color="primary">
+  <div class="price" *ngIf="price >= 1">
+    {{ price  | number: '1.2-2'}} €
+  </div>
+    <button mat-raised-button color="lightgrey" [disabled]="isDisabled" (click)="cashTransactionsDialog()">
+      Cash
+    </button>
+    <button mat-raised-button [disabled]="isDisabled" (click)="cardTransaction()">
+      Card
+    </button>
+</mat-toolbar>
+

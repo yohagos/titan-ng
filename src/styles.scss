@@ -1,1 +1,85 @@
+@use '@angular/material' as mat;
+@include mat.core();
+
 /* You can add global styles to this file, and also import other style files */
+//@import url("https://fonts.googleapis.com/icon?family=Material+Icons");
+@import url("https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp");
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+$light-primary: mat.define-palette(mat.$blue-palette, 900);
+$light-accent: mat.define-palette(mat.$cyan-palette);
+$light-theme: mat.define-light-theme(
+  (
+    color: (
+      primary: $light-primary,
+      accent: $light-accent,
+    ),
+  )
+);
+
+// Define a dark theme
+$dark-primary: mat.define-palette(mat.$teal-palette, 800);
+$dark-accent: mat.define-palette(mat.$blue-gray-palette);
+$dark-theme: mat.define-dark-theme(
+  (
+    color: (
+      primary: $dark-primary,
+      accent: $dark-accent,
+    ),
+  )
+);
+
+:root {
+  --primary-light: var($light-primary);
+  --primary-dark: var($dark-primary)
+}
+
+.primary-light {
+  box-shadow: var(--primary-light) 4px 2px 4px 2px;
+}
+
+.primary-dark {
+  box-shadow: var(--primary-dark) 4px 2px 4px 2px;
+}
+
+.color-scheme-dark {
+  @include mat.core-color($dark-theme);
+  @include mat.button-color($dark-theme);
+  @include mat.icon-color($dark-theme);
+  @include mat.list-color($dark-theme);
+  @include mat.sidenav-color($dark-theme);
+  @include mat.toolbar-color($dark-theme);
+  @include mat.card-color($dark-theme);
+  @include mat.table-color($dark-theme);
+  @include mat.form-field-color($dark-theme);
+  @include mat.dialog-color($dark-theme);
+  @include mat.menu-color($dark-theme);
+  @include mat.select-color($dark-theme);
+  @include mat.expansion-color($dark-theme);
+  // Example how you can easy add own custom styles
+  .card-wrapper {
+    color: #d0d0d0;
+  }
+}
+
+.color-scheme-light {
+  @include mat.core-color($light-theme);
+  @include mat.button-color($light-theme);
+  @include mat.icon-color($light-theme);
+  @include mat.list-color($light-theme);
+  @include mat.sidenav-color($light-theme);
+  @include mat.toolbar-color($light-theme);
+  @include mat.card-color($light-theme);
+  @include mat.table-color($light-theme);
+  @include mat.form-field-color($light-theme);
+  @include mat.dialog-color($light-theme);
+  @include mat.menu-color($light-theme);
+  @include mat.select-color($light-theme);
+  // Example how you can easy add own custom styles
+  .card-wrapper {
+    color: #2d2d2d;
+  }
+}
+

@@ -1,0 +1,14 @@
+<div #boundary class="example-boundary">
+  <div class="example-box" *ngFor="let item of tables; let i = index"
+    [ngStyle]="{'height': '50px', 'width': adjustWidth(item.numberOfPeople)+'px'}"
+    cdkDragBoundary=".example-boundary" (cdkDragReleased)="localDragReleased($event, item)"
+    cdkDrag #tablesList>
+    {{item.tableNumber}}
+  </div>
+</div>
+
+<section>
+  <button mat-raised-button color="primary" *ngIf="changesDetected" (click)="updateAllPositions()"> Save arrangement </button>
+  <button mat-raised-button (click)="addNewTable()">Add Dining Table</button>
+  <button mat-raised-button color="accent" *ngIf="tables.length > 0" (click)="editTables()">Edit Tables</button>
+</section>
