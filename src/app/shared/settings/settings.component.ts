@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatAccordion } from '@angular/material/expansion';
 import { Settings } from 'src/app/core/models/settings.model';
 import { SettingsService } from 'src/app/core/services/settings.service';
 
@@ -9,6 +10,7 @@ import { SettingsService } from 'src/app/core/services/settings.service';
   styleUrl: './settings.component.scss'
 })
 export class SettingsComponent implements OnInit {
+  @ViewChild(MatAccordion) accordion!: MatAccordion
   settings$ = this.settingsService.settings
 
   settingsForm!: FormGroup
@@ -39,6 +41,10 @@ export class SettingsComponent implements OnInit {
       postalCode: new FormControl({value: '', disabled: this.editMode}, Validators.required),
       cityName: new FormControl({value: '', disabled: this.editMode}, Validators.required),
       timerLockScreen: new FormControl({value: '', disabled: this.editMode}),
+      cashContent: new FormControl({value: '', disabled: this.editMode}),
+      cardReader: new FormControl({value: '', disabled: this.editMode}),
+      taxesToGo: new FormControl({value: '', disabled: this.editMode}),
+      taxesIn: new FormControl({value: '', disabled: this.editMode}),
     })
   }
 
@@ -80,5 +86,10 @@ export class SettingsComponent implements OnInit {
     }
 
     this.settingsService.adjustSettings(settings)
+    this.settingsService.getUpdatedSettingsObservable().subscribe(data => {
+      if (data) {
+        this.editing()
+      }
+    })
   }
 }

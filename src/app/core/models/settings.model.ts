@@ -9,5 +9,11 @@ export interface Settings {
 
   timerLockScreen?: number
 
+  cashContent?: number
+  cardReader?: string
+
+  taxesToGo?: number
+  taxesIn?: number
+
   [key: string]: any
 }
