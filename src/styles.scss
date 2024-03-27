@@ -57,6 +57,7 @@ $dark-theme: mat.define-dark-theme(
   @include mat.dialog-color($dark-theme);
   @include mat.menu-color($dark-theme);
   @include mat.select-color($dark-theme);
+  @include mat.expansion-color($dark-theme);
   // Example how you can easy add own custom styles
   .card-wrapper {
     color: #d0d0d0;
