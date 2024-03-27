@@ -1,5 +1,5 @@
 import { ProductFull } from "./product.model"
-import { User, UserBasic } from "./user.model"
+import { UserBasic } from "./user.model"
 
 export interface TransactionFull {
   id: number

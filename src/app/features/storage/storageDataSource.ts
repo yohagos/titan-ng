@@ -9,6 +9,8 @@ export class StorageDataSource implements DataSource<StorageFull> {
   private loadingSubject = new BehaviorSubject<boolean>(false)
   public loading$ = this.loadingSubject.asObservable()
 
+  private storageValueSum = 0
+
   constructor(
     private storageService: StorageService,
   ) {}
@@ -29,8 +31,19 @@ export class StorageDataSource implements DataSource<StorageFull> {
     ).subscribe(
       storage => {
         this.storageSubject.next(storage)
+        this.calculateCurrentValueOfStorage(storage)
       }
     )
+  }
+
+  calculateCurrentValueOfStorage(inventory: StorageFull[] | never[]) {
+    if(inventory) {
+      inventory.forEach((item: StorageFull) => {
+        let price = item.pricePerBottle *  item.currentStock;
+        this.storageValueSum  += price
+      })
+      this.storageService.setStorageValue(this.storageValueSum)
+    }
   }
 
   getInventory() {

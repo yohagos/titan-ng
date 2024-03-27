@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { UserService } from 'src/app/core/services/user.service';
 import { User } from 'src/app/core/models/user.model';
+import { ThemeService } from 'src/app/core/services/theme.service';
 
 @Component({
   selector: 'app-header',
@@ -14,20 +15,35 @@ export class HeaderComponent {
 
   currentUser!: User | null
 
+  themes = [
+    {
+      name: 'dark',
+      icon: 'brightness_3'
+    },
+    {
+      name: 'light',
+      icon: 'wb_sunny'
+    }
+  ]
+
   constructor(
     private userService: UserService,
-    private router: Router
+    private router: Router,
+    private themeService: ThemeService
   ) {
     router.events.subscribe(
       (val) => {
         if (val instanceof NavigationEnd) {
           let url = val.url
-          if (!url.includes('/nav')) {
+          if (!url.includes('/nav/table')) {
             this.showCashier = false
             this.showBackToNavigation = true
           } else {
             this.showCashier = true
             this.showBackToNavigation = false
+          }
+          if (url.includes('/togo')) {
+            this.showCashier = true
           }
         }
       }
@@ -38,6 +54,14 @@ export class HeaderComponent {
         this.currentUser = data
       }
     )
+  }
+
+  ngOnInit() {
+  }
+
+  setTheme() {
+    let currentTheme = this.themeService.currentActive()
+    this.themeService.update(currentTheme === 'dark' ? 'light' : 'dark')
   }
 
   openUserProfile() {
@@ -66,6 +90,10 @@ export class HeaderComponent {
 
   openTableArrangement() {
     this.router.navigate(['/arrangement'])
+  }
+
+  openSettings() {
+    this.router.navigate(['/settings'])
   }
 
   backToNavigation() {

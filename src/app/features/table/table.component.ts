@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 
 import { Router, Scroll } from '@angular/router';
 import { TableFull } from 'src/app/core/models/table.model';
@@ -6,6 +6,8 @@ import { TableService } from 'src/app/core/services/table.service';
 
 import { MatDialog } from '@angular/material/dialog';
 import { PinDialogComponent } from '../authentication/pin-dialog/pin-dialog.component';
+import { TransferService } from 'src/app/core/services/transfer.service';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -13,7 +15,7 @@ import { PinDialogComponent } from '../authentication/pin-dialog/pin-dialog.comp
   templateUrl: './table.component.html',
   styleUrl: './table.component.scss'
 })
-export class TableComponent implements OnInit {
+export class TableComponent implements OnInit, OnDestroy {
   loading = true
   tables: TableFull[] = []
   tables$ = this.tableService.tables
@@ -22,10 +24,13 @@ export class TableComponent implements OnInit {
   private timeout: number = 30000
   private isDialogOpen = false;
 
+  private productSubscription: Subscription
+
   constructor(
     private readonly tableService: TableService,
     private router: Router,
     private matDialog: MatDialog,
+    private transferService: TransferService
   ) {
     router.events.subscribe((event) => {
       if (event instanceof Scroll) {
@@ -35,14 +40,21 @@ export class TableComponent implements OnInit {
       }
     })
     this.dialog()
+    this.productSubscription = this.transferService.products$.subscribe((data) => {
+      if (data.length > 0) {
+        this.toGo()
+      }
+    })
   }
 
   ngOnInit() {
-    this.startTimer()
-
     document.addEventListener('click', this.resetTimer.bind(this))
     document.addEventListener('keydown', this.resetTimer.bind(this))
     document.addEventListener('mousemove', this.resetTimer.bind(this))
+  }
+
+  ngOnDestroy() {
+    this.productSubscription.closed
   }
 
   loadTables() {
@@ -73,10 +85,6 @@ export class TableComponent implements OnInit {
     this.router.navigate(['/nav/table', table.id], {queryParams: {...table}, skipLocationChange: true})
   }
 
-  tablePositon(table: TableFull) {
-    return {x: table.positionX, y: table.positionY}
-  }
-
   dialog() {
     this.isDialogOpen = true
     const dialogRef = this.matDialog.open(PinDialogComponent, {
@@ -105,5 +113,9 @@ export class TableComponent implements OnInit {
   resetTimer() {
     clearTimeout(this.timer)
     this.startTimer()
+  }
+
+  toGo() {
+    this.router.navigate(['/nav/togo'])
   }
 }

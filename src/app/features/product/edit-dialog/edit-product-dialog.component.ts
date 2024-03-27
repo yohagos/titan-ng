@@ -1,11 +1,11 @@
 import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { CategoryFull } from 'src/app/core/models/category.model';
 import { ProductEditRequest, ProductFull } from 'src/app/core/models/product.model';
 import { CategoryService } from 'src/app/core/services/category.service';
 import { ProductService } from 'src/app/core/services/product.service';
+import { SnackbarService } from 'src/app/shared/services/snackbar.service';
 
 @Component({
   selector: 'app-edit-dialog',
@@ -23,7 +23,7 @@ export class EditProductDialogComponent {
     private productService: ProductService,
     private categoryService: CategoryService,
     public formBuilder: FormBuilder,
-    public _snackbar: MatSnackBar
+    private snackbarService: SnackbarService,
   ) {
     this.editProductForm = this.formBuilder.group({
       id: [0],
@@ -67,19 +67,13 @@ export class EditProductDialogComponent {
       categoryId: this.editProductForm.get('category')?.value
     }
 
-    console.log(editProduct)
     this.productService.editProduct(editProduct).subscribe({
       next: () => {
-        this._snackbar.open("Product edited successfully", "close")
+        this.snackbarService.snackbarSuccess("Product edited successfully", "close")
         this.dialogRef.close();
       },
       error: (err) => {
-        this._snackbar.open(err, 'Close', {
-          duration: 4000,
-          panelClass: ['snackbarError'],
-          horizontalPosition: 'center',
-          verticalPosition: 'bottom'
-        })
+        this.snackbarService.snackbarError(err.error.message, err)
       }
     })
   }

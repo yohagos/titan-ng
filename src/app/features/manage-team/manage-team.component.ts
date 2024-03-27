@@ -5,10 +5,10 @@ import { ConfirmDialogService } from './../../shared/services/confirm-dialog.ser
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { UserBasic } from 'src/app/core/models/user.model';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { AddUserDialogComponent } from './add-user-dialog/add-user-dialog.component';
 import { UtilService } from './../../shared/services/util.service';
 import { EditUserDialogComponent } from './edit-user-dialog/edit-user-dialog.component';
+import { SnackbarService } from 'src/app/shared/services/snackbar.service';
 
 @Component({
   selector: 'app-manage-team',
@@ -27,7 +27,7 @@ export class ManageTeamComponent implements OnInit {
     private userService: UserService,
     private confirmService: ConfirmDialogService,
     private matDialog: MatDialog,
-    private snackbar: MatSnackBar,
+    private snackbarService: SnackbarService,
     public utilService: UtilService
   ) {}
 
@@ -88,19 +88,11 @@ export class ManageTeamComponent implements OnInit {
         if (result) {
           this.userService.deleteUser(user.id).subscribe({
             next: () => {
-              this.snackbar.open(`User "${user.firstname} ${user.lastname}" removed`, 'close', {
-                duration: 3000,
-                horizontalPosition: 'center',
-                verticalPosition: 'bottom'
-              })
+              this.snackbarService.snackbarSuccess('Added new Table', 'close')
               this.loadData()
             },
             error: (err) => {
-              this.snackbar.open(`Error occred: ${err}`, 'Try Again!', {
-                duration: 4000,
-                horizontalPosition: 'center',
-                verticalPosition: 'bottom'
-              })
+              this.snackbarService.snackbarError(err, 'Error')
             }
           })
         }

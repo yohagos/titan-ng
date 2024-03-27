@@ -1,0 +1,93 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title><h1>Settings</h1></mat-card-title>
+    <button mat-icon-button (click)="editing()">
+      <mat-icon>edit</mat-icon>
+    </button>
+  </mat-card-header>
+  <mat-card-content>
+    <div class="accordion-action-buttons">
+      <button mat-button (click)="accordion.openAll()">Expand All</button>
+      <button mat-button (click)="accordion.closeAll()">Collapse All</button>
+    </div>
+    <div class="formFields" [formGroup]="settingsForm">
+      <mat-accordion multi>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Company Informations
+            </mat-panel-title>
+            <mat-panel-description>
+              Company name & address
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <mat-form-field appearance="fill">
+            <mat-label>Company Name</mat-label>
+            <input matInput formControlName="companyName">
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>Street Name</mat-label>
+            <input matInput formControlName="streetName">
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>Street Number</mat-label>
+            <input matInput formControlName="streetNumber">
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>Postal Code</mat-label>
+            <input matInput formControlName="postalCode">
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>City Name</mat-label>
+            <input matInput formControlName="cityName">
+          </mat-form-field>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Advanced Settings
+            </mat-panel-title>
+            <mat-panel-description>
+              System specific settings
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <mat-form-field appearance="fill">
+            <mat-label>Timer for Lock Screen</mat-label>
+            <input matInput formControlName="timerLockScreen">
+          </mat-form-field>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Financial Settings
+            </mat-panel-title>
+            <mat-panel-description>
+              Settings for taxes and more
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <mat-form-field appearance="fill">
+            <mat-label>Cash Content</mat-label>
+            <input matInput formControlName="cashContent">
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>Card Reader</mat-label>
+            <input matInput formControlName="cardReader">
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>Taxes (To Go)</mat-label>
+            <input matInput formControlName="taxesToGo">
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>Taxes In</mat-label>
+            <input matInput formControlName="taxesIn">
+          </mat-form-field>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </div>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-raised-button color="primary" *ngIf="settingsForm.dirty" (click)="saveSettings()">Save Settings</button>
+  </mat-card-actions>
+</mat-card>

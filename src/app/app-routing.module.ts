@@ -14,6 +14,8 @@ import { UserProfileComponent } from './shared/user-profile/user-profile.compone
 import { ManageTeamComponent } from './features/manage-team/manage-team.component';
 import { ManageBalanceComponent } from './features/manage-balance/manage-balance.component';
 import { StorageComponent } from './features/storage/storage.component';
+import { TogoComponent } from './features/table/togo/togo.component';
+import { SettingsComponent } from './shared/settings/settings.component';
 
 const routes: Routes = [
   {
@@ -36,11 +38,18 @@ const routes: Routes = [
         children: [
           {
             path: 'table',
-            component: TableComponent
+            component: TableComponent,
+            //canActivate: [AuthGuardService]
           },
           {
             path: 'table/:id',
-            component: BookingComponent
+            component: BookingComponent,
+            //canActivate: [AuthGuardService]
+          },
+          {
+            path: 'togo',
+            component: TogoComponent,
+            //canActivate: [AuthGuardService]
           }
         ]
       },
@@ -78,7 +87,12 @@ const routes: Routes = [
         path: 'storage',
         component: StorageComponent
         //canActivate: [AuthGuardService]
-      }
+      },
+      {
+        path: 'settings',
+        component: SettingsComponent
+        //canActivate: [AuthGuardService]
+      },
     ]
   },
   {

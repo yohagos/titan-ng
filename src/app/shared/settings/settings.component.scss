@@ -1,0 +1,35 @@
+mat-card {
+  width: 80%;
+  margin: 5em;
+}
+
+.formFields {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  mat-form-field {
+    width: 70%;
+  }
+}
+
+.color-input {
+  width: 95%;
+  display: flex;
+  margin: auto;
+}
+
+.custom-color-picker {
+  border-radius: 4px;
+  padding: 5px;
+  width: 70%;
+
+  margin: 0.5em;
+}
+
+.custom-color-picker label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+

@@ -1,41 +1,43 @@
 <h2 mat-dialog-title>Add Product</h2>
 <mat-dialog-content>
   <form [formGroup]="addProductForm" class="productForm">
-    <mat-form-field appearance="fill">
-      <mat-label>Name</mat-label>
-      <input matInput placeholder="Product Name" formControlName="name">
-    </mat-form-field>
-    <mat-form-field appearance="fill">
-      <mat-label>Price</mat-label>
-      <input type="number" matInput placeholder="0.00" formControlName="price">
-    </mat-form-field>
-    <mat-form-field appearance="fill">
-      <mat-label>Category</mat-label>
-      <mat-select formControlName="category">
-        <mat-option *ngFor="let cat of categories" value="{{cat.id}}">{{cat.categoryName}} <span>{{cat.measurement}} {{cat.unit}}</span> </mat-option>
-      </mat-select>
-    </mat-form-field>
+    <div class="mainInput">
+      <mat-form-field appearance="fill">
+        <mat-label>Name</mat-label>
+        <input matInput placeholder="Product Name" formControlName="name">
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Price</mat-label>
+        <input type="number" matInput placeholder="0.00" formControlName="price">
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Category</mat-label>
+        <mat-select formControlName="category">
+          <mat-option *ngFor="let cat of categories" value="{{cat.id}}">{{cat.categoryName}} <span>{{cat.measurement}} {{cat.unit}}</span> </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
     <mat-divider></mat-divider>
     <div formArrayName="items">
       <div *ngFor="let item of items.controls; let i = index">
         <div [formGroupName]="i">
-          <mat-form-field>
+          <mat-form-field class="item">
             <mat-label>Good</mat-label>
             <mat-select formControlName="good">
               <mat-option *ngFor="let g of inventory" [value]="g.name">{{g.name}}</mat-option>
             </mat-select>
           </mat-form-field>
-          <mat-form-field>
+          <mat-form-field class="item">
             <mat-label>Unit</mat-label>
             <mat-select formControlName="unit">
               <mat-option *ngFor="let item of getUnits()" [value]="item">{{item}}</mat-option>
             </mat-select>
           </mat-form-field>
-          <mat-form-field>
+          <mat-form-field class="item">
             <mat-label>Measurement</mat-label>
             <input matInput placeholder="Measurement" formControlName="measurement">
           </mat-form-field>
-          <button mat-icon-button (click)="remove(i)">
+          <button mat-icon-button *ngIf="i >= 1" (click)="remove(i)">
             <mat-icon>cancel</mat-icon>
           </button>
         </div>

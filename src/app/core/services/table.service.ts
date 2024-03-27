@@ -1,9 +1,11 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable, ChangeDetectorRef, EventEmitter } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
 
-import { BehaviorSubject, Observable } from "rxjs";
-import { TableAddRequest, TableFull } from '../models/table.model';
+import { BehaviorSubject, Observable, find } from "rxjs";
+import { TableAdd, TableAddRequest, TableFull, Tile } from '../models/table.model';
 import { ProductFull } from '../models/product.model';
+import { SnackbarService } from 'src/app/shared/services/snackbar.service';
+
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +17,8 @@ export class TableService {
   changeDetectionEmitter: EventEmitter<void> = new EventEmitter<void>();
 
   constructor(
-    private readonly http: HttpClient
+    private readonly http: HttpClient,
+    private snackbarService: SnackbarService
   ) {
     this.reloadTables()
   }
@@ -40,11 +43,23 @@ export class TableService {
     return tabs
   }
 
-  updateTableObservable(tables: TableFull[]) {
-    this.tablesSubject.next(tables)
-    this.changeDetectionEmitter.emit()
+  removeTable(table: TableFull) {
+    const currentTables = this.tablesSubject.getValue()
+    const updatedTables = currentTables.filter(t => t.id !== table.id)
+    this.tablesSubject.next(updatedTables)
   }
 
+  updateTableObservable(tables: TableFull[]) {
+    this.saveTableArrangements(tables).subscribe({
+      next: () => {
+        this.reloadTables()
+        this.snackbarService.snackbarSuccess("Updated Table Arrangement", 'Done')
+      },
+      error: (err) => {
+        this.snackbarService.snackbarError(err.error.message, err)
+      }
+    })
+  }
 
   // Backend Calls
 
@@ -52,7 +67,7 @@ export class TableService {
     return this.http.get<TableFull[]>('table')
   }
 
-  addTable(table: TableAddRequest) {
+  addTable(table: TableAdd) {
     return this.http.post('table/add', table, {withCredentials: true})
   }
 
@@ -64,8 +79,16 @@ export class TableService {
     return this.http.put(`table/store/${id}`, products, {withCredentials: true})
   }
 
-  saveTableArrangements() {
-    let tables = this.tablesSubject.value
+  saveTableArrangements(tables: TableFull[]) {
     return this.http.put('table', tables, {withCredentials: true})
+  }
+
+  deleteTable(id: number) {
+    return this.http.delete(`table/${id}`)
+  }
+
+  // Tables tiles
+  getTiles() {
+    return this.http.get<Tile[]>('table/tiles')
   }
 }

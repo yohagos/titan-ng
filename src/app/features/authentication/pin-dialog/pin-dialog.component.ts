@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { trigger, state, style, transition, animate, keyframes } from "@angular/animations";
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { User, UserBasic } from 'src/app/core/models/user.model';
 import { UserService } from 'src/app/core/services/user.service';
 import { MatDialogRef } from '@angular/material/dialog';
+import { SnackbarService } from 'src/app/shared/services/snackbar.service';
 
 @Component({
   selector: 'app-pin',
@@ -39,7 +39,7 @@ export class PinDialogComponent {
   constructor(
     private formBuilder: FormBuilder,
     private userService: UserService,
-    private snackbar: MatSnackBar,
+    private snackbarService: SnackbarService,
     public dialogRef: MatDialogRef<PinDialogComponent>
   ) {
     this.pinForm = this.formBuilder.group({
@@ -76,12 +76,7 @@ export class PinDialogComponent {
         }, 300)
         this.pinForm.get('pin')?.setValue('')
 
-        this.snackbar.open('User not found', 'Close', {
-          duration: 4000,
-          panelClass: ['snackbarError'],
-          horizontalPosition: 'center',
-          verticalPosition: 'bottom'
-        })
+        this.snackbarService.snackbarError(err.error.message, 'Error')
       }
     })
   }

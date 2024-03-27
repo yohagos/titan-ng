@@ -9,6 +9,7 @@ import { User } from 'src/app/core/models/user.model';
 import { TransactionCash } from 'src/app/core/models/transaction.model';
 import { SnackbarService } from '../../services/snackbar.service';
 import { ProductFull } from 'src/app/core/models/product.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-cash-dialog',
@@ -36,12 +37,12 @@ export class CashDialogComponent implements OnInit {
     private dialogRef: MatDialogRef<CashDialogComponent>,
     private utilService: UtilService,
     private userService: UserService,
-    private snackbarService: SnackbarService
+    private snackbarService: SnackbarService,
+    private router: Router
   ) {
     this.price = this.transferService.getAllProducts()
             .reduce((total, product) => total + product.price, 0)
     this.products = this.transferService.getAllProducts()
-    console.log(this.products)
     this.actualPrice = this.price
     this.cashForm = this.formBuilder.group({
       fullPrice: new FormControl({value: this.price.toFixed(2), disabled: true}),
@@ -89,6 +90,7 @@ export class CashDialogComponent implements OnInit {
             this.dialogRef.beforeClosed().subscribe(
               () => {
                 this.transferService.clear()
+                this.router.navigate(['/nav/table'])
               }
             )
             this.dialogRef.close()

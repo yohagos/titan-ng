@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { JwtService } from './jwt.service';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-import { ProductAddRequest, ProductEditRequest, ProductFull, ProductResponse, StoreProductsToTable } from '../models/product.model';
+import { ProductAddRequest, ProductEditRequest, ProductFull, ProductResponse } from '../models/product.model';
 import { ProductStockAddRequest } from '../models/productStock.model';
 
 @Injectable({

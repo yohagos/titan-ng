@@ -1,9 +1,9 @@
 import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { User, UserUpdatePin } from 'src/app/core/models/user.model';
 import { UserService } from 'src/app/core/services/user.service';
+import { SnackbarService } from '../../services/snackbar.service';
 
 @Component({
   selector: 'app-change-pin-dialog',
@@ -20,12 +20,11 @@ export class ChangePinDialogComponent {
     @Inject(MAT_DIALOG_DATA) public data: {user: User},
     private userService: UserService,
     private formBuilder: FormBuilder,
-    private snackbar: MatSnackBar
+    private snackbarService: SnackbarService,
   ) {
     this.currentUser = data.user
-    console.log(this.currentUser)
 
-    this.pinForm = formBuilder.group({
+    this.pinForm = this.formBuilder.group({
       previousPin: new FormControl('', Validators.required),
       newPin: new FormControl('', [Validators.required, Validators.maxLength(4)]),
       repeatNewPin: new FormControl('', [Validators.required, Validators.maxLength(4)])
@@ -46,21 +45,11 @@ export class ChangePinDialogComponent {
     }
     this.userService.pinUpdate(request).subscribe({
       next: () => {
-        this.snackbar.open("Changed Pin", "close", {
-          duration: 4000,
-          horizontalPosition: 'center',
-          verticalPosition: 'bottom',
-          panelClass: ['red-snackbar']
-        })
+        this.snackbarService.snackbarSuccess("Changed Pin", "close")
         this.dialogRef.close()
       },
       error: (err) => {
-        this.snackbar.open("Error", "Try Again!", {
-          duration: 4000,
-          horizontalPosition: 'center',
-          verticalPosition: 'bottom',
-          panelClass: ['red-snackbar']
-        })
+        this.snackbarService.snackbarError(err, 'Error')
       }
     })
   }

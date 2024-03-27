@@ -3,6 +3,8 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { Router } from '@angular/router';
 import { UserService } from '../../services/user.service';
 import { LoginCredentials } from '../../models/user.model';
+import { JwtService } from '../../services/jwt.service';
+import { SnackbarService } from 'src/app/shared/services/snackbar.service';
 
 @Component({
   selector: 'app-login',
@@ -16,9 +18,11 @@ export class LoginComponent {
   constructor(
     private router: Router,
     private formBuilder: FormBuilder,
-    private readonly userService: UserService
+    private readonly userService: UserService,
+    private jwtService: JwtService,
+    private snackbarService: SnackbarService
   ) {
-    this.loginForm = formBuilder.group({
+    this.loginForm = this.formBuilder.group({
       email: new FormControl('david@david.com', [Validators.required, Validators.email]),
       password: new FormControl('david', Validators.required)
     })
@@ -37,11 +41,13 @@ export class LoginComponent {
     }
 
     this.userService.login(credentials).subscribe({
-      next: () => {
+      next: (data) => {
+        this.jwtService.saveToken(data.accessToken)
+        this.jwtService.saveEmail(data.email)
         void this.router.navigate(['/nav/table'])
       },
       error: (err) => {
-        console.error(err)
+        this.snackbarService.snackbarError(err.error.message, 'Error')
       }
     })
   }

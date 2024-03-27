@@ -8,6 +8,7 @@ import { ColorPickerModule } from "ngx-color-picker";
 
 // Components
 import { AppComponent } from './app.component';
+
 import { PinDialogComponent } from "./features/authentication/pin-dialog/pin-dialog.component";
 import { LoginComponent } from './core/auth/login/login.component';
 import { RegisterComponent } from './core/auth/register/register.component';
@@ -34,14 +35,18 @@ import { EditProductDialogComponent } from './features/product/edit-dialog/edit-
 
 import { TableComponent } from './features/table/table.component';
 import { BookingComponent } from './features/table/booking/booking.component';
+import { TogoComponent } from './features/table/togo/togo.component';
 import { ArrangementComponent } from './features/table/arrangement/arrangement.component';
 import { AddTableDialogComponent } from "./features/table/arrangement/add-table-dialog/add-table-dialog.component";
+import { EditTableDialogComponent } from "./features/table/arrangement/edit-table-dialog/edit-table-dialog.component";
 
 import { ConfirmDialogComponent } from "./shared/confirm-dialog/confirm-dialog.component";
 
 import { StorageComponent } from "./features/storage/storage.component";
 import { AddInventoryDialogComponent } from "./features/storage/add-inventory-dialog/add-inventory-dialog.component";
 import { EditInventoryDialogComponent } from './features/storage/edit-inventory-dialog/edit-inventory-dialog.component';
+
+import { SettingsComponent } from "./shared/settings/settings.component";
 
 // App Modules
 import { AppRoutingModule } from './app-routing.module';
@@ -60,7 +65,8 @@ import { EnumToArrayPipe } from "./core/pipe/enumToArray.pipe";
 import { InputRecognitionDirective } from "./core/directive/input-recognition.directive";
 import { DecimalFormatterDirective } from './core/directive/decimal-formatter.directive';
 
-
+// Services
+import { ThemeService } from "./core/services/theme.service";
 
 @NgModule({
   declarations: [
@@ -86,9 +92,11 @@ import { DecimalFormatterDirective } from './core/directive/decimal-formatter.di
     EditProductDialogComponent,
 
     TableComponent,
+    TogoComponent,
     BookingComponent,
     ArrangementComponent,
     AddTableDialogComponent,
+    EditTableDialogComponent,
 
     HeaderComponent,
     NavigationComponent,
@@ -99,6 +107,8 @@ import { DecimalFormatterDirective } from './core/directive/decimal-formatter.di
     StorageComponent,
     AddInventoryDialogComponent,
     EditInventoryDialogComponent,
+
+    SettingsComponent,
 
     TextFilterPipe,
     EnumToArrayPipe,
@@ -115,12 +125,14 @@ import { DecimalFormatterDirective } from './core/directive/decimal-formatter.di
     FormsModule,
     ReactiveFormsModule,
     ColorPickerModule,
-    DragDropModule,
+    DragDropModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: ApiInterceptor, multi: true},
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true},
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
+    ThemeService,
+    
   ],
   bootstrap: [AppComponent]
 })
